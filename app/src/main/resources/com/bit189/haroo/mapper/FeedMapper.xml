@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+
+
+<mapper namespace="com.bit189.haroo.dao.FeedDao">
+
+  <resultMap id="feedMap" type="Feed">
+    <id column="feed_no" property="no"/>
+    <result column="content" property="content"/>
+    <result column="wdttm" property="writingDate"/>
+    <result column="view_cnt" property="viewCount"/>
+    
+    <association property="writer" javaType="Tutor">
+      <id column="mno" property="no"/>
+      <result column="profile_pic" property="profilePicture"/>
+      <result column="name" property="name"/>
+      <result column="nickname" property="nickname"/>
+    </association> 
+    
+    <collection property="attachedFiles" ofType="AttachedFile">
+      <id column="fno" property="no"/>
+      <result column="fname" property="name"/>
+    </collection>
+  </resultMap>
+  
+  
+  <select id="findAll" resultMap="feedMap">
+  select
+    p.content,
+    p.wdttm,
+    p.view_cnt,
+    f.fno,
+    f.fname,
+    d.feed_no,
+    m.mno,
+    m.profile_pic,
+    m.name,
+    m.nickname
+  from 
+    har_post p
+    inner join har_file f on p.pno=f.pno
+    inner join har_feed d on p.pno=d.feed_no
+    inner join har_tutor t on d.tno=t.tno
+    inner join har_member m on t.tno=m.mno
+  order by d.feed_no
+  </select>
+  
+  
+  <select id='findByNo' parameterType="int" resultMap="feedMap">
+  select
+    p.content,
+    p.wdttm,
+    p.view_cnt,
+    f.fno,
+    f.fname,
+    d.feed_no,
+    m.mno,
+    m.profile_pic,
+    m.name,
+    m.nickname
+  from 
+    har_post p
+    inner join har_file f on p.pno=f.pno
+    inner join har_feed d on p.pno=d.feed_no
+    inner join har_tutor t on d.tno=t.tno
+    inner join har_member m on t.tno=m.mno
+  where
+    d.feed_no = #{no}
+  order by d.feed_no
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
+  
+  

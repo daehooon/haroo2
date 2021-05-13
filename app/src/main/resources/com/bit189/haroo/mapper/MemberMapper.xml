@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bit189.haroo.dao.MemberDao">
+
+<resultMap id="memberMap" type="member">
+    <id column="mno" property="no"/>
+    <result column="name" property="name"/>
+    <result column="email" property="email"/>
+    <result column="tel" property="tel"/>
+    <result column="profile_pic" property="profilePicture"/>
+    <result column="rdttm" property="registeredDate"/>
+    <result column="rdttm" property="registeredTime"/>
+    <result column="nickname" property="nickname"/>
+    <result column="bdate" property="birthDate"/>
+    <result column="sex" property="sex"/>
+    <result column="zipcode" property="zipcode"/>
+    <result column="addr" property="address"/>
+    <result column="det_addr" property="detatilAddress"/>
+    <result column="mstat" property="state"/>
+    <result column="mem_rank" property="rank"/>
+  </resultMap>
+  
+<insert id="insert" parameterType="member">
+   insert into har_member(name,email,password,nickname,profile_pic,
+                          bdate,tel,sex,zipcode,addr,det_addr) 
+    values(#{name}, #{email}, password(#{password}), #{nickname}, #{profilePicture},
+     #{birthDate},#{tel},#{sex},#{zipcode},#{address},#{detailAddress})
+  </insert>
+  
+  <select id="findAll" resultMap="memberMap" >
+  select 
+      mno,
+      name,
+      email,
+      profile_pic,
+      tel,
+      nickname,
+      sex
+    from har_member 
+    order by name asc
+  </select>
+  
+  <select id="findByNo" resultMap="memberMap" parameterType="int">
+  select 
+    m.no,
+    m.email,
+    m.password,
+    m.name,
+    m.nickname,
+    m.profile_pic,
+    m.tel,  
+    m.sex,
+    m.bdate,
+    m.zipcode,
+    m.addr,
+    m.det_addr,
+    <!--  registeredDate,
+    registeredTime,-->
+    mr.mem_rank,
+    m.mstat
+  from 
+    har_member m
+    inner join har_mrank mr on m.mrno=mr.mrno
+    where name = #{value}
+  </select>
+  
+  <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
+  select 
+      mno,
+      name,
+      email,
+      profile_pic
+    from har_member 
+    where email = #{email} and password = password(#{password})
+  </select>
+  
+  <update id="update" parameterType="member">
+  update har_member set
+    name=#{name},
+     email=#{email},
+      password=password(#{password}),
+      profile_pic=#{profilePicture},
+      tel=#{tel}
+      zipcode=#{zipcode}
+      addr=#{address}
+      det_addr=#{detatilAddress}
+      <!-- rank=#{rank} -->
+      mstate=#{state}
+    where no=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+  delete from har_member 
+    where no=#{value}
+  </delete>
+  
+  <select id="findByName" resultMap="memberMap" parameterType="string">
+  select 
+    m.mno,
+    m.email,
+    m.name,
+    m.nickname,
+    m.profile_pic,
+    m.tel,  
+    m.sex,
+    m.bdate,
+    m.zipcode,
+    m.addr,
+    m.det_addr,
+    <!--  registeredDate,
+    registeredTime,-->
+    mr.mem_rank,
+    m.mstate
+  from 
+    har_member m
+    inner join har_mrank mr on m.mrno=mr.mrno
+    where name = #{value}
+  </select>
+  </mapper>

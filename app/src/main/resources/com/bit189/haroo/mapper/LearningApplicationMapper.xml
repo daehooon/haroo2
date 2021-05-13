@@ -1,0 +1,69 @@
+<!-- 
+ <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bit189.haroo.dao.LearningApplicationDao">
+  
+  <resultMap id="learningApplicationMap" type="learningApplication">
+    <id column="lrn_appl_no" property="no"/>
+    <result column="appl_size" property="applySize"/>
+    <result column="appl_dttm" property="registeredDate"/>
+  </resultMap>
+  
+  <insert id="insert" parameterType="learnApplication">
+    insert into har_lrn_appl(appl_size,appl_dttm) 
+    values(#{applySize}, #{registerDate})
+  </insert>
+  
+  <select id="findAll" resultMap="learnApplicationMap">
+    select 
+      no,
+      applySize,
+      registerDate
+    from har_lrn_appl 
+    order by name registerDate
+  </select>
+  
+  <select id="findAllSchedules" resultMap="learnScheduleMap">
+    select 
+     no,
+      applySize,
+      registerDate
+    from har_lrn_appl 
+    order by name registerDate
+  </select>
+  
+  <select id="findByNo" resultMap="learnApplicationMap" parameterType="int">
+    select 
+     no,
+      applySize,
+      registerDate
+    from har_lrn_appl 
+    where no = #{value}
+  </select>
+  
+  <update id="update" parameterType="learningApplication">
+    update har_lrn_appl
+    <set> 
+      <if test="applySize != ''">applySize=#{applySize},</if>
+      <if test="registerDate != ''">registerDate=#{registerDate},</if>
+     
+    </set>
+    where no=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from har_lrn_appl
+    where no=#{value}
+  </delete>
+
+</mapper>
+-->
+
+
+
+
+
+
