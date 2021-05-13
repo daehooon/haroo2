@@ -8,6 +8,7 @@
   <resultMap id="learningMap" type="learning">
     <id column="sno" property="no"/>
     <result column="bcat_name" property="broadCategory"/>
+    <result column="ncat_name" property="narrowCategory"/>
     <result column="sname" property="name"/>
     <result column="sintro" property="intro"/>
     <result column="cov_img" property="coverImage"/>
@@ -30,6 +31,7 @@
 	    <result column="name" property="name"/>
 	    <result column="nickname" property="nickname"/>
 	    <result column="profile_pic" property="profilePicture"/>
+	    <result column="tintro" property="intro"/>
     </association>
     
     <collection property="schedules" ofType="LearningSchedule">
@@ -40,6 +42,9 @@
       <result column="etm" property="endTime"/>
     </collection>
   </resultMap>
+  
+  <select id="findBySchedule" parameterType="int" resultMap="learningMap">
+  </select>
   
   <select id="findAll" resultMap="learningMap">
     select
@@ -81,7 +86,41 @@
     order by s.sno desc
   </select>
   
-  <select id="findBySchedule" parameterType="int" resultMap="learningMap">
+  <select id="findByNo" resultMap="learningMap" parameterType="int">
+    select
+      s.sname,
+      s.avg_rate,
+      s.rdttm,
+      s.cov_img,
+      s.sintro,
+      m.profile_pic,
+      m.name,
+      m.nickname,
+      l.curriculum,
+      l.rfnd_info,
+      b.bcat_name,
+      n.ncat_name,
+      p.mcp_name,
+      g.sgg_name,
+      t.tintro
+      <!-- 
+      lrnrv.title,
+      lrnrv.content,
+      lrnrv.rate,
+      lrnrv.wdttm,
+      file.fname,
+      lrnrv_rcm.name
+       -->
+    from har_learning l
+      inner join har_service s on s.sno=l.lno
+      inner join har_narrow_cat n on n.ncat_no=s.ncat_no
+      inner join har_sigungu g on g.sgg_no=l.sgg_no
+      inner join har_mcityprov p on p.mcp_no=g.mcp_no
+      inner join har_tutor t on t.tno=l.tno
+      inner join har_broad_cat b on b.bcat_no=n.bcat_no
+      inner join har_member m on m.mno=t.tno
+    where
+      l.lno = #{value}
   </select>
   
 </mapper>

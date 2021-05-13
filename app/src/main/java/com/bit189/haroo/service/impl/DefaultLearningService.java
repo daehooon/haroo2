@@ -26,8 +26,7 @@ public class DefaultLearningService implements LearningService {
 
   @Override
   public Learning get(int no) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+    return learningDao.findByNo(no);
   }
 
   @Override
