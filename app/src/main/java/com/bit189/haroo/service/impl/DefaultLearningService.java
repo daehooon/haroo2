@@ -1,22 +1,83 @@
 package com.bit189.haroo.service.impl;
 
 import java.util.List;
+import com.bit189.Mybatis.TransactionCallback;
+import com.bit189.Mybatis.TransactionTemplate;
+import com.bit189.haroo.dao.BroadCategoryDao;
 import com.bit189.haroo.dao.LearningDao;
+import com.bit189.haroo.dao.LearningScheduleDao;
+import com.bit189.haroo.dao.NarrowCategoryDao;
+import com.bit189.haroo.dao.ServiceInfoDao;
+import com.bit189.haroo.dao.SidoDao;
+import com.bit189.haroo.dao.SigunguDao;
+import com.bit189.haroo.domain.BroadCategory;
 import com.bit189.haroo.domain.Learning;
+import com.bit189.haroo.domain.LearningSchedule;
+import com.bit189.haroo.domain.NarrowCategory;
+import com.bit189.haroo.domain.ServiceInfo;
+import com.bit189.haroo.domain.Sido;
+import com.bit189.haroo.domain.Sigungu;
 import com.bit189.haroo.service.LearningService;
 
-public class DefaultLearningService implements LearningService {
+//narrow
+//broad
+//sigungu
+//mcity
+//schedule
+//각 DAO로 insert, select 관리 및
+//각 Mapper 생성
+//
+//LearningDao insert에서 튜터 정보 select
 
+// abstract는 push를 위한 임시방편
+public abstract class DefaultLearningService implements LearningService {
+
+  TransactionTemplate transactionTemplate;
+
+  // Mapper 생성중
+  ServiceInfoDao serviceInfoDao;
   LearningDao learningDao;
 
-  public DefaultLearningService(LearningDao learningDao) {
+  LearningScheduleDao learningScheduleDao;
+
+  BroadCategoryDao broadCategoryDao;
+  NarrowCategoryDao narrowCategoryDao;
+  SidoDao sidoDao;
+  SigunguDao sigunguDao;
+
+  public DefaultLearningService(TransactionTemplate transactionTemplate, ServiceInfoDao serviceInfoDao,
+      LearningDao learningDao, LearningScheduleDao learningScheduleDao, BroadCategoryDao broadCategoryDao,
+      NarrowCategoryDao narrowCategoryDao, SidoDao sidoDao, SigunguDao sigunguDao) {
+
+    this.transactionTemplate = transactionTemplate;
+    this.serviceInfoDao = serviceInfoDao;
     this.learningDao = learningDao;
+    this.learningScheduleDao = learningScheduleDao;
+    this.broadCategoryDao = broadCategoryDao;
+    this.narrowCategoryDao = narrowCategoryDao;
+    this.sidoDao = sidoDao;
+    this.sigunguDao = sigunguDao;
   }
 
   @Override
-  public int add(Learning learning) throws Exception {
-    return 0;
-    // 튜터번호 add
+  public int add(ServiceInfo serviceInfo, Learning learning, LearningSchedule learningSchedule,
+      BroadCategory broadCategory, NarrowCategory narrowCategory,
+      Sido sido, Sigungu sigungu) throws Exception {
+
+    return (int) transactionTemplate.execute(new TransactionCallback() {
+      @Override
+      public Object doInTransaction() throws Exception {
+        int count = serviceInfoDao.insert(serviceInfo);
+        learningDao.insert(learning);
+        learningScheduleDao.insert(learningSchedule);
+        broadCategoryDao.insert(broadCategory);
+        narrowCategoryDao.insert(narrowCategory);
+        sidoDao.insert(sido);
+        sigunguDao.insert(sigungu);
+
+        return count;
+      }
+    });
   }
 
   @Override

@@ -4,7 +4,8 @@ import java.util.List;
 import com.bit189.haroo.domain.NarrowCategory;
 
 public interface NarrowCategoryDao {
-  int insert(int no) throws Exception;
+
+  int insert(NarrowCategory narrowCategory) throws Exception;
 
   List<NarrowCategory> findAll() throws Exception;
 

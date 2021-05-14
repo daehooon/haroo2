@@ -7,16 +7,16 @@
   
   <resultMap id="learningMap" type="learning">
     <id column="sno" property="no"/>
-    <result column="bcat_name" property="broadCategory"/>
-    <result column="ncat_name" property="narrowCategory"/>
     <result column="sname" property="name"/>
     <result column="sintro" property="intro"/>
     <result column="cov_img" property="coverImage"/>
     <result column="avg_rate" property="averageRate"/>
     <result column="sstat" property="state"/>
     <result column="rdttm" property="registeredDate"/>
-    <result column="mcp_name" property="metropolitanCity"/>
-    <result column="sgg_name" property="sigungu"/>
+    <result column="ncat_no" property="no"/>
+    <result column="ncat_name" property="narrowCategory"/>
+    <result column="bcat_no" property="no"/>
+    <result column="bcat_name" property="broadCategory"/>
     <result column="min_head" property="minPeople"/>
     <result column="max_head" property="maxPeople"/>
     <result column="curriculum" property="progressOrder"/>
@@ -25,13 +25,19 @@
     <result column="addr" property="address"/>
     <result column="det_addr" property="detailAddress"/>
     <result column="rfnd_info" property="refundInformation"/>
+    <result column="sgg_no" property="no"/>
+    <result column="sgg_name" property="sigungu"/>
+    <result column="mcp_no" property="no"/>
+    <result column="mcp_name" property="metropolitanCity"/>
     
     <association property="owner" javaType="tutor">
-	    <id column="tno" property="no"/>
-	    <result column="name" property="name"/>
-	    <result column="nickname" property="nickname"/>
-	    <result column="profile_pic" property="profilePicture"/>
-	    <result column="tintro" property="intro"/>
+      <id column="tno" property="no"/>
+      <result column="name" property="name"/>
+      <result column="nickname" property="nickname"/>
+      <result column="profile_pic" property="profilePicture"/>
+      <result column="tintro" property="intro"/>
+      <result column="tappl" property="application"/>
+      <result column="rddtm" property="promotedDate"/>
     </association>
     
     <collection property="schedules" ofType="LearningSchedule">
@@ -43,25 +49,15 @@
     </collection>
   </resultMap>
   
-  <select id="findBySchedule" parameterType="int" resultMap="learningMap">
-  </select>
+  <insert id="insert" parameterType="learning">
+    insert into 
+      har_learning(min_head,max_head,curriculum,price,det_addr,rfnd_into)
+      values(#{min_head},#{max_head},#{curriculum},#{price},#{det_addr},#{rfnd_into})
+  </insert>
   
+  <!-- PK번호만 기입하였음 -->
   <select id="findAll" resultMap="learningMap">
     select
-      s.sno,
-      b.bcat_name,
-      s.sname,
-      s.sintro,
-      s.cov_img,
-      s.avg_rate,
-      s.sstat,
-      s.rdttm,
-      g.sgg_name,
-      p.mcp_name,
-      m.name,
-      m.nickname,
-      m.profile_pic,
-      t.tintro,
       l.min_head,
       l.max_head,
       l.curriculum,
@@ -70,22 +66,44 @@
       l.addr,
       l.det_addr,
       l.rfnd_info,
+      s.sno,
+      s.sname,
+      s.sintro,
+      s.cov_img,
+      s.avg_rate,
+      s.sstat,
+      s.rdttm,
       e.sche_no,
       e.date,
       e.stm,
-      e.etm
+      e.etm,
+      m.name,
+      m.nickname,
+      m.profile_pic,
+      t.tintro,
+      t.tappl,
+      t.rddtm,
+      n.ncat_no,
+      n.ncat_name,
+      b.bcat_no,
+      b.bcat_name,
+      g.sgg_no,
+      g.sgg_name,
+      p.mcp_no,
+      p.mcp_name
     from har_learning l
       inner join har_service s on s.sno=l.lno
       inner join har_narrow_cat n on n.ncat_no=s.ncat_no
+      inner join har_broad_cat b on b.bcat_no=n.bcat_no
       inner join har_sigungu g on g.sgg_no=l.sgg_no
       inner join har_mcityprov p on p.mcp_no=g.mcp_no
-      inner join har_tutor t on t.tno=l.tno
       inner join har_schedule e on e.lno=l.lno
-      inner join har_broad_cat b on b.bcat_no=n.bcat_no
+      inner join har_tutor t on t.tno=l.tno
       inner join har_member m on m.mno=t.tno
     order by s.sno desc
   </select>
   
+  <!-- 체험학습 상세 -->
   <select id="findByNo" resultMap="learningMap" parameterType="int">
     select
       s.sname,
@@ -98,33 +116,24 @@
       m.nickname,
       l.curriculum,
       l.rfnd_info,
-      b.bcat_name,
       n.ncat_name,
-      p.mcp_name,
+      b.bcat_name,
       g.sgg_name,
+      p.mcp_name,
       t.tintro
-      <!-- 
-      lrnrv.title,
-      lrnrv.content,
-      lrnrv.rate,
-      lrnrv.wdttm,
-      file.fname,
-      lrnrv_rcm.name
-       -->
     from har_learning l
       inner join har_service s on s.sno=l.lno
       inner join har_narrow_cat n on n.ncat_no=s.ncat_no
+      inner join har_broad_cat b on b.bcat_no=n.bcat_no
       inner join har_sigungu g on g.sgg_no=l.sgg_no
       inner join har_mcityprov p on p.mcp_no=g.mcp_no
       inner join har_tutor t on t.tno=l.tno
-      inner join har_broad_cat b on b.bcat_no=n.bcat_no
       inner join har_member m on m.mno=t.tno
     where
       l.lno = #{value}
   </select>
   
 </mapper>
-
 
 
 

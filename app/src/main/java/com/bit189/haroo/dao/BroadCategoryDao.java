@@ -4,6 +4,7 @@ import java.util.List;
 import com.bit189.haroo.domain.BroadCategory;
 
 public interface BroadCategoryDao {
+
   int insert(BroadCategory broadCategory) throws Exception;
 
   List<BroadCategory> findAll() throws Exception;

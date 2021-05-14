@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bit189.haroo.dao.ServiceInfoDao">
+  
+  <resultMap id="serviceInfoMap" type="serviceInfo">
+    <id column="sno" property="no"/>
+    
+    <!-- 미완 -->
+    <result column="stm" property="broadCategory"/>
+    <result column="stm" property="narrowCategory"/>
+    <result column="stm" property="name"/>
+    <result column="stm" property="intro"/>
+    <result column="stm" property="coverImage"/>
+    <result column="stm" property="averageRate"/>
+    <result column="stm" property="state"/>
+    <result column="stm" property="registeredDate"/>
+    
+    <collection property="questions" ofType="Question">
+      <!-- 미완 -->
+    </collection>
+    
+    <collection property="reviews" ofType="Review">
+      <!-- 미완 -->
+    </collection>
+  </resultMap>
+  
+  <insert id="insert" parameterType="learningSchedule">
+    insert into
+      har_schedule(date,stm,etm)
+      values(#{date},#{stm},#{etm})
+  </insert>
+  
+</mapper>
+
+
+
+
+
+

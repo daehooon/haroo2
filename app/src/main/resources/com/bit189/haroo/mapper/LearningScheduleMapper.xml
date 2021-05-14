@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bit189.haroo.dao.LearningScheduleDao">
+  
+  <resultMap id="learningScheduleMap" type="learningSchedule">
+    <id column="sche_no" property="no"/>
+    <result column="date" property="LearningDate"/>
+    <result column="stm" property="startTime"/>
+    <result column="etm" property="endTime"/>
+  </resultMap>
+  
+  <insert id="insert" parameterType="learningSchedule">
+    insert into
+      har_schedule(date,stm,etm)
+      values(#{date},#{stm},#{etm})
+  </insert>
+  
+</mapper>
+
+
+
+
+
+

@@ -4,7 +4,8 @@ import java.util.List;
 import com.bit189.haroo.domain.Sigungu;
 
 public interface SigunguDao {
-  int insert(int no) throws Exception;
+
+  int insert(Sigungu sigungu) throws Exception;
 
   List<Sigungu> findAll() throws Exception;
 

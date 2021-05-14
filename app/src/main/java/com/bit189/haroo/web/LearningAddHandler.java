@@ -57,11 +57,12 @@ public class LearningAddHandler extends HttpServlet {
     try {
       Learning l = new Learning();
 
-      // 서비스이름, 대분류명(드롭다운), 소분류명(드롭다운), (우편번호,상세주소), 서비스소개,
-      // 진행순서, 환불정보, 최소인원수, 최대인원수, {날짜, 시작시각, 종료시각}, 가격
+      // 서비스이름, 대분류명(드롭다운), 소분류명(드롭다운), 상세주소, 서비스소개,
+      // 진행순서, 환불정보, 최소인원수, 최대인원수, 날짜, 시작시각, 종료시각, 가격
       l.setName(request.getParameter("name"));
       l.setBroadCategory(request.getParameter("broadCategory"));
       l.setNarrowCategory(request.getParameter("narrowCategory"));
+      l.setDetailAddress(request.getParameter("detailAddress"));
       l.setIntro(request.getParameter("intro"));
       l.setProgressOrder(request.getParameter("progressOrder"));
       l.setRefundInformation(request.getParameter("refundInformation"));
@@ -74,19 +75,13 @@ public class LearningAddHandler extends HttpServlet {
       l.setSchedules(schedules);
       l.setPrice(Integer.parseInt(request.getParameter("price")));
 
-
-
-      // ---------------------------------------------------------------------(2021.5.12)
-
-
-
       // 커버이미지
-      Part photoPart = request.getPart("photo");
+      Part photoPart = request.getPart("coverImage");
       if (photoPart.getSize() > 0) {
         // 파일을 선택해서 업로드 했다면,
         String filename = UUID.randomUUID().toString();
         photoPart.write(this.uploadDir + "/" + filename);
-        m.setPhoto(filename);
+        l.setCoverImage(filename);
 
         // 썸네일 이미지 생성
         Thumbnails.of(this.uploadDir + "/" + filename)
@@ -111,9 +106,9 @@ public class LearningAddHandler extends HttpServlet {
           }
         });
       }
-      memberService.add(m);
+      learningService.add(l);
 
-      out.println("<p>회원을 등록했습니다.</p>");
+      out.println("<p>체험학습을 등록했습니다.</p>");
 
       // 응답헤더에 리프래시 정보를 설정한다.
       response.setHeader("Refresh", "1;url=list");

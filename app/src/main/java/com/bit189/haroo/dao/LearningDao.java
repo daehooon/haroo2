@@ -4,6 +4,7 @@ import java.util.List;
 import com.bit189.haroo.domain.Learning;
 
 public interface LearningDao {
+
   int insert(Learning learning) throws Exception;
 
   List<Learning> findAll() throws Exception;
