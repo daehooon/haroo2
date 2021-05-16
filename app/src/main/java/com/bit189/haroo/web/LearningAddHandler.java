@@ -18,6 +18,9 @@ import javax.servlet.http.Part;
 import com.bit189.haroo.domain.Learning;
 import com.bit189.haroo.domain.LearningSchedule;
 import com.bit189.haroo.service.LearningService;
+import com.bit189.haroo.service.NarrowCategoryService;
+import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.service.ProjectService;
 import net.coobird.thumbnailator.ThumbnailParameter;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -38,10 +41,70 @@ public class LearningAddHandler extends HttpServlet {
   }
 
   @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
+    NarrowCategoryService projectService = (ProjectService) request.getServletContext().getAttribute("projectService");
+
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
+
+    out.println("<!DOCTYPE html>");
+    out.println("<html>");
+    out.println("<head>");
+    out.println("<meta charset='UTF-8'>");
+    out.println("<title>새 작업</title>");
+    out.println("</head>");
+    out.println("<body>");
+    out.println("<h1>새 작업</h1>");
+
+    try {
+      out.println("<form action='add' method='post'>");
+
+      out.println("프로젝트: <select name='projectNo'>");
+      List<Project> projects = projectService.list();
+      for (Project project : projects) {
+        out.printf("  <option value='%d'>%s</option>\n", project.getNo(), project.getTitle());
+      }
+      out.println("</select><br>");
+
+      out.println("작업: <input type='text' name='content'><br>");
+      out.println("마감일: <input type='date' name='deadline'><br>");
+
+      out.println("담당자: <select name='owner'>");
+      List<Member> members = memberService.list(null);
+      for (Member m : members) {
+        out.printf("  <option value='%d'>%s</option>\n", m.getNo(), m.getName());
+      }
+      out.println("</select><br>");
+
+      out.println("상태: ");
+      out.println("<input type='radio' name='status' value='0' checked>신규 ");
+      out.println("<input type='radio' name='status' value='1'>진행중 ");
+      out.println("<input type='radio' name='status' value='2'>완료 ");
+
+      out.println("<input type='submit' value='등록'>");
+      out.println("</form>");
+
+    } catch (Exception e) {
+      throw new ServletException(e);
+    }
+    out.println("</body>");
+    out.println("</html>");
+  }
+
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     LearningService learningService = (LearningService) request.getServletContext().getAttribute("learningService");
+
+    Learning l = new Learning();
+
+    // 등록자는 로그인 사용자이다.
+    //    HttpServletRequest httpRequest = request;
+    //    Member loginUser = (Member) httpRequest.getSession().getAttribute("loginUser");
+    //    l.setOwner(loginUser);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -55,8 +118,6 @@ public class LearningAddHandler extends HttpServlet {
     out.println("<h1>체험학습 등록</h1>");
 
     try {
-      Learning l = new Learning();
-
       // 서비스이름, 대분류명(드롭다운), 소분류명(드롭다운), 상세주소, 서비스소개,
       // 진행순서, 환불정보, 최소인원수, 최대인원수, 날짜, 시작시각, 종료시각, 가격
       l.setName(request.getParameter("name"));
@@ -69,8 +130,8 @@ public class LearningAddHandler extends HttpServlet {
       l.setMinPeople(Integer.parseInt(request.getParameter("minPeople")));
       l.setMaxPeople(Integer.parseInt(request.getParameter("maxPeople")));
       schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
-      schedule.setStartTime(Time.valueOf(request.getParameter("learningDate")));
-      schedule.setEndTime(Time.valueOf(request.getParameter("learningDate")));
+      schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime")));
+      schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime")));
       schedules.add(schedule);
       l.setSchedules(schedules);
       l.setPrice(Integer.parseInt(request.getParameter("price")));
@@ -106,12 +167,12 @@ public class LearningAddHandler extends HttpServlet {
           }
         });
       }
-      learningService.add(l);
+      learningService.add(l, l);
 
       out.println("<p>체험학습을 등록했습니다.</p>");
 
       // 응답헤더에 리프래시 정보를 설정한다.
-      response.setHeader("Refresh", "1;url=list");
+      response.setHeader("Refresh", "5;url=list");
 
       // 질문!
       // 클라이언트에게 응답할 때 헤더를 먼저 보내고 콘텐트를 나중에 보내는데

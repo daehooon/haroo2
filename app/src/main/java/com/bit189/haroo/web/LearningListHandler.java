@@ -33,6 +33,8 @@ public class LearningListHandler extends HttpServlet {
     out.println("<body>");
     out.println("<h1>체험학습 목록</h1>");
 
+    out.println("<p><a href='form.html'>체험학습 등록</a></p>");
+
     try {
       List<Learning> learnings = learningService.list();
 

@@ -11,12 +11,12 @@ tasks.withType(JavaCompile) {
 
 eclipse {
     project {
-        name = "haroo"
+        name = "haroo2"
     }
 }
 
 war {
-  archiveBaseName = "haroo"
+  archiveBaseName = "haroo2"
 }
 
 repositories {

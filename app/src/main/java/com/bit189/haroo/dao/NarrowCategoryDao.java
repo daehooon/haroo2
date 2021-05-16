@@ -5,15 +5,5 @@ import com.bit189.haroo.domain.NarrowCategory;
 
 public interface NarrowCategoryDao {
 
-  int insert(NarrowCategory narrowCategory) throws Exception;
-
   List<NarrowCategory> findAll() throws Exception;
-
-  NarrowCategory findByNo(int no) throws Exception;
-
-  NarrowCategory findByname(String name) throws Exception;
-
-  int update(int no) throws Exception;
-
-  int delete(int no) throws Exception;
 }

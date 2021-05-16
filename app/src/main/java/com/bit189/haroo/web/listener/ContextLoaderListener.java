@@ -10,9 +10,15 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.bit189.Mybatis.MybatisDaoFactory;
 import com.bit189.Mybatis.SqlSessionFactoryProxy;
 import com.bit189.Mybatis.TransactionManager;
+import com.bit189.haroo.dao.BroadCategoryDao;
 import com.bit189.haroo.dao.FeedDao;
 import com.bit189.haroo.dao.LearningDao;
+import com.bit189.haroo.dao.LearningScheduleDao;
 import com.bit189.haroo.dao.MemberDao;
+import com.bit189.haroo.dao.NarrowCategoryDao;
+import com.bit189.haroo.dao.ServiceInfoDao;
+import com.bit189.haroo.dao.SidoDao;
+import com.bit189.haroo.dao.SigunguDao;
 import com.bit189.haroo.service.FeedService;
 import com.bit189.haroo.service.LearningService;
 import com.bit189.haroo.service.MemberService;
@@ -40,14 +46,21 @@ public class ContextLoaderListener implements ServletContextListener {
       MybatisDaoFactory daoFactory = new MybatisDaoFactory(sqlSessionFactoryProxy);
       MemberDao memberDao = daoFactory.createDao(MemberDao.class);
       FeedDao feedDao = daoFactory.createDao(FeedDao.class);
+      ServiceInfoDao serviceInfoDao = daoFactory.createDao(ServiceInfoDao.class);
       LearningDao learningDao = daoFactory.createDao(LearningDao.class);
+      LearningScheduleDao learningScheduleDao = daoFactory.createDao(LearningScheduleDao.class);
+      BroadCategoryDao broadCategoryDao = daoFactory.createDao(BroadCategoryDao.class);
+      NarrowCategoryDao narrowCategoryDao = daoFactory.createDao(NarrowCategoryDao.class);
+      SidoDao sidoDao = daoFactory.createDao(SidoDao.class);
+      SigunguDao sigunguDao = daoFactory.createDao(SigunguDao.class);
 
       // 3) 서비스 관련 객체 준비
       TransactionManager txManager = new TransactionManager(sqlSessionFactoryProxy);
 
       MemberService memberService = new DefaultMemberService(memberDao);
       FeedService feedService = new DefaultFeedService(feedDao);
-      LearningService learningService = new DefaultLearningService(learningDao);
+      LearningService learningService = new DefaultLearningService(txManager, serviceInfoDao,
+          learningDao, learningScheduleDao, broadCategoryDao, narrowCategoryDao, sidoDao, sigunguDao);
 
       // 4) 서비스 객체를 ServletContext 보관소에 저장한다.
       servletContext.setAttribute("memberService", memberService);

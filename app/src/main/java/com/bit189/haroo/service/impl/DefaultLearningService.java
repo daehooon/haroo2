@@ -2,6 +2,7 @@ package com.bit189.haroo.service.impl;
 
 import java.util.List;
 import com.bit189.Mybatis.TransactionCallback;
+import com.bit189.Mybatis.TransactionManager;
 import com.bit189.Mybatis.TransactionTemplate;
 import com.bit189.haroo.dao.BroadCategoryDao;
 import com.bit189.haroo.dao.LearningDao;
@@ -15,41 +16,26 @@ import com.bit189.haroo.domain.Learning;
 import com.bit189.haroo.domain.LearningSchedule;
 import com.bit189.haroo.domain.NarrowCategory;
 import com.bit189.haroo.domain.ServiceInfo;
-import com.bit189.haroo.domain.Sido;
-import com.bit189.haroo.domain.Sigungu;
 import com.bit189.haroo.service.LearningService;
 
-//narrow
-//broad
-//sigungu
-//mcity
-//schedule
-//각 DAO로 insert, select 관리 및
-//각 Mapper 생성
-//
 //LearningDao insert에서 튜터 정보 select
 
-// abstract는 push를 위한 임시방편
-public abstract class DefaultLearningService implements LearningService {
+public class DefaultLearningService implements LearningService {
 
   TransactionTemplate transactionTemplate;
-
-  // Mapper 생성중
   ServiceInfoDao serviceInfoDao;
   LearningDao learningDao;
-
   LearningScheduleDao learningScheduleDao;
-
   BroadCategoryDao broadCategoryDao;
   NarrowCategoryDao narrowCategoryDao;
   SidoDao sidoDao;
   SigunguDao sigunguDao;
 
-  public DefaultLearningService(TransactionTemplate transactionTemplate, ServiceInfoDao serviceInfoDao,
+  public DefaultLearningService(TransactionManager txManager, ServiceInfoDao serviceInfoDao,
       LearningDao learningDao, LearningScheduleDao learningScheduleDao, BroadCategoryDao broadCategoryDao,
       NarrowCategoryDao narrowCategoryDao, SidoDao sidoDao, SigunguDao sigunguDao) {
 
-    this.transactionTemplate = transactionTemplate;
+    this.transactionTemplate = new TransactionTemplate(txManager);
     this.serviceInfoDao = serviceInfoDao;
     this.learningDao = learningDao;
     this.learningScheduleDao = learningScheduleDao;
@@ -61,8 +47,7 @@ public abstract class DefaultLearningService implements LearningService {
 
   @Override
   public int add(ServiceInfo serviceInfo, Learning learning, LearningSchedule learningSchedule,
-      BroadCategory broadCategory, NarrowCategory narrowCategory,
-      Sido sido, Sigungu sigungu) throws Exception {
+      BroadCategory broadCategory, NarrowCategory narrowCategory) throws Exception {
 
     return (int) transactionTemplate.execute(new TransactionCallback() {
       @Override
@@ -72,8 +57,8 @@ public abstract class DefaultLearningService implements LearningService {
         learningScheduleDao.insert(learningSchedule);
         broadCategoryDao.insert(broadCategory);
         narrowCategoryDao.insert(narrowCategory);
-        sidoDao.insert(sido);
-        sigunguDao.insert(sigungu);
+        //        sidoDao.insert(sido);
+        //        sigunguDao.insert(sigungu);
 
         return count;
       }

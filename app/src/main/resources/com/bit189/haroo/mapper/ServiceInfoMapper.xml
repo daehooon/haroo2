@@ -6,17 +6,13 @@
 <mapper namespace="com.bit189.haroo.dao.ServiceInfoDao">
   
   <resultMap id="serviceInfoMap" type="serviceInfo">
-    <id column="sno" property="no"/>
-    
-    <!-- 미완 -->
-    <result column="stm" property="broadCategory"/>
-    <result column="stm" property="narrowCategory"/>
-    <result column="stm" property="name"/>
-    <result column="stm" property="intro"/>
-    <result column="stm" property="coverImage"/>
-    <result column="stm" property="averageRate"/>
-    <result column="stm" property="state"/>
-    <result column="stm" property="registeredDate"/>
+    <id column="sno" property="no"/>    
+    <result column="sname" property="name"/>
+    <result column="sintro" property="intro"/>
+    <result column="cov_img" property="coverImage"/>
+    <result column="avg_rate" property="averageRate"/>
+    <result column="sstat" property="state"/>
+    <result column="rdttm" property="registeredDate"/>
     
     <collection property="questions" ofType="Question">
       <!-- 미완 -->
@@ -27,10 +23,10 @@
     </collection>
   </resultMap>
   
-  <insert id="insert" parameterType="learningSchedule">
+  <insert id="insert" parameterType="serviceInfo">
     insert into
-      har_schedule(date,stm,etm)
-      values(#{date},#{stm},#{etm})
+      har_service(sname,sintro,cov_img)
+      values(#{sname},#{sintro},#{cov_img})
   </insert>
   
 </mapper>
