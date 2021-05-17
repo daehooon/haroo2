@@ -11,10 +11,7 @@ import com.bit189.haroo.dao.NarrowCategoryDao;
 import com.bit189.haroo.dao.ServiceInfoDao;
 import com.bit189.haroo.dao.SidoDao;
 import com.bit189.haroo.dao.SigunguDao;
-import com.bit189.haroo.domain.BroadCategory;
 import com.bit189.haroo.domain.Learning;
-import com.bit189.haroo.domain.LearningSchedule;
-import com.bit189.haroo.domain.NarrowCategory;
 import com.bit189.haroo.domain.ServiceInfo;
 import com.bit189.haroo.service.LearningService;
 
@@ -46,19 +43,13 @@ public class DefaultLearningService implements LearningService {
   }
 
   @Override
-  public int add(ServiceInfo serviceInfo, Learning learning, LearningSchedule learningSchedule,
-      BroadCategory broadCategory, NarrowCategory narrowCategory) throws Exception {
+  public int add(ServiceInfo serviceInfo, Learning learning) throws Exception {
 
     return (int) transactionTemplate.execute(new TransactionCallback() {
       @Override
       public Object doInTransaction() throws Exception {
         int count = serviceInfoDao.insert(serviceInfo);
         learningDao.insert(learning);
-        learningScheduleDao.insert(learningSchedule);
-        broadCategoryDao.insert(broadCategory);
-        narrowCategoryDao.insert(narrowCategory);
-        //        sidoDao.insert(sido);
-        //        sigunguDao.insert(sigungu);
 
         return count;
       }

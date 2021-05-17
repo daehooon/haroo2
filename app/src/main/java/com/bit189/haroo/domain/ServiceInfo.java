@@ -5,7 +5,9 @@ import java.util.List;
 
 public class ServiceInfo {
   private int no;
+  private int broadCategoryNo;
   private String broadCategory;
+  private int narrowCategoryNo;
   private String narrowCategory;
   private String name;
   private String intro;
@@ -16,53 +18,35 @@ public class ServiceInfo {
   private List<Question> questions;
   private List<Review> reviews;
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    long temp;
-    temp = Double.doubleToLongBits(averageRate);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
-    result = prime * result + ((broadCategory == null) ? 0 : broadCategory.hashCode());
-    result = prime * result + ((coverImage == null) ? 0 : coverImage.hashCode());
-    result = prime * result + ((intro == null) ? 0 : intro.hashCode());
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
-    result = prime * result + ((narrowCategory == null) ? 0 : narrowCategory.hashCode());
-    result = prime * result + no;
-    result = prime * result + ((questions == null) ? 0 : questions.hashCode());
-    result = prime * result + ((registeredDate == null) ? 0 : registeredDate.hashCode());
-    result = prime * result + ((reviews == null) ? 0 : reviews.hashCode());
-    result = prime * result + (state ? 1231 : 1237);
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    ServiceInfo other = (ServiceInfo) obj;
-    if (Double.doubleToLongBits(averageRate) != Double.doubleToLongBits(other.averageRate))
-      return false;
-    if (no != other.no)
-      return false;
-    return true;
-  }
-
   public int getNo() {
     return no;
   }
   public void setNo(int no) {
     this.no = no;
   }
+  public int getBroadCategoryNo() {
+    return broadCategoryNo;
+  }
+  public void setBroadCategoryNo(int broadCategoryNo) {
+    this.broadCategoryNo = broadCategoryNo;
+  }
   public String getBroadCategory() {
     return broadCategory;
   }
   public void setBroadCategory(String broadCategory) {
     this.broadCategory = broadCategory;
+  }
+  public int getNarrowCategoryNo() {
+    return narrowCategoryNo;
+  }
+  public void setNarrowCategoryNo(int narrowCategoryNo) {
+    this.narrowCategoryNo = narrowCategoryNo;
+  }
+  public String getNarrowCategory() {
+    return narrowCategory;
+  }
+  public void setNarrowCategory(String narrowCategory) {
+    this.narrowCategory = narrowCategory;
   }
   public String getName() {
     return name;
@@ -111,11 +95,5 @@ public class ServiceInfo {
   }
   public void setReviews(List<Review> reviews) {
     this.reviews = reviews;
-  }
-  public String getNarrowCategory() {
-    return narrowCategory;
-  }
-  public void setNarrowCategory(String narrowCategory) {
-    this.narrowCategory = narrowCategory;
   }
 }

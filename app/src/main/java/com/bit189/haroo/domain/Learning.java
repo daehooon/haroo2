@@ -16,23 +16,6 @@ public class Learning extends ServiceInfo {
   private String refundInformation;
   private List<LearningSchedule> schedules;
 
-  @Override
-  public String toString() {
-    return "Learning [metropolitanCity=" + metropolitanCity + ", sigungu=" + sigungu + ", owner="
-        + owner + ", minPeople=" + minPeople + ", maxPeople=" + maxPeople + ", progressOrder="
-        + progressOrder + ", price=" + price + ", zipCode=" + zipCode + ", address=" + address
-        + ", detailAddress=" + detailAddress + ", refundInformation=" + refundInformation
-        + ", schedules=" + schedules + ", getNo()=" + getNo() + ", getBroadCategory()="
-        + getBroadCategory() + ", getName()=" + getName() + ", getIntro()=" + getIntro()
-        + ", getCoverImage()=" + getCoverImage() + ", getAverageRate()=" + getAverageRate()
-        + ", isState()=" + isState() + ", getRegisteredDate()=" + getRegisteredDate()
-        + ", getQuestions()=" + getQuestions() + ", getReviews()=" + getReviews()
-        + ", getNarrowCategory()=" + getNarrowCategory() + "]";
-  }
-
-  // domain.Tutor의 hashCode(), equals() 생성 후
-  // 여기에도 생성
-
   public String getMetropolitanCity() {
     return metropolitanCity;
   }

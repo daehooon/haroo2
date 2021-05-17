@@ -1,16 +1,12 @@
 package com.bit189.haroo.service;
 
 import java.util.List;
-import com.bit189.haroo.domain.BroadCategory;
 import com.bit189.haroo.domain.Learning;
-import com.bit189.haroo.domain.LearningSchedule;
-import com.bit189.haroo.domain.NarrowCategory;
 import com.bit189.haroo.domain.ServiceInfo;
 
 public interface LearningService {
 
-  int add(ServiceInfo serviceInfo, Learning learning, LearningSchedule learningSchedule,
-      BroadCategory broadCategory, NarrowCategory narrowCategory) throws Exception;
+  int add(ServiceInfo serviceInfo, Learning learning) throws Exception;
 
   List<Learning> list() throws Exception;
 
