@@ -15,8 +15,6 @@ import com.bit189.haroo.domain.Learning;
 import com.bit189.haroo.domain.ServiceInfo;
 import com.bit189.haroo.service.LearningService;
 
-//LearningDao insert에서 튜터 정보 select
-
 public class DefaultLearningService implements LearningService {
 
   TransactionTemplate transactionTemplate;
@@ -74,8 +72,7 @@ public class DefaultLearningService implements LearningService {
 
   @Override
   public int delete(int no) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
+    return learningDao.delete(no);
   }
 
   @Override

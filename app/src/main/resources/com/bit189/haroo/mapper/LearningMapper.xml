@@ -6,6 +6,8 @@
 <mapper namespace="com.bit189.haroo.dao.LearningDao">
   
   <resultMap id="learningMap" type="learning">
+  
+    <!-- domain.ServiceInfo -->
     <id column="sno" property="no"/>
     <result column="sname" property="name"/>
     <result column="sintro" property="intro"/>
@@ -13,10 +15,12 @@
     <result column="avg_rate" property="averageRate"/>
     <result column="sstat" property="state"/>
     <result column="rdttm" property="registeredDate"/>
-    <result column="ncat_no" property="no"/>
+    <result column="ncat_no" property="narrowCategoryNo"/>
     <result column="ncat_name" property="narrowCategory"/>
-    <result column="bcat_no" property="no"/>
+    <result column="bcat_no" property="broadCategoryNo"/>
     <result column="bcat_name" property="broadCategory"/>
+    
+    <!-- domain.Learning -->
     <result column="min_head" property="minPeople"/>
     <result column="max_head" property="maxPeople"/>
     <result column="curriculum" property="progressOrder"/>
@@ -25,10 +29,10 @@
     <result column="addr" property="address"/>
     <result column="det_addr" property="detailAddress"/>
     <result column="rfnd_info" property="refundInformation"/>
-    <result column="sgg_no" property="no"/>
+    <result column="sgg_no" property="sigunguNo"/>
     <result column="sgg_name" property="sigungu"/>
-    <result column="mcp_no" property="no"/>
-    <result column="mcp_name" property="metropolitanCity"/>
+    <result column="sido_no" property="sidoNo"/>
+    <result column="sido_name" property="sido"/>
     
     <association property="owner" javaType="tutor">
       <id column="tno" property="no"/>
@@ -42,8 +46,8 @@
     
     <collection property="schedules" ofType="LearningSchedule">
       <id column="sche_no" property="no"/>
-      <result column="lno" property="no"/>
-      <result column="date" property="LearningDate"/>
+      <result column="lno" property="learningNo"/>
+      <result column="date" property="learningDate"/>
       <result column="stm" property="startTime"/>
       <result column="etm" property="endTime"/>
     </collection>
@@ -77,6 +81,7 @@
       e.date,
       e.stm,
       e.etm,
+      m.no,
       m.name,
       m.nickname,
       m.profile_pic,
@@ -89,14 +94,14 @@
       b.bcat_name,
       g.sgg_no,
       g.sgg_name,
-      p.mcp_no,
-      p.mcp_name
+      d.sido_no,
+      d.sido_name
     from har_learning l
       inner join har_service s on s.sno=l.lno
       inner join har_narrow_cat n on n.ncat_no=s.ncat_no
       inner join har_broad_cat b on b.bcat_no=n.bcat_no
       inner join har_sigungu g on g.sgg_no=l.sgg_no
-      inner join har_mcityprov p on p.mcp_no=g.mcp_no
+      inner join har_sido d on d.sido_no=g.sido_no
       inner join har_schedule e on e.lno=l.lno
       inner join har_tutor t on t.tno=l.tno
       inner join har_member m on m.mno=t.tno
@@ -111,6 +116,7 @@
       s.rdttm,
       s.cov_img,
       s.sintro,
+      s.sstat,
       m.profile_pic,
       m.name,
       m.nickname,
@@ -119,19 +125,25 @@
       n.ncat_name,
       b.bcat_name,
       g.sgg_name,
-      p.mcp_name,
+      d.sido_name,
       t.tintro
     from har_learning l
       inner join har_service s on s.sno=l.lno
       inner join har_narrow_cat n on n.ncat_no=s.ncat_no
       inner join har_broad_cat b on b.bcat_no=n.bcat_no
       inner join har_sigungu g on g.sgg_no=l.sgg_no
-      inner join har_mcityprov p on p.mcp_no=g.mcp_no
+      inner join har_sido d on d.sido_no=g.sido_no
       inner join har_tutor t on t.tno=l.tno
       inner join har_member m on m.mno=t.tno
     where
       l.lno = #{value}
   </select>
+  
+  <update id="delete" parameterType="int">
+    update har_learning set
+      sstat=0
+    where no=#{no}
+  </update>
   
 </mapper>
 
