@@ -41,7 +41,7 @@
       <result column="profile_pic" property="profilePicture"/>
       <result column="tintro" property="intro"/>
       <result column="tappl" property="application"/>
-      <result column="rddtm" property="promotedDate"/>
+      <result column="prom_dttm" property="promotedDate"/>
     </association>
     
     <collection property="schedules" ofType="LearningSchedule">
@@ -81,13 +81,13 @@
       e.date,
       e.stm,
       e.etm,
-      m.no,
+      m.mno,
       m.name,
       m.nickname,
       m.profile_pic,
       t.tintro,
       t.tappl,
-      t.rddtm,
+      t.prom_dttm,
       n.ncat_no,
       n.ncat_name,
       b.bcat_no,
@@ -136,14 +136,8 @@
       inner join har_tutor t on t.tno=l.tno
       inner join har_member m on m.mno=t.tno
     where
-      l.lno = #{value}
+      l.lno=#{value}
   </select>
-  
-  <update id="delete" parameterType="int">
-    update har_learning set
-      sstat=0
-    where no=#{no}
-  </update>
   
 </mapper>
 

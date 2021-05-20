@@ -14,13 +14,17 @@
     <result column="sstat" property="state"/>
     <result column="rdttm" property="registeredDate"/>
     
+    <!--
     <collection property="questions" ofType="Question">
-      <!-- 미완 -->
+       미완 
     </collection>
+    -->
     
+    <!--
     <collection property="reviews" ofType="Review">
-      <!-- 미완 -->
+       미완 
     </collection>
+    -->
   </resultMap>
   
   <insert id="insert" parameterType="serviceInfo">
@@ -28,6 +32,12 @@
       har_service(sname,sintro,cov_img)
       values(#{sname},#{sintro},#{cov_img})
   </insert>
+  
+  <update id="delete" parameterType="int">
+    update har_service set
+      sstat=0
+    where sno=#{no}
+  </update>
   
 </mapper>
 

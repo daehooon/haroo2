@@ -11,12 +11,12 @@ tasks.withType(JavaCompile) {
 
 eclipse {
     project {
-        name = "haroo2"
+        name = "haroo"
     }
 }
 
 war {
-  archiveBaseName = "haroo2"
+  archiveBaseName = "haroo"
 }
 
 repositories {
@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'javax.servlet:jstl:1.2'
     providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
     implementation 'org.mybatis:mybatis:3.5.6'

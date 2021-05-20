@@ -72,7 +72,7 @@ public class DefaultLearningService implements LearningService {
 
   @Override
   public int delete(int no) throws Exception {
-    return learningDao.delete(no);
+    return serviceInfoDao.delete(no);
   }
 
   @Override

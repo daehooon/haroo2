@@ -26,6 +26,7 @@
     <mapper resource="com/bit189/haroo/mapper/LearningMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/FeedMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/MemberMapper.xml"/>
+    <mapper resource="com/bit189/haroo/mapper/ServiceInfoMapper.xml"/>
   </mappers>
 </configuration>
 
