@@ -16,32 +16,6 @@ public class LearningSchedule {
         + learningDate + ", startTime=" + startTime + ", endTime=" + endTime + "]";
   }
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((learningDate == null) ? 0 : learningDate.hashCode());
-    result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
-    result = prime * result + learningNo;
-    result = prime * result + no;
-    result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    LearningSchedule other = (LearningSchedule) obj;
-    if (no != other.no)
-      return false;
-    return true;
-  }
-
   public int getNo() {
     return no;
   }
@@ -54,10 +28,10 @@ public class LearningSchedule {
   public void setLearningNo(int learningNo) {
     this.learningNo = learningNo;
   }
-  public Date getlearningDate() {
+  public Date getLearningDate() {
     return learningDate;
   }
-  public void setlearningDate(Date learningDate) {
+  public void setLearningDate(Date learningDate) {
     this.learningDate = learningDate;
   }
   public Time getStartTime() {
@@ -73,3 +47,4 @@ public class LearningSchedule {
     this.endTime = endTime;
   }
 }
+

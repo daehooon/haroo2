@@ -7,7 +7,7 @@ public interface TutorService {
 
   int add(Tutor tutor) throws Exception;
 
-  List<Tutor> list() throws Exception;
+  List<Tutor> list(String keyword) throws Exception;
 
   Tutor get(int no) throws Exception;
 

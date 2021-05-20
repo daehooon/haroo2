@@ -1,66 +1,106 @@
 <!-- 
- <?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.bit189.haroo.dao.LearningApplicationDao">
   
-  <resultMap id="learningApplicationMap" type="learningApplication">
+  <resultMap id="LearningApplicationMap" type="LearningApplication">
     <id column="lrn_appl_no" property="no"/>
-    <result column="appl_size" property="applySize"/>
+    <result column="mno" property="membereNo"/>
+     <result column="sche_no" property="schedules"/>
+     <result column="appl_size" property="applySize"/>
     <result column="appl_dttm" property="registeredDate"/>
+    
+    
+     <association property="memberNo" javaType="member">
+      <id column="mno" property="no"/>
+    </association>
+      
+       <collection property="schedules" ofType="LearningSchedule">
+      <id column="sche_no" property="no"/>
+      <result column="lno" property="no"/>
+      <result column="date" property="LearningDate"/>
+      <result column="stm" property="startTime"/>
+      <result column="etm" property="endTime"/>
+    </collection>
+
+
+   
   </resultMap>
-  
-  <insert id="insert" parameterType="learnApplication">
-    insert into har_lrn_appl(appl_size,appl_dttm) 
-    values(#{applySize}, #{registerDate})
+
+    
+  <insert id="insert" parameterType="LearningApplication">
+    insert into har_lrn_appl(mno,sche_no,appl_size,appl_dttm) 
+    values(#{memberNo},#{schedules},#{applySize},#{registeredDate})
   </insert>
   
-  <select id="findAll" resultMap="learnApplicationMap">
-    select 
-      no,
-      applySize,
-      registerDate
-    from har_lrn_appl 
-    order by name registerDate
+  <select id="findAll" resultMap="LearningApplicationMap">
+    select
+      l.lrn_appl_no,
+      l.mno,
+      l.sche_no,
+      l.appl_dttm,
+      l.appl_size,
+      s.date,
+      s.stm,
+      s.etm
+    from har_lrn_appl l
+      inner join har_schedule s on l.sche_no=s.sche_no
+      inner join har_member m on l.mno=m.mno
   </select>
-  
-  <select id="findAllSchedules" resultMap="learnScheduleMap">
-    select 
-     no,
-      applySize,
-      registerDate
-    from har_lrn_appl 
-    order by name registerDate
+
+-->
+<select id="findAllSchedules" resultMap="LearningScheduleMap">
+     select
+     l.sche_no,
+       s.date,
+      s.stm,
+      s.etm
+    from har_lrn_appl l
+      inner join har_schedule s on l.sche_no=s.sche_no
   </select>
+<!--
   
-  <select id="findByNo" resultMap="learnApplicationMap" parameterType="int">
-    select 
-     no,
-      applySize,
-      registerDate
-    from har_lrn_appl 
+   
+  <select id="findByNo" resultMap="LearningApplicationMap" parameterType="int">
+    select
+      l.lrn_appl_no,
+      l.mno,
+      l.sche_no,
+      l.appl_dttm,
+      l.appl_size,
+      s.date,
+      s.stm,
+      s.etm
+    from har_lrn_appl l
+      inner join har_schedule s on l.sche_no=s.sche_no
+      inner join har_member m on l.mno=m.mno
     where no = #{value}
   </select>
   
-  <update id="update" parameterType="learningApplication">
-    update har_lrn_appl
-    <set> 
-      <if test="applySize != ''">applySize=#{applySize},</if>
-      <if test="registerDate != ''">registerDate=#{registerDate},</if>
-     
-    </set>
-    where no=#{no}
-  </update>
-  
+ 
+  <select id="findByKeywords" resultMap="LearningApplicationMap" parameterType="map">
+    <include refid="select1"/>
+    <where>
+      <if test="LearningDate != null and LearningDate != ''">
+        s.LearningDate like concat('%', #{LearningDate}, '%')
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and s.startTime like concat('%', #{startTime}, '%')
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and s.endTime like concat('%', #{endTime}, '%')
+      </if>
+    </where>
+  </select>
+
   <delete id="delete" parameterType="int">
     delete from har_lrn_appl
     where no=#{value}
   </delete>
-
 </mapper>
--->
+ -->
 
 
 

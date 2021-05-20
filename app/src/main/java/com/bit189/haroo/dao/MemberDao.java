@@ -7,7 +7,7 @@ import com.bit189.haroo.domain.Member;
 public interface MemberDao {
   int insert(Member member) throws Exception;
 
-  List<Member> findAll() throws Exception;
+  List<Member> findByKeyword(String keyword) throws Exception;
 
   Member findByNo(int no) throws Exception;
 

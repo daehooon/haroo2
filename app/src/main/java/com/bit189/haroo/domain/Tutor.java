@@ -1,20 +1,21 @@
 package com.bit189.haroo.domain;
 
 import java.sql.Date;
-import java.sql.Time;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Tutor extends Member {
   private String intro;
   private String application;
   private Date promotedDate;
-  private Time promotedTime;
-  private ArrayList<Learning> learnings;
-  private ArrayList<Product> products;
-  private ArrayList<Sigungu> tutorDistricts;
-  private ArrayList<NarrowCategory> tutorCategories;
-  private ArrayList<Question> tutorQuestions;
-  private ArrayList<Feed> feeds;
+  private List<TutorDistrict> tutorDistricts;
+  private List<TutorCategory> tutorCategories;
+
+  @Override
+  public String toString() {
+    return "Tutor [intro=" + intro + ", application=" + application + ", promotedDate="
+        + promotedDate + ", tutorDistricts=" + tutorDistricts + ", tutorCategories="
+        + tutorCategories + "]";
+  }
 
   public String getIntro() {
     return intro;
@@ -34,46 +35,16 @@ public class Tutor extends Member {
   public void setPromotedDate(Date promotedDate) {
     this.promotedDate = promotedDate;
   }
-  public Time getPromotedTime() {
-    return promotedTime;
-  }
-  public void setPromotedTime(Time promotedTime) {
-    this.promotedTime = promotedTime;
-  }
-  public ArrayList<Learning> getLearnings() {
-    return learnings;
-  }
-  public void setLearnings(ArrayList<Learning> learnings) {
-    this.learnings = learnings;
-  }
-  public ArrayList<Product> getProducts() {
-    return products;
-  }
-  public void setProducts(ArrayList<Product> products) {
-    this.products = products;
-  }
-  public ArrayList<Sigungu> getTutorDistricts() {
+  public List<TutorDistrict> getTutorDistricts() {
     return tutorDistricts;
   }
-  public void setTutorDistricts(ArrayList<Sigungu> tutorDistricts) {
+  public void setTutorDistricts(List<TutorDistrict> tutorDistricts) {
     this.tutorDistricts = tutorDistricts;
   }
-  public ArrayList<NarrowCategory> getTutorCategories() {
+  public List<TutorCategory> getTutorCategories() {
     return tutorCategories;
   }
-  public void setTutorCategories(ArrayList<NarrowCategory> tutorCategories) {
+  public void setTutorCategories(List<TutorCategory> tutorCategories) {
     this.tutorCategories = tutorCategories;
-  }
-  public ArrayList<Question> getTutorQuestions() {
-    return tutorQuestions;
-  }
-  public void setTutorQuestions(ArrayList<Question> tutorQuestions) {
-    this.tutorQuestions = tutorQuestions;
-  }
-  public ArrayList<Feed> getFeeds() {
-    return feeds;
-  }
-  public void setFeeds(ArrayList<Feed> feeds) {
-    this.feeds = feeds;
   }
 }

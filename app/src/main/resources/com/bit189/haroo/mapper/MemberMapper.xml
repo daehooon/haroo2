@@ -12,24 +12,24 @@
     <result column="tel" property="tel"/>
     <result column="profile_pic" property="profilePicture"/>
     <result column="rdttm" property="registeredDate"/>
-    <result column="rdttm" property="registeredTime"/>
     <result column="nickname" property="nickname"/>
     <result column="bdate" property="birthDate"/>
     <result column="sex" property="sex"/>
     <result column="zipcode" property="zipcode"/>
     <result column="addr" property="address"/>
-    <result column="det_addr" property="detatilAddress"/>
+    <result column="det_addr" property="detailAddress"/>
     <result column="mstat" property="state"/>
-    <result column="mem_rank" property="rank"/>
+    <result column="mrno" property="rank"/>
   </resultMap>
   
 <insert id="insert" parameterType="member">
    insert into har_member(name,email,password,nickname,profile_pic,
-                          bdate,tel,sex,zipcode,addr,det_addr) 
+                          bdate,tel,sex,zipcode,addr,det_addr,mrno) 
     values(#{name}, #{email}, password(#{password}), #{nickname}, #{profilePicture},
-     #{birthDate},#{tel},#{sex},#{zipcode},#{address},#{detailAddress})
+     #{birthDate},#{tel},#{sex},#{zipcode},#{address},#{detailAddress},#{rank})
   </insert>
   
+  <!--  
   <select id="findAll" resultMap="memberMap" >
   select 
       mno,
@@ -42,13 +42,35 @@
     from har_member 
     order by name asc
   </select>
+  -->
+  
+  <select id="findByKeyword" resultMap="memberMap" parameterType="string">
+    select 
+      mno,
+      name,
+      email,
+      profile_pic,
+      tel,
+      nickname,
+      sex 
+    from har_member 
+    <where>
+      <if test="keyword != null and keyword != ''">
+       name like concat('%', #{keyword}, '%')
+       email like concat('%', #{keyword}, '%')
+      or tel like concat('%', #{keyword}, '%')
+      or nickname like concat('%', #{keyword}, '%')
+      or mno like concat('%', #{keyword}, '%')
+      </if>
+    </where>
+    order by mno asc 
+  </select>
   
   <select id="findByNo" resultMap="memberMap" parameterType="int">
   select 
-    m.no,
-    m.email,
-    m.password,
+    m.mno,
     m.name,
+    m.email,
     m.nickname,
     m.profile_pic,
     m.tel,  
@@ -57,14 +79,15 @@
     m.zipcode,
     m.addr,
     m.det_addr,
-    <!--  registeredDate,
+    m.rdttm,
+    <!--mr.mem_rank,
     registeredTime,-->
-    mr.mem_rank,
+    m.mrno,
     m.mstat
   from 
     har_member m
     inner join har_mrank mr on m.mrno=mr.mrno
-    where name = #{value}
+    where mno = #{value}
   </select>
   
   <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
@@ -82,19 +105,20 @@
     name=#{name},
      email=#{email},
       password=password(#{password}),
+      nickname=#{nickname},
       profile_pic=#{profilePicture},
-      tel=#{tel}
-      zipcode=#{zipcode}
-      addr=#{address}
-      det_addr=#{detatilAddress}
-      <!-- rank=#{rank} -->
-      mstate=#{state}
-    where no=#{no}
+      tel=#{tel},
+      zipcode=#{zipcode},
+      addr=#{address},
+      det_addr=#{detailAddress},
+      <!-- rank=#{rank} --> 
+      mstat=#{state}
+    where mno=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
   delete from har_member 
-    where no=#{value}
+    where mno=#{value}
   </delete>
   
   <select id="findByName" resultMap="memberMap" parameterType="string">

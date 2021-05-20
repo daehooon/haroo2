@@ -18,6 +18,22 @@ public class Learning extends ServiceInfo {
   private String refundInformation;
   private List<LearningSchedule> schedules;
 
+  @Override
+  public String toString() {
+    return "Learning [sidoNo=" + sidoNo + ", sido=" + sido + ", sigunguNo=" + sigunguNo
+        + ", sigungu=" + sigungu + ", owner=" + owner + ", minPeople=" + minPeople + ", maxPeople="
+        + maxPeople + ", progressOrder=" + progressOrder + ", price=" + price + ", zipCode="
+        + zipCode + ", address=" + address + ", detailAddress=" + detailAddress
+        + ", refundInformation=" + refundInformation + ", schedules=" + schedules + ", getNo()="
+        + getNo() + ", getBroadCategoryNo()=" + getBroadCategoryNo() + ", getBroadCategory()="
+        + getBroadCategory() + ", getNarrowCategoryNo()=" + getNarrowCategoryNo()
+        + ", getNarrowCategory()=" + getNarrowCategory() + ", getName()=" + getName()
+        + ", getIntro()=" + getIntro() + ", getCoverImage()=" + getCoverImage()
+        + ", getAverageRate()=" + getAverageRate() + ", isState()=" + isState()
+        + ", getRegisteredDate()=" + getRegisteredDate() + ", getQuestions()=" + getQuestions()
+        + ", getReviews()=" + getReviews() + ", getTutor()=" + getTutor() + "]";
+  }
+
   public int getSidoNo() {
     return sidoNo;
   }

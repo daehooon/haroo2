@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bit189.haroo.dao.LearningReviewDao">
+
+  <resultMap id="LearningReviewMap" type="Review">
+    <id column="pno" property="no"/>
+    <result column="content" property="content"/>
+    <result column="wdttm" property="writingDate"/>
+    <result column="view_cnt" property="viewCount"/>
+    <result column="state" property="state"/>
+    <result column="title" property="title"/>
+    <result column="rate" property="rate"/>
+    <result column="mno" property="writerNo"/>
+    <result column="sche_no" property="scheduleNo"/>
+    <result column="rcm_cnt" property="recommendCount"/>
+    
+    <association property="writer" javaType="Member">
+      <id column="mno" property="no"/>
+      <result column="profile_pic" property="profilePicture"/>
+      <result column="name" property="name"/>
+      <result column="nickname" property="nickname"/>
+    </association> 
+    
+    <collection property="attachedFiles" ofType="AttachedFile">
+      <id column="fno" property="no"/>
+      <result column="fname" property="name"/>
+    </collection>
+    
+  </resultMap>
+  
+  <select id="findListByLearningNo" resultMap="LearningReviewMap" parameterType="int">
+    select
+      pno,
+      wdttm,
+      view_cnt,
+      title,
+      rate,
+      mno,
+      sche_no,
+      rcm_cnt,
+      lno,
+      name,
+      nickname
+    from
+      har_vi_lrnrv
+    where
+      lno = #{lno}
+      and state = 1
+  </select>
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
+  
+  

@@ -8,16 +8,11 @@ public interface LearningApplicationService {
 
   int add(LearningApplication learningApplication) throws Exception;
 
-  List<LearningApplication> list() throws Exception;
-
-  List<LearningSchedule> listSchedules() throws Exception;
+  List<LearningApplication> list(String keyword) throws Exception;
 
   LearningApplication get(int no) throws Exception;
 
-  int update(LearningApplication learningApplication) throws Exception;
-
   int delete(int no) throws Exception;
 
+  List<LearningSchedule> listSchedules() throws Exception;
 }
-
-

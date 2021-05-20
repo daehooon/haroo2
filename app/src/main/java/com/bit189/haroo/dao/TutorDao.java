@@ -7,7 +7,7 @@ import com.bit189.haroo.domain.Tutor;
 public interface TutorDao {
   int insert(Tutor tutor) throws Exception;
 
-  List<Tutor> findAll() throws Exception;
+  List<Tutor> findByKeyword(String keyword) throws Exception;
 
   Tutor findByNo(int no) throws Exception;
 

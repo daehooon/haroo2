@@ -1,8 +1,6 @@
 package com.bit189.haroo.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,32 +20,16 @@ public class MemberListHandler extends HttpServlet {
 
     MemberService memberService = (MemberService) request.getServletContext().getAttribute("memberService");
 
-    response.setContentType("text/plain;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("[회원 목록]");
-
     try {
-      List<Member> list = memberService.list();
+      System.out.println("여기1");
+      List<Member> list = memberService.list(request.getParameter("keyword"));
 
-      if(list.size() == 0) {
-        out.println("등록된 회원이 없습니다.");
-        return;
-      }
-      for (Member m : list) {
-        out.printf("%d, %s, %s, %s, %s, %s, %s\n", 
-            m.getNo(), 
-            m.getName(), 
-            m.getEmail(),
-            m.getProfilePicture(),
-            m.getTel(),
-            m.getNickname(),
-            m.getSex());
-      }
+      request.setAttribute("list", list);
+      response.setContentType("text/html;charset=UTF-8");
+      request.getRequestDispatcher("/jsp/member/list.jsp").include(request, response);
+
     } catch (Exception e) {
-      StringWriter strWriter = new StringWriter();
-      PrintWriter printWriter = new PrintWriter(strWriter);
-      e.printStackTrace(printWriter);
-      out.println(strWriter.toString());
+      throw new ServletException(e);
     }
   }
 

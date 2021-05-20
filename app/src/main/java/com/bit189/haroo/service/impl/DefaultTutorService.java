@@ -19,8 +19,8 @@ public class DefaultTutorService implements TutorService {
   }
 
   @Override
-  public List<Tutor> list() throws Exception {
-    return tutorDao.findAll();
+  public List<Tutor> list(String keyword) throws Exception {
+    return tutorDao.findByKeyword(keyword);
   }
 
   @Override

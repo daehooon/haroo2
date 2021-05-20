@@ -9,7 +9,7 @@ public interface CommentDao {
 
   List<Comment> findAll() throws Exception;
 
-  List<Comment> findByfeedNo(int feedNo) throws Exception;
+  List<Comment> findByComments(int feedNo) throws Exception;
 
   Comment findByNo(int no) throws Exception;
 

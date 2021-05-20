@@ -80,5 +80,4 @@ public class DefaultLearningService implements LearningService {
     // TODO Auto-generated method stub
     return null;
   }
-
 }

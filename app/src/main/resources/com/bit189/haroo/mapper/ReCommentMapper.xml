@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+
+
+<mapper namespace="com.bit189.haroo.dao.ReCommentDao">
+
+  <resultMap id="reCommentMap" type="ReComment">
+	  <id column="recom_no" property="no"/>
+	  <result column="content" property="content"/>
+	  <result column="rdttm" property="registeredDate"/>
+	  
+	  <association property="reWriter" javaType="Member"> <!-- 대댓글작성자 -->
+	    <id column="rmmno" property="no"/>
+	   <result column="profrmprofile_picile_pic" property="profilePicture"/>
+	   <result column="rmname" property="name"/>
+	   <result column="rmnickname" property="nickname"/>
+	  </association>
+	  
+	  <association property="taggedMember" javaType="Member"> <!-- 대댓글에서 태그된 멤버 -->
+	    <id column="rmmno" property="no"/>
+	    <result column="rmname" property="name"/>
+	    <result column="rmnickname" property="nickname"/>
+	  </association>
+  </resultMap>
+  
+  
+  <select id="reCommentCount" resultType="String" parameterType="int">
+		select
+		  count(*)
+		from
+		  har_recomment
+		where
+		  com_no=#{no}
+		  and recom_stat=1
+  </select>
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
+  
+  

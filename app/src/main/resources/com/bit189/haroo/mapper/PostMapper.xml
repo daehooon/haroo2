@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bit189.haroo.dao.PostDao">
+
+  <resultMap id="posttMap" type="Post">
+    <id column="pno" property="no"/>
+    <result column="content" property="content"/>
+    <result column="wdttm" property="writingDate"/>
+    <result column="view_cnt" property="viewCount"/>
+    
+    <collection property="attachedFiles" ofType="AttachedFile">
+      <id column="fno" property="no"/>
+      <result column="pno" property="postNo"/>
+      <result column="fname" property="name"/>
+    </collection>
+  </resultMap>
+
+
+  <insert id="insert" parameterType="post" useGeneratedKeys="true" keyColumn="pno" keyProperty="no">
+    insert into har_post (content)
+    values (#{content})
+  </insert>
+  
+  <insert id="insertFile" parameterType="AttachedFile">
+    insert into har_file (fname, pno)
+    values (#{name}, #{postNo})
+  </insert>
+
+
+
+
+
+
+</mapper>

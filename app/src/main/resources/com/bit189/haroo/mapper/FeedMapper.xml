@@ -22,6 +22,7 @@
     
     <collection property="attachedFiles" ofType="AttachedFile">
       <id column="fno" property="no"/>
+      <result column="pno" property="postNo"/>
       <result column="fname" property="name"/>
     </collection>
   </resultMap>
@@ -45,11 +46,13 @@
     inner join har_feed d on p.pno=d.feed_no
     inner join har_tutor t on d.tno=t.tno
     inner join har_member m on t.tno=m.mno
+  where
+    p.pstat=1
   order by d.feed_no
   </select>
   
   
-  <select id='findByNo' parameterType="int" resultMap="feedMap">
+  <select id="findByNo" parameterType="int" resultMap="feedMap">
   select
     p.content,
     p.wdttm,
@@ -69,8 +72,23 @@
     inner join har_member m on t.tno=m.mno
   where
     d.feed_no = #{no}
+    and p.pstat=1
   order by d.feed_no
   </select>
+  
+  <select id="likeCount" parameterType="int" resultType="String">
+  select 
+    count(feed_no)
+  from 
+    har_feed_like
+  where
+    feed_no = #{no}
+  </select>
+  
+  <insert id="insert" parameterType="Map">
+    insert into har_feed (feed_no, tno)
+    values (#{no}, #{feed.writer.no})
+  </insert>
 
 
 

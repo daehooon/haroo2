@@ -10,7 +10,7 @@ public interface LearningApplicationDao {
 
   LearningApplication findByNo(int no) throws Exception;
 
-  List<LearningApplication> findAll() throws Exception; 
+  List<LearningApplication> findByKeyword(String keyword) throws Exception;
 
   List<LearningSchedule> findAllSchedules() throws Exception;
 

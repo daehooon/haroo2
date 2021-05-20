@@ -7,7 +7,9 @@ public interface LearningReviewService {
 
   int add(Review Review) throws Exception;
 
-  List<Review> list() throws Exception;
+  List<Review> listByLearning(int lno) throws Exception;
+
+  List<Review> listByMember(int mno) throws Exception;
 
   Review get(int no) throws Exception;
 
