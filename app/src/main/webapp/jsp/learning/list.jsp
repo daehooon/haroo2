@@ -25,29 +25,33 @@
 </thead>
 <tbody>
 
-<c:forEach items="${learnings}" var="l">
-  <c:if test="${l.state == true}">
-	  <c:if test="${not empty l.coverImage}">
-	    <c:set var="coverUrl">../upload/${l.coverImage}_80x80.jpg</c:set>
-	  </c:if>
-  
-		<!-- forEach member -->
-		  <!-- if profilePicture -->
-  
-		<tr>
-		  <td><img src='${coverUrl}'></td>
-		  <td>${l.broadCategory}</td>
-		  <td>${l.narrowCategory}</td>
-		  <td><a href='detail?no=${l.no}'>${l.name}</a></td>
-		  <td>${l.sido}</td>
-		  <!-- 구매횟수 -->
-		  <td>${l.sigungu}</td>
-		  <!-- <td>${l.owner.profilePicture}</td> -->
-		  <td>${l.owner.nickname}</td>
-		  <td>${l.price}</td>
-		</tr>
-	 </c:if>
-	
+<c:forEach items="${learnings}" var="l" >
+    <c:if test="${l.state == true}">
+    
+      <c:if test="${not empty l.coverImage}">
+        <c:set var="coverUrl">../upload/${l.coverImage}_80x80.jpg</c:set>
+      </c:if>
+      <c:if test="${not empty l.owner.profilePicture}">
+        <c:set var="profilePictureUrl">../upload/${l.owner.profilePicture}_30x30.jpg</c:set>
+      </c:if>
+      <c:if test="${empty l.owner.profilePicture}">
+        <c:set var="profilePictureUrl">../upload/_30x30.jpg</c:set>
+      </c:if>
+      
+			<tr>
+			  <td><img src='${coverUrl}'></td>
+			  <td>${l.broadCategory}</td>
+			  <td>${l.narrowCategory}</td>
+			  <td><a href='detail?no=${l.no}'>${l.name}</a></td>
+			  <td>${l.sido}</td>
+			  <!-- 구매횟수 -->
+			  <td>${l.sigungu}</td>
+			  <td><img src='${profilePictureUrl}'></td>
+			  <td>${l.owner.nickname}</td>
+			  <td>${l.price}</td>
+			</tr>
+			
+    </c:if>
 </c:forEach>
 
 </tbody>

@@ -6,7 +6,7 @@
 <mapper namespace="com.bit189.haroo.dao.ServiceInfoDao">
   
   <resultMap id="serviceInfoMap" type="serviceInfo">
-    <id column="sno" property="no"/>    
+    <id column="sno" property="no"/>
     <result column="sname" property="name"/>
     <result column="sintro" property="intro"/>
     <result column="cov_img" property="coverImage"/>

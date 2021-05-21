@@ -14,10 +14,8 @@
 <c:if test="${not empty learning}">
 	<p><a href='/application/add'>체험학습 신청</a></p>
 	
-	<!-- 수정요망
-	<p><a href='update?no=${learning.no}'>수정</a></p>
-	<p><a href='delete?no=${learning.no}'>삭제</a></p>
-	-->
+	 <p><a href='update?no=${learning.no}'>수정</a></p>
+	 <p><a href='delete?no=${learning.no}'>삭제</a></p>
 	
   <c:if test="${not empty learning.coverImage}">
     <c:set var="cover800x450Url">../upload/${learning.coverImage}_800x450.jpg</c:set>
