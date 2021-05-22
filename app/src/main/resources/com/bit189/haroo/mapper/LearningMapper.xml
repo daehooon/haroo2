@@ -39,6 +39,7 @@
       <result column="name" property="name"/>
       <result column="nickname" property="nickname"/>
       <result column="profile_pic" property="profilePicture"/>
+      <result column="mrno" property="rank"/>
       <result column="tintro" property="intro"/>
       <result column="tappl" property="application"/>
       <result column="prom_dttm" property="promotedDate"/>
@@ -85,6 +86,7 @@
       m.name,
       m.nickname,
       m.profile_pic,
+      m.mrno,
       t.tintro,
       t.tappl,
       t.prom_dttm,
@@ -118,15 +120,17 @@
       s.cov_img,
       s.sintro,
       s.sstat,
-      m.profile_pic,
       m.name,
       m.nickname,
+      m.profile_pic,
+      m.mrno,
       l.curriculum,
       l.rfnd_info,
       n.ncat_name,
       b.bcat_name,
       g.sgg_name,
       d.sido_name,
+      t.tno,
       t.tintro
     from har_learning l
       inner join har_service s on s.sno=l.lno

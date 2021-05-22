@@ -23,9 +23,6 @@ public class LearningDetailHandler extends HttpServlet {
       int no = Integer.parseInt(request.getParameter("no"));
 
       Learning learning = learningService.get(no);
-      if (learning == null) {
-        throw new Exception("해당 번호의 체험학습이 없습니다.");
-      }
 
       request.setAttribute("learning", learning);
 

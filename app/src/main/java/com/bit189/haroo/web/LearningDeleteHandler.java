@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bit189.haroo.domain.Learning;
+import com.bit189.haroo.domain.Member;
 import com.bit189.haroo.service.LearningService;
 
 @SuppressWarnings("serial")
@@ -27,11 +28,10 @@ public class LearningDeleteHandler extends HttpServlet {
         throw new Exception("해당 번호의 체험학습이 없습니다.");
       }
 
-      // 개설자인지 확인하기
-      //      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-      //      if (oldBoard.getWriter().getNo() != loginUser.getNo()) {
-      //        throw new Exception("삭제 권한이 없습니다!");
-      //      }
+      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+      if (learning.getOwner().getNo() != loginUser.getNo()) {
+        throw new Exception("삭제 권한이 없습니다!");
+      }
 
       learningService.delete(no);
 

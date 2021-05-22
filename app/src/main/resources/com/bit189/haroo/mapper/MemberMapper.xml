@@ -95,7 +95,8 @@
       mno,
       name,
       email,
-      profile_pic
+      profile_pic,
+      mrno
     from har_member 
     where email = #{email} and password = password(#{password})
   </select>
