@@ -9,11 +9,13 @@ public interface ServiceQuestionService {
 
   List<Question> list() throws Exception;
 
+  List<Question> listByMember(int mno) throws Exception;
+
   Question get(int no) throws Exception;
 
   int update(Question Question) throws Exception;
 
   int delete(int no) throws Exception;
 
-  List<Question> Search(int no) throws Exception;
+  List<Question> Search(String keyword) throws Exception;
 }

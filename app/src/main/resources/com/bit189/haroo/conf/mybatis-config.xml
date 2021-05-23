@@ -31,6 +31,11 @@
     <mapper resource="com/bit189/haroo/mapper/ReCommentMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/MemberMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/LearningReviewMapper.xml"/>
+    <mapper resource="com/bit189/haroo/mapper/ServiceQuestionMapper.xml"/>
+    <!--  
+   <mapper resource="com/bit189/haroo/mapper/LearningApplicationMapper.xml"/>
+   -->
+
   </mappers>
   
 </configuration>

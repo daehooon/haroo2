@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bit189.haroo.domain.Learning;
-import com.bit189.haroo.domain.Review;
+import com.bit189.haroo.domain.LearningReview;
 import com.bit189.haroo.service.LearningReviewService;
 import com.bit189.haroo.service.LearningService;
 
@@ -39,8 +39,8 @@ public class LearningReviewListHandler extends HttpServlet {
 
       request.setAttribute("learning", learning);
 
-      List<Review> reviews = learningReviewService.listByLearning(
-          Integer.parseInt(lno));
+      List<LearningReview> reviews = learningReviewService.listByLearning(
+          Integer.parseInt(lno), LearningReviewService.WRITED_DATE, false);
 
 
       request.setAttribute("reviews", reviews);

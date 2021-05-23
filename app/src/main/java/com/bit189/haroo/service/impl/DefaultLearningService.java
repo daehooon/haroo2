@@ -4,13 +4,9 @@ import java.util.List;
 import com.bit189.Mybatis.TransactionCallback;
 import com.bit189.Mybatis.TransactionManager;
 import com.bit189.Mybatis.TransactionTemplate;
-import com.bit189.haroo.dao.BroadCategoryDao;
 import com.bit189.haroo.dao.LearningDao;
 import com.bit189.haroo.dao.LearningScheduleDao;
-import com.bit189.haroo.dao.NarrowCategoryDao;
 import com.bit189.haroo.dao.ServiceInfoDao;
-import com.bit189.haroo.dao.SidoDao;
-import com.bit189.haroo.dao.SigunguDao;
 import com.bit189.haroo.domain.Learning;
 import com.bit189.haroo.domain.ServiceInfo;
 import com.bit189.haroo.service.LearningService;
@@ -21,23 +17,14 @@ public class DefaultLearningService implements LearningService {
   ServiceInfoDao serviceInfoDao;
   LearningDao learningDao;
   LearningScheduleDao learningScheduleDao;
-  BroadCategoryDao broadCategoryDao;
-  NarrowCategoryDao narrowCategoryDao;
-  SidoDao sidoDao;
-  SigunguDao sigunguDao;
 
   public DefaultLearningService(TransactionManager txManager, ServiceInfoDao serviceInfoDao,
-      LearningDao learningDao, LearningScheduleDao learningScheduleDao, BroadCategoryDao broadCategoryDao,
-      NarrowCategoryDao narrowCategoryDao, SidoDao sidoDao, SigunguDao sigunguDao) {
+      LearningDao learningDao, LearningScheduleDao learningScheduleDao) {
 
     this.transactionTemplate = new TransactionTemplate(txManager);
     this.serviceInfoDao = serviceInfoDao;
     this.learningDao = learningDao;
     this.learningScheduleDao = learningScheduleDao;
-    this.broadCategoryDao = broadCategoryDao;
-    this.narrowCategoryDao = narrowCategoryDao;
-    this.sidoDao = sidoDao;
-    this.sigunguDao = sigunguDao;
   }
 
   @Override
@@ -66,7 +53,6 @@ public class DefaultLearningService implements LearningService {
 
   @Override
   public int update(Learning Learning) throws Exception {
-    // TODO Auto-generated method stub
     return 0;
   }
 
@@ -77,7 +63,6 @@ public class DefaultLearningService implements LearningService {
 
   @Override
   public Learning Search(int no) throws Exception {
-    // TODO Auto-generated method stub
     return null;
   }
 }

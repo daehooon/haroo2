@@ -8,8 +8,23 @@
   <resultMap id="sigunguMap" type="sigungu">
     <id column="sgg_no" property="no"/>
     <result column="sgg_name" property="name"/>
+    
+    <association property="sido" javaType="sido">
+      <id column="sido_no" property="no"/>
+      <result column="sido_name" property="name"/>
+    </association>
   </resultMap>
-  
+
+  <select id="findAll" resultMap="sigunguMap">
+    select
+      g.sgg_no,
+      g.sgg_name,
+      d.sido_no,
+      d.sido_name
+    from har_sigungu g
+      inner join har_sido d on d.sido_no=g.sido_no
+    order by g.sgg_no
+  </select>
 </mapper>
 
 

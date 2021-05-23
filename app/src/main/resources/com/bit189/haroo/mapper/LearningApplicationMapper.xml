@@ -1,11 +1,11 @@
-<!-- 
+<!--  
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit189.haroo.dao.LearningApplicationDao">
   
-  <resultMap id="LearningApplicationMap" type="LearningApplication">
+  <resultMap id="learningApplicationMap" type="LearningApplication">
     <id column="lrn_appl_no" property="no"/>
     <result column="mno" property="membereNo"/>
      <result column="sche_no" property="schedules"/>
@@ -19,7 +19,7 @@
       
        <collection property="schedules" ofType="LearningSchedule">
       <id column="sche_no" property="no"/>
-      <result column="lno" property="no"/>
+      <result column="lno" property="learningNo"/>
       <result column="date" property="LearningDate"/>
       <result column="stm" property="startTime"/>
       <result column="etm" property="endTime"/>
@@ -31,11 +31,11 @@
 
     
   <insert id="insert" parameterType="LearningApplication">
-    insert into har_lrn_appl(mno,sche_no,appl_size,appl_dttm) 
-    values(#{memberNo},#{schedules},#{applySize},#{registeredDate})
+    insert into har_lrn_appl(sche_no,appl_size,appl_dttm) 
+    values(#{schedules},#{applySize},#{registeredDate})
   </insert>
   
-  <select id="findAll" resultMap="LearningApplicationMap">
+  <select id="findAll" resultMap="learningApplicationMap">
     select
       l.lrn_appl_no,
       l.mno,
@@ -63,7 +63,7 @@
 <!--
   
    
-  <select id="findByNo" resultMap="LearningApplicationMap" parameterType="int">
+  <select id="findByNo" resultMap="learningApplicationMap" parameterType="int">
     select
       l.lrn_appl_no,
       l.mno,
@@ -79,8 +79,8 @@
     where no = #{value}
   </select>
   
- 
-  <select id="findByKeywords" resultMap="LearningApplicationMap" parameterType="map">
+
+  <select id="findByKeywords" resultMap="learningApplicationMap" parameterType="map">
     <include refid="select1"/>
     <where>
       <if test="LearningDate != null and LearningDate != ''">
@@ -94,13 +94,14 @@
       </if>
     </where>
   </select>
-
+  
   <delete id="delete" parameterType="int">
     delete from har_lrn_appl
     where no=#{value}
   </delete>
 </mapper>
- -->
+
+-->
 
 
 

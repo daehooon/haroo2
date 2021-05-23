@@ -22,7 +22,7 @@ public class Member {
   private List<Tutor> following;
   private List<ServiceInfo> myHaroo;
   private List<Question> myQuestion;
-  private List<Review> myReview;
+  private List<LearningReview> myReview;
 
   @Override
   public String toString() {
@@ -217,12 +217,12 @@ public class Member {
   }
 
 
-  public List<Review> getMyReview() {
+  public List<LearningReview> getMyReview() {
     return myReview;
   }
 
 
-  public void setMyReview(List<Review> myReview) {
+  public void setMyReview(List<LearningReview> myReview) {
     this.myReview = myReview;
   }
 

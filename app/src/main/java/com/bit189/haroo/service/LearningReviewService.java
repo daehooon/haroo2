@@ -1,21 +1,22 @@
 package com.bit189.haroo.service;
 
 import java.util.List;
-import com.bit189.haroo.domain.Review;
+import com.bit189.haroo.domain.LearningReview;
 
 public interface LearningReviewService {
+  int WRITED_DATE = 1;
+  int AVERAGE_RATE = 2;
+  int RECOMMEND_COUNT = 3;
 
-  int add(Review Review) throws Exception;
+  int add(LearningReview review) throws Exception;
 
-  List<Review> listByLearning(int lno) throws Exception;
+  List<LearningReview> listByLearning(int learningNo, int sortingStd, boolean isAsc) throws Exception;
 
-  List<Review> listByMember(int mno) throws Exception;
+  List<LearningReview> listByMember(int memberNo, int sortingStd, boolean isAsc) throws Exception;
 
-  Review get(int no) throws Exception;
+  LearningReview get(int postNo) throws Exception;
 
-  int update(Review Review) throws Exception;
+  int update(LearningReview review) throws Exception;
 
-  int delete(int no) throws Exception;
-
-  List<Review> Search(int no) throws Exception;
+  List<LearningReview> Search(String keyword) throws Exception;
 }

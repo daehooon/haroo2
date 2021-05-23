@@ -10,8 +10,8 @@
     <result column="ncat_name" property="name"/>
     
     <association property="broadCategory" javaType="broadCategory">
-      <id column="broadCategory_no" property="no"/>
-      <result column="broadCategory_name" property="name"/>
+      <id column="bcat_no" property="no"/>
+      <result column="bcat_name" property="name"/>
     </association>
   </resultMap>
   
@@ -22,7 +22,7 @@
       b.bcat_no,
       b.bcat_name
     from har_narrow_cat n
-      inner join har_broad_cat b on n.bcat_no=b.bcat_no
+      inner join har_broad_cat b on b.bcat_no=n.bcat_no
     order by n.ncat_no
   </select>
 </mapper>

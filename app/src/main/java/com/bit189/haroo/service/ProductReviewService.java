@@ -1,19 +1,19 @@
 package com.bit189.haroo.service;
 
 import java.util.List;
-import com.bit189.haroo.domain.Review;
+import com.bit189.haroo.domain.LearningReview;
 
 public interface ProductReviewService {
 
-  int add(Review Review) throws Exception;
+  int add(LearningReview Review) throws Exception;
 
-  List<Review> list() throws Exception;
+  List<LearningReview> list() throws Exception;
 
-  Review get(int no) throws Exception;
+  LearningReview get(int no) throws Exception;
 
-  int update(Review Review) throws Exception;
+  int update(LearningReview Review) throws Exception;
 
   int delete(int no) throws Exception;
 
-  List<Review> Search(int no) throws Exception;
+  List<LearningReview> Search(int no) throws Exception;
 }

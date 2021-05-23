@@ -3,12 +3,11 @@ package com.bit189.haroo.domain;
 public class NarrowCategory {
   int no;
   String name;
-  int broadCategoryNo;
+  BroadCategory broadCategory;
 
   @Override
   public String toString() {
-    return "NarrowCategory [no=" + no + ", name=" + name + ", broadCategoryNo=" + broadCategoryNo
-        + "]";
+    return "NarrowCategory [no=" + no + ", name=" + name + ", broadCategory=" + broadCategory + "]";
   }
 
   public int getNo() {
@@ -23,10 +22,10 @@ public class NarrowCategory {
   public void setName(String name) {
     this.name = name;
   }
-  public int getBroadCategoryNo() {
-    return broadCategoryNo;
+  public BroadCategory getBroadCategory() {
+    return broadCategory;
   }
-  public void setBroadCategoryNo(int broadCategoryNo) {
-    this.broadCategoryNo = broadCategoryNo;
+  public void setBroadCategory(BroadCategory broadCategory) {
+    this.broadCategory = broadCategory;
   }
 }
