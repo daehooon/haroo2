@@ -26,6 +26,11 @@
     <mapper resource="com/bit189/haroo/mapper/PostMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/ServiceInfoMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/LearningMapper.xml"/>
+    <mapper resource="com/bit189/haroo/mapper/LearningScheduleMapper.xml"/>
+    <mapper resource="com/bit189/haroo/mapper/BroadCategoryMapper.xml"/>
+    <mapper resource="com/bit189/haroo/mapper/NarrowCategoryMapper.xml"/>
+    <mapper resource="com/bit189/haroo/mapper/SidoMapper.xml"/>
+    <mapper resource="com/bit189/haroo/mapper/SigunguMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/FeedMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/CommentMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/ReCommentMapper.xml"/>

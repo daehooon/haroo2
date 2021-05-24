@@ -13,14 +13,15 @@
     <result column="avg_rate" property="averageRate"/>
     <result column="sstat" property="state"/>
     <result column="rdttm" property="registeredDate"/>
+    <result column="ncat_no" property="narrowCategoryNo"/>
+    <result column="ncat_name" property="narrowCategory"/>
   </resultMap>
   
   <insert id="insert" parameterType="serviceInfo">
-    insert into
-      har_service(sname,sintro,cov_img)
-      values(#{sname},#{sintro},#{cov_img})
+    insert into har_service(sname,sintro,cov_img,ncat_no)
+    values(#{name},#{intro},#{coverImage},#{narrowCategoryNo})
   </insert>
-  
+
   <update id="delete" parameterType="int">
     update har_service set
       sstat=0

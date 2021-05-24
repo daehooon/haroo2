@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.bit189.Mybatis.MybatisDaoFactory;
 import com.bit189.Mybatis.SqlSessionFactoryProxy;
 import com.bit189.Mybatis.TransactionManager;
+import com.bit189.haroo.dao.BroadCategoryDao;
 import com.bit189.haroo.dao.CommentDao;
 import com.bit189.haroo.dao.FeedDao;
 import com.bit189.haroo.dao.LearningDao;
@@ -22,8 +23,10 @@ import com.bit189.haroo.dao.PostDao;
 import com.bit189.haroo.dao.ReCommentDao;
 import com.bit189.haroo.dao.ServiceInfoDao;
 import com.bit189.haroo.dao.ServiceQuestionDao;
+import com.bit189.haroo.dao.SidoDao;
 import com.bit189.haroo.dao.SigunguDao;
 import com.bit189.haroo.dao.TutorDao;
+import com.bit189.haroo.service.BroadCategoryService;
 import com.bit189.haroo.service.CommentService;
 import com.bit189.haroo.service.FeedService;
 import com.bit189.haroo.service.LearningReviewService;
@@ -32,8 +35,10 @@ import com.bit189.haroo.service.MemberService;
 import com.bit189.haroo.service.NarrowCategoryService;
 import com.bit189.haroo.service.PostService;
 import com.bit189.haroo.service.ServiceQuestionService;
+import com.bit189.haroo.service.SidoService;
 import com.bit189.haroo.service.SigunguService;
 import com.bit189.haroo.service.TutorService;
+import com.bit189.haroo.service.impl.DefaultBroadCategoryService;
 import com.bit189.haroo.service.impl.DefaultCommentService;
 import com.bit189.haroo.service.impl.DefaultFeedService;
 import com.bit189.haroo.service.impl.DefaultLearningReviewService;
@@ -42,6 +47,7 @@ import com.bit189.haroo.service.impl.DefaultMemberService;
 import com.bit189.haroo.service.impl.DefaultNarrowCategoryService;
 import com.bit189.haroo.service.impl.DefaultPostService;
 import com.bit189.haroo.service.impl.DefaultServiceQuestionService;
+import com.bit189.haroo.service.impl.DefaultSidoService;
 import com.bit189.haroo.service.impl.DefaultSigunguService;
 import com.bit189.haroo.service.impl.DefaultTutorService;
 
@@ -74,7 +80,9 @@ public class ContextLoaderListener implements ServletContextListener {
 
       ServiceInfoDao serviceInfoDao = daoFactory.createDao(ServiceInfoDao.class);
       LearningDao learningDao = daoFactory.createDao(LearningDao.class);
+      BroadCategoryDao broadCategoryDao = daoFactory.createDao(BroadCategoryDao.class);
       NarrowCategoryDao narrowCategoryDao = daoFactory.createDao(NarrowCategoryDao.class);
+      SidoDao sidoDao = daoFactory.createDao(SidoDao.class);
       SigunguDao sigunguDao = daoFactory.createDao(SigunguDao.class);
       LearningScheduleDao learningScheduleDao = daoFactory.createDao(LearningScheduleDao.class);
 
@@ -97,7 +105,9 @@ public class ContextLoaderListener implements ServletContextListener {
       //      AttachedFileService attachedFileService = new DefaultAttachedFileService(attachedFileDao);
 
       LearningService learningService = new DefaultLearningService(txManager, serviceInfoDao, learningDao, learningScheduleDao);
+      BroadCategoryService broadCategoryService = new DefaultBroadCategoryService(broadCategoryDao);
       NarrowCategoryService narrowCategoryService = new DefaultNarrowCategoryService(narrowCategoryDao);
+      SidoService sidoService = new DefaultSidoService(sidoDao);
       SigunguService sigunguService = new DefaultSigunguService(sigunguDao);
 
       // LearningApplicationService learningApplicationService = new DefaultLearningApplicationService(learningApplicationDao, null);
@@ -117,7 +127,9 @@ public class ContextLoaderListener implements ServletContextListener {
       //      servletContext.setAttribute("attachedFileService", attachedFileService);
 
       servletContext.setAttribute("learningService", learningService);
+      servletContext.setAttribute("broadCategoryService", broadCategoryService);
       servletContext.setAttribute("narrowCategoryService", narrowCategoryService);
+      servletContext.setAttribute("sidoService", sidoService);
       servletContext.setAttribute("sigunguService", sigunguService);
 
       //servletContext.setAttribute("learningApplicationService", learningApplicationService);

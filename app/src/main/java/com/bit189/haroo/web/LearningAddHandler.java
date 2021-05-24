@@ -1,37 +1,55 @@
 package com.bit189.haroo.web;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import com.bit189.haroo.domain.Learning;
 import com.bit189.haroo.domain.LearningSchedule;
+import com.bit189.haroo.service.BroadCategoryService;
 import com.bit189.haroo.service.LearningService;
 import com.bit189.haroo.service.NarrowCategoryService;
+import com.bit189.haroo.service.SidoService;
 import com.bit189.haroo.service.SigunguService;
+import net.coobird.thumbnailator.ThumbnailParameter;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
+import net.coobird.thumbnailator.name.Rename;
 
 @SuppressWarnings("serial")
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 @WebServlet("/learning/add")
 public class LearningAddHandler extends HttpServlet {
 
   List<LearningSchedule> schedules = new ArrayList<LearningSchedule>();
   LearningSchedule schedule = new LearningSchedule();
+  private String uploadDir;
+
+  @Override
+  public void init() throws ServletException {
+    this.uploadDir = this.getServletContext().getRealPath("/upload");
+  }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    BroadCategoryService broadCategoryService = (BroadCategoryService) request.getServletContext().getAttribute("broadCategoryService");
     NarrowCategoryService narrowCategoryService = (NarrowCategoryService) request.getServletContext().getAttribute("narrowCategoryService");
+    SidoService sidoService = (SidoService) request.getServletContext().getAttribute("sidoService");
     SigunguService sigunguService = (SigunguService) request.getServletContext().getAttribute("sigunguService");
 
     try {
+      request.setAttribute("broadCategorys", broadCategoryService.list());
       request.setAttribute("narrowCategorys", narrowCategoryService.list());
+      request.setAttribute("sidos", sidoService.list());
       request.setAttribute("sigungus", sigunguService.list());
 
       response.setContentType("text/html;charset=UTF-8");
@@ -61,7 +79,8 @@ public class LearningAddHandler extends HttpServlet {
       l.setBroadCategoryNo(Integer.parseInt(request.getParameter("broadCategoryNo")));
       l.setNarrowCategoryNo(Integer.parseInt(request.getParameter("narrowCategoryNo")));
 
-      // 우편번호 API
+      // 추후 우편번호 API로 교체
+      l.setZipcode(request.getParameter("zipcode"));
       l.setAddress(request.getParameter("address"));
       l.setSidoNo(Integer.parseInt(request.getParameter("sidoNo")));
       l.setSigunguNo(Integer.parseInt(request.getParameter("sigunguNo")));
@@ -73,47 +92,44 @@ public class LearningAddHandler extends HttpServlet {
       l.setMinPeople(Integer.parseInt(request.getParameter("minPeople")));
       l.setMaxPeople(Integer.parseInt(request.getParameter("maxPeople")));
 
-      schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
-      schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime")));
-      schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime")));
-      schedules.add(schedule);
-      l.setSchedules(schedules);
+      //      schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
+      //      schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime")));
+      //      schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime")));
+      //      schedules.add(schedule);
+      //      l.setSchedules(schedules);
 
       l.setPrice(Integer.parseInt(request.getParameter("price")));
 
-      // 커버이미지
-      //      Part photoPart = request.getPart("photo");
-      //      if (photoPart.getSize() > 0) {
-      //        // 파일을 선택해서 업로드 했다면,
-      //        String filename = UUID.randomUUID().toString();
-      //        photoPart.write(this.uploadDir + "/" + filename);
-      //        m.setPhoto(filename);
-      //
-      //        // 썸네일 이미지 생성
-      //        Thumbnails.of(this.uploadDir + "/" + filename)
-      //        .size(30, 30)
-      //        .outputFormat("jpg")
-      //        .crop(Positions.CENTER)
-      //        .toFiles(new Rename() {
-      //          @Override
-      //          public String apply(String name, ThumbnailParameter param) {
-      //            return name + "_30x30";
-      //          }
-      //        });
-      //
-      //        Thumbnails.of(this.uploadDir + "/" + filename)
-      //        .size(80, 80)
-      //        .outputFormat("jpg")
-      //        .crop(Positions.CENTER)
-      //        .toFiles(new Rename() {
-      //          @Override
-      //          public String apply(String name, ThumbnailParameter param) {
-      //            return name + "_80x80";
-      //          }
-      //        });
-      //      }
+      Part coverImagePart = request.getPart("coverImage");
+      if (coverImagePart.getSize() > 0) {
+        String filename = UUID.randomUUID().toString();
+        coverImagePart.write(this.uploadDir + "/" + filename);
+        l.setCoverImage(filename);
 
-      learningService.add(l, l);
+        Thumbnails.of(this.uploadDir + "/" + filename)
+        .size(80, 80)
+        .outputFormat("jpg")
+        .crop(Positions.CENTER)
+        .toFiles(new Rename() {
+          @Override
+          public String apply(String name, ThumbnailParameter param) {
+            return name + "_80x80";
+          }
+        });
+
+        Thumbnails.of(this.uploadDir + "/" + filename)
+        .size(800, 450)
+        .outputFormat("jpg")
+        .crop(Positions.CENTER)
+        .toFiles(new Rename() {
+          @Override
+          public String apply(String name, ThumbnailParameter param) {
+            return name + "_800x450";
+          }
+        });
+      }
+
+      learningService.add(l, l, schedule);
 
       // list말고 detail?
       response.sendRedirect("list");

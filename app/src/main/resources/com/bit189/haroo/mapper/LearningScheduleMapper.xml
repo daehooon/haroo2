@@ -10,12 +10,13 @@
     <result column="date" property="LearningDate"/>
     <result column="stm" property="startTime"/>
     <result column="etm" property="endTime"/>
+    <result column="lno" property="learningNo"/>
   </resultMap>
   
   <insert id="insert" parameterType="learningSchedule">
     insert into
-      har_schedule(date,stm,etm)
-      values(#{date},#{stm},#{etm})
+      har_schedule(date,stm,etm,lno)
+      values(#{date},#{stm},#{etm},#{lno})
   </insert>
   
 </mapper>

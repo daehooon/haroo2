@@ -25,7 +25,7 @@
     <result column="max_head" property="maxPeople"/>
     <result column="curriculum" property="progressOrder"/>
     <result column="price" property="price"/>
-    <result column="zipcode" property="zipCode"/>
+    <result column="zipcode" property="zipcode"/>
     <result column="addr" property="address"/>
     <result column="det_addr" property="detailAddress"/>
     <result column="rfnd_info" property="refundInformation"/>
@@ -55,9 +55,8 @@
   </resultMap>
   
   <insert id="insert" parameterType="learning">
-    insert into 
-      har_learning(min_head,max_head,curriculum,price,det_addr,rfnd_into)
-      values(#{min_head},#{max_head},#{curriculum},#{price},#{det_addr},#{rfnd_into})
+    insert into har_learning(min_head,max_head,curriculum,price,zipcode,addr,det_addr,rfnd_info,sgg_no)
+    values(#{minPeople},#{maxPeople},#{progressOrder},#{price},#{zipcode},#{address},#{detailAddress},#{refundInformation},#{sigunguNo})
   </insert>
   
   <!-- PK번호만 기입하였음 -->
