@@ -1,23 +1,46 @@
 package com.bit189.haroo.service.impl;
 
 import java.util.List;
+import com.bit189.Mybatis.TransactionCallback;
+import com.bit189.Mybatis.TransactionManager;
+import com.bit189.Mybatis.TransactionTemplate;
+import com.bit189.haroo.dao.PostDao;
 import com.bit189.haroo.dao.ServiceQuestionDao;
+import com.bit189.haroo.domain.Post;
 import com.bit189.haroo.domain.Question;
 import com.bit189.haroo.service.ServiceQuestionService;
 
+
+
 public class DefaultServiceQuestionService implements ServiceQuestionService{
 
+  TransactionTemplate transactionTemplate;
+
   ServiceQuestionDao serviceQuestionDao;
+  PostDao postDao;
 
 
-
-  public DefaultServiceQuestionService(ServiceQuestionDao serviceQuestionDao) {
+  public DefaultServiceQuestionService(TransactionManager txManager, ServiceQuestionDao serviceQuestionDao, PostDao postDao) {
+    this.transactionTemplate = new TransactionTemplate(txManager);
     this.serviceQuestionDao = serviceQuestionDao;
+    this.postDao = postDao;
+
   }
 
   @Override
-  public int add(Question Question) throws Exception {
-    return serviceQuestionDao.insert(Question);
+  public int add(Question question, Post post) throws Exception {
+    return (int) transactionTemplate.execute(new TransactionCallback() {
+
+      @Override
+      public Object doInTransaction() throws Exception {
+
+        int count = postDao.insert(post);
+
+        serviceQuestionDao.insert(question);
+
+        return count;
+      }
+    });
   }
 
   @Override
@@ -40,8 +63,8 @@ public class DefaultServiceQuestionService implements ServiceQuestionService{
   }
 
   @Override
-  public int update(Question Question) throws Exception {
-    return serviceQuestionDao.update(Question);
+  public int update(Question question) throws Exception {
+    return serviceQuestionDao.update(question);
   }
 
   @Override

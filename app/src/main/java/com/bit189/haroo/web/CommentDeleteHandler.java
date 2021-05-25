@@ -11,29 +11,32 @@ import com.bit189.haroo.domain.Member;
 import com.bit189.haroo.service.CommentService;
 
 @SuppressWarnings("serial")
-@WebServlet("/feed/comment/add")
-public class CommentAddHandler extends HttpServlet {
+@WebServlet("/feed/comment/delete")
+public class CommentDeleteHandler extends HttpServlet {
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     CommentService commentService = (CommentService) request.getServletContext().getAttribute("commentService");
 
     try {
-      Comment comment = new Comment();
-      comment.setFeedNo(Integer.parseInt(request.getParameter("no")));
-      comment.setContent(request.getParameter("content"));
+
+      int no = Integer.parseInt(request.getParameter("no"));
+
+      Comment comment = commentService.get(no);
 
       Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-      comment.setWriter(loginUser);
+      if (loginUser.getNo() != comment.getWriter().getNo()) {
+        throw new Exception("삭제 권한이 없습니다!");
+      }
 
-      commentService.add(comment);
+      commentService.delete(no);
 
-      response.sendRedirect("../detail?no=" + comment.getFeedNo());
+      response.sendRedirect("../detail?no=" + Integer.parseInt(request.getParameter("feedNo")));
 
     } catch (Exception e) {
-
+      throw new ServletException(e);
     }
 
   }

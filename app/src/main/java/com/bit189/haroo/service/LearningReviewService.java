@@ -10,9 +10,9 @@ public interface LearningReviewService {
 
   int add(LearningReview review) throws Exception;
 
-  List<LearningReview> listByLearning(int learningNo, int sortingStd, boolean isAsc) throws Exception;
+  List<LearningReview> listByLearning(int learningNo, String sortingItem, String sortingType) throws Exception;
 
-  List<LearningReview> listByMember(int memberNo, int sortingStd, boolean isAsc) throws Exception;
+  List<LearningReview> listByMember(int memberNo, String sortingItem, String sortingType) throws Exception;
 
   LearningReview get(int postNo) throws Exception;
 

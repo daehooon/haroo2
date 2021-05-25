@@ -24,6 +24,18 @@
     values (#{content})
   </insert>
   
+  <delete id="delete" parameterType="int">
+    update har_post set
+        pstat=0
+    where pno = #{no}
+  </delete>
+  
+  <update id="updateViewCount" parameterType="int">
+    update har_post set
+        view_cnt=(view_cnt+1)
+    where pno = #{no}
+  </update>
+  
   <insert id="insertFile" parameterType="AttachedFile">
     insert into har_file (fname, pno)
     values (#{name}, #{postNo})

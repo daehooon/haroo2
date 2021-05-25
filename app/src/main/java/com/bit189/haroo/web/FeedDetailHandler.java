@@ -1,8 +1,6 @@
 package com.bit189.haroo.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -32,19 +30,17 @@ public class FeedDetailHandler extends HttpServlet {
 
     try {
       Feed feed = feedService.get(no);
-      List<Comment> comments = commentService.get(no);
+      List<Comment> comments = commentService.list(no);
 
+      //      HttpSession session = request.getSession();
       request.setAttribute("feed", feed);
       request.setAttribute("comments", comments);
 
       response.setContentType("text/html;charset=UTF-8");
-
       request.getRequestDispatcher("/jsp/feed/detail.jsp").include(request, response);
 
     } catch (Exception e) {
-      StringWriter strWriter = new StringWriter();
-      PrintWriter printWriter = new PrintWriter(strWriter);
-      e.printStackTrace(printWriter);
+      throw new ServletException(e);
     }
   }
 }

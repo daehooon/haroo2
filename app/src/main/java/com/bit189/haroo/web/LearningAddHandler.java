@@ -64,6 +64,7 @@ public class LearningAddHandler extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    ServiceInfoService serviceInfoService = (ServiceInfoService) request.getServletContext().getAttribute("serviceInfoService");
     LearningService learningService = (LearningService) request.getServletContext().getAttribute("learningService");
 
     try {

@@ -17,6 +17,7 @@ import com.bit189.haroo.dao.LearningDao;
 import com.bit189.haroo.dao.LearningReviewDao;
 import com.bit189.haroo.dao.LearningReviewRecommendDao;
 import com.bit189.haroo.dao.LearningScheduleDao;
+import com.bit189.haroo.dao.LikeDao;
 import com.bit189.haroo.dao.MemberDao;
 import com.bit189.haroo.dao.NarrowCategoryDao;
 import com.bit189.haroo.dao.PostDao;
@@ -31,9 +32,11 @@ import com.bit189.haroo.service.CommentService;
 import com.bit189.haroo.service.FeedService;
 import com.bit189.haroo.service.LearningReviewService;
 import com.bit189.haroo.service.LearningService;
+import com.bit189.haroo.service.LikeService;
 import com.bit189.haroo.service.MemberService;
 import com.bit189.haroo.service.NarrowCategoryService;
 import com.bit189.haroo.service.PostService;
+import com.bit189.haroo.service.ReCommentService;
 import com.bit189.haroo.service.ServiceQuestionService;
 import com.bit189.haroo.service.SidoService;
 import com.bit189.haroo.service.SigunguService;
@@ -43,9 +46,11 @@ import com.bit189.haroo.service.impl.DefaultCommentService;
 import com.bit189.haroo.service.impl.DefaultFeedService;
 import com.bit189.haroo.service.impl.DefaultLearningReviewService;
 import com.bit189.haroo.service.impl.DefaultLearningService;
+import com.bit189.haroo.service.impl.DefaultLikeService;
 import com.bit189.haroo.service.impl.DefaultMemberService;
 import com.bit189.haroo.service.impl.DefaultNarrowCategoryService;
 import com.bit189.haroo.service.impl.DefaultPostService;
+import com.bit189.haroo.service.impl.DefaultReCommentService;
 import com.bit189.haroo.service.impl.DefaultServiceQuestionService;
 import com.bit189.haroo.service.impl.DefaultSidoService;
 import com.bit189.haroo.service.impl.DefaultSigunguService;
@@ -76,8 +81,7 @@ public class ContextLoaderListener implements ServletContextListener {
       ReCommentDao reCommentDao = daoFactory.createDao(ReCommentDao.class);
       TutorDao tutorDao = daoFactory.createDao(TutorDao.class);
       PostDao postDao = daoFactory.createDao(PostDao.class);
-      //      AttachedFileDao attachedFileDao = daoFactory.createDao(AttachedFileDao.class);
-
+      LikeDao likeDao = daoFactory.createDao(LikeDao.class);
       ServiceInfoDao serviceInfoDao = daoFactory.createDao(ServiceInfoDao.class);
       LearningDao learningDao = daoFactory.createDao(LearningDao.class);
       BroadCategoryDao broadCategoryDao = daoFactory.createDao(BroadCategoryDao.class);
@@ -98,11 +102,11 @@ public class ContextLoaderListener implements ServletContextListener {
       TransactionManager txManager = new TransactionManager(sqlSessionFactoryProxy);
 
       MemberService memberService = new DefaultMemberService(memberDao);
-      FeedService feedService = new DefaultFeedService(feedDao, commentDao, reCommentDao);
+      FeedService feedService = new DefaultFeedService(feedDao, commentDao, likeDao, postDao);
       CommentService commentService = new DefaultCommentService(commentDao);
+      ReCommentService reCommentService = new DefaultReCommentService(reCommentDao);
       TutorService tutorService = new DefaultTutorService(tutorDao); // 확인 바람!!!
       PostService postService = new DefaultPostService(postDao);
-      //      AttachedFileService attachedFileService = new DefaultAttachedFileService(attachedFileDao);
 
       LearningService learningService = new DefaultLearningService(txManager, serviceInfoDao, learningDao, learningScheduleDao);
       BroadCategoryService broadCategoryService = new DefaultBroadCategoryService(broadCategoryDao);
@@ -111,12 +115,13 @@ public class ContextLoaderListener implements ServletContextListener {
       SigunguService sigunguService = new DefaultSigunguService(sigunguDao);
 
       // LearningApplicationService learningApplicationService = new DefaultLearningApplicationService(learningApplicationDao, null);
-      ServiceQuestionService serviceQuestionService = new DefaultServiceQuestionService(serviceQuestionDao);
+      ServiceQuestionService serviceQuestionService = new DefaultServiceQuestionService(txManager, serviceQuestionDao, postDao);
 
       //    LearningApplicationService learningApplicationService = new DefaultLearningApplicationService(learningApplicationDao, null);
 
       LearningReviewService learningReviewService = new DefaultLearningReviewService(
           txManager, learningReviewDao, learningReviewRecommendDao);
+      LikeService likeService = new DefaultLikeService(likeDao);
 
 
       // 4) 서비스 객체를 ServletContext 보관소에 저장한다.
@@ -124,7 +129,6 @@ public class ContextLoaderListener implements ServletContextListener {
       servletContext.setAttribute("feedService", feedService);
       servletContext.setAttribute("commentService", commentService);
       servletContext.setAttribute("postService", postService);
-      //      servletContext.setAttribute("attachedFileService", attachedFileService);
 
       servletContext.setAttribute("learningService", learningService);
       servletContext.setAttribute("broadCategoryService", broadCategoryService);
@@ -137,6 +141,8 @@ public class ContextLoaderListener implements ServletContextListener {
 
       //    servletContext.setAttribute("learningApplicationService", learningApplicationService);
       servletContext.setAttribute("learningReviewService", learningReviewService);
+      servletContext.setAttribute("likeService", likeService);
+      servletContext.setAttribute("reCommentService", reCommentService);
 
       System.out.println("ContextLoaderListener: 의존 객체를 모두 준비하였습니다.");
 

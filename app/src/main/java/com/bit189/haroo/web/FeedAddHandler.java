@@ -1,7 +1,7 @@
 package com.bit189.haroo.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import com.bit189.haroo.domain.AttachedFile;
 import com.bit189.haroo.domain.Feed;
+import com.bit189.haroo.domain.Member;
 import com.bit189.haroo.domain.Post;
 import com.bit189.haroo.domain.Tutor;
 import com.bit189.haroo.service.FeedService;
@@ -34,54 +35,41 @@ public class FeedAddHandler extends HttpServlet{
   }
 
   @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
+    response.setContentType("text/html;charset=UTF-8");
+    request.getRequestDispatcher("/jsp/feed/form.jsp").include(request, response);
+  }
+
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     FeedService feedService = (FeedService) request.getServletContext().getAttribute("feedService");
     PostService postService = (PostService) request.getServletContext().getAttribute("postService");
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<title>스토리 등록</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>스토리 등록</h1>");
 
     try {
       Post post = new Post();
       post.setContent(request.getParameter("content"));
-      postService.add(post);
+      //      postService.add(post);
+
+      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+      // 로그인유저가 튜터인지 확인하는 코드 작성 필요
+      Tutor tutor = new Tutor();
+      tutor.setNo(loginUser.getNo());
 
       Feed feed = new Feed();
-      Tutor tutor = new Tutor();
-      tutor.setNo(3);
       feed.setWriter(tutor);
-      feedService.add(post.getNo(), feed);
+      feedService.add(post, feed);
 
-      //      String[] fileName = request.getParameterValues("file");
-      //      if (fileName != null) {
-      //        for (String file : fileName) {
-      //          AttachedFile f = new AttachedFile();
-      //
-      //          f.setName(file);
-      //          f.setPostNo(post.getNo());
-      //
-      //          postService.addFile(f);
-      //        }
-      //      }
-
-      //      Part part = request.getPart("file");
-      //      System.out.println("part : " + part);
-      //
-      //      for (Part p : request.getParts()) {
-      //        System.out.println("p : " + p);
-      //      }
-
-      //      for (String file : request.getParameterValues("file")) {
+      Collection<Part> files = request.getParts();
+      for (Part file : files) {
+        if (file.getName().equals("file") && file.getSize() > 0) {
+          System.out.println(">" + file.getSubmittedFileName());
+        }
+      }
       Part photoPart = request.getPart("file");
       if (photoPart.getSize() > 0) {
         // 파일을 선택해서 업로드 했다면,
@@ -94,7 +82,7 @@ public class FeedAddHandler extends HttpServlet{
 
         // 썸네일 이미지 생성
         Thumbnails.of(this.uploadDir + "/" + filename)
-        .size(10, 10)
+        .size(330, 220)
         .outputFormat("jpg")
         .crop(Positions.CENTER)
         .toFiles(new Rename() {
@@ -105,7 +93,7 @@ public class FeedAddHandler extends HttpServlet{
         });
 
         Thumbnails.of(this.uploadDir + "/" + filename)
-        .size(20, 20)
+        .size(500, 500)
         .outputFormat("jpg")
         .crop(Positions.CENTER)
         .toFiles(new Rename() {
@@ -115,7 +103,6 @@ public class FeedAddHandler extends HttpServlet{
           }
         });
       }
-      //      }
 
       response.sendRedirect("list");
 

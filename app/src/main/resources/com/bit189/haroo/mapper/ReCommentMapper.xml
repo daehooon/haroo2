@@ -9,33 +9,82 @@
 
   <resultMap id="reCommentMap" type="ReComment">
 	  <id column="recom_no" property="no"/>
+	  <result column="com_no" property="commentNo"/>
 	  <result column="content" property="content"/>
 	  <result column="rdttm" property="registeredDate"/>
+	  <result column="recom_stat" property="state"/>
 	  
 	  <association property="reWriter" javaType="Member"> <!-- 대댓글작성자 -->
-	    <id column="rmmno" property="no"/>
-	   <result column="profrmprofile_picile_pic" property="profilePicture"/>
-	   <result column="rmname" property="name"/>
-	   <result column="rmnickname" property="nickname"/>
+	    <id column="rwmno" property="no"/>
+	   <result column="rwprofile_pic" property="profilePicture"/>
+	   <result column="rwname" property="name"/>
+	   <result column="rwnickname" property="nickname"/>
 	  </association>
 	  
 	  <association property="taggedMember" javaType="Member"> <!-- 대댓글에서 태그된 멤버 -->
-	    <id column="rmmno" property="no"/>
-	    <result column="rmname" property="name"/>
-	    <result column="rmnickname" property="nickname"/>
+	    <id column="tmmno" property="no"/>
+	    <result column="tmname" property="name"/>
+	    <result column="tmnickname" property="nickname"/>
 	  </association>
   </resultMap>
   
-  
-  <select id="reCommentCount" resultType="String" parameterType="int">
-		select
-		  count(*)
-		from
-		  har_recomment
-		where
-		  com_no=#{no}
-		  and recom_stat=1
+  <select id="findAll" resultMap="reCommentMap">
+    select
+      r.recom_no,
+      r.com_no,
+      r.content,
+      r.rdttm,
+      r.recom_stat,
+      rw.mno as rwmno,
+      rw.profile_pic as rwprofile_pic,
+      rw.name as rwname,
+      rw.nickname as rwnickname,
+      tm.mno as tmmno,
+      tm.name as tmname,
+      tm.nickname as tmnickname
+    from
+      har_recomment r
+      inner join har_member rw on r.mno=rw.mno
+      inner join har_member tm on r.tagged_mem=tm.mno
+    where
+      r.recom_stat=1
   </select>
+  
+  <select id="findByReComment" resultMap="reCommentMap" parameterType="int">
+	  select
+			r.recom_no,
+			r.com_no,
+			r.content,
+			r.rdttm,
+			r.recom_stat,
+			rw.mno as rwmno,
+			rw.profile_pic as rwprofile_pic,
+			rw.name as rwname,
+			rw.nickname as rwnickname,
+			tm.mno as tmmno,
+			tm.name as tmname,
+			tm.nickname as tmnickname
+		from
+			har_recomment r
+			inner join har_member rw on r.mno=rw.mno
+			inner join har_member tm on r.tagged_mem=tm.mno
+		where
+		  r.recom_stat=1
+		  and r.recom_no=#{no}
+  </select>
+  
+  <insert id="insert" parameterType="ReComment">
+    insert into har_recomment (recom_no, com_no, mno, content, tagged_mem)
+    values (#{no}, #{commentNo}, #{reWriter.no}, #{content}, #{taggedMember.no})
+  </insert>
+  
+  <delete id="delete" parameterType="int">
+    update har_recomment set
+        recom_stat=0
+    where recom_no = #{no}
+  </delete>
+  
+  
   
   
   

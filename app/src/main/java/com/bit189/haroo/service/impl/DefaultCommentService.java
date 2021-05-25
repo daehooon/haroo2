@@ -6,8 +6,8 @@ import com.bit189.haroo.domain.Comment;
 import com.bit189.haroo.service.CommentService;
 
 public class DefaultCommentService implements CommentService{
-
   CommentDao commentDao;
+
 
   public DefaultCommentService(CommentDao commentDao) {
     this.commentDao = commentDao;
@@ -17,9 +17,22 @@ public class DefaultCommentService implements CommentService{
   public int add(Comment comment) throws Exception {
     return commentDao.insert(comment);
   }
-
+ 
   @Override
-  public List<Comment> get(int feedNo) throws Exception {
+  public List<Comment> list(int feedNo) throws Exception {
     return commentDao.findByComments(feedNo);
   }
+
+  @Override
+  public Comment get(int commentNo) throws Exception {
+    return commentDao.findByComment(commentNo);
+  }
+
+  @Override
+  public int delete(int commentNo) throws Exception {
+    return commentDao.delete(commentNo);
+  }
+
+
+
 }

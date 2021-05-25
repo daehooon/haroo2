@@ -30,31 +30,30 @@ public class DefaultLearningReviewService implements LearningReviewService {
   }
 
   @Override
-  public List<LearningReview> listByLearning(int learningNo, int sortingStd, boolean isAsc)
+  public List<LearningReview> listByLearning(int learningNo, String sortingItem, String sortingType)
       throws Exception {
     HashMap<String,Object> params = new HashMap<>();
     params.put("learningNo", learningNo);
-    params.put("srtingStd", sortingStd);
-    params.put("isAsc", params);
+    params.put("sortingItem", sortingItem);
+    params.put("sortingType", sortingType);
 
     return learningReviewDao.findListByLearningNo(params);
   }
 
   @Override
-  public List<LearningReview> listByMember(int memberNo, int sortingStd, boolean isAsc)
+  public List<LearningReview> listByMember(int memberNo, String sortingItem, String sortingType)
       throws Exception {
     HashMap<String,Object> params = new HashMap<>();
     params.put("memberNo", memberNo);
-    params.put("srtingStd", sortingStd);
-    params.put("isAsc", params);
+    params.put("sortingItem", sortingItem);
+    params.put("sortingType", sortingType);
 
     return learningReviewDao.findListByMemberNo(params);
   }
 
   @Override
-  public LearningReview get(int postNo) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+  public LearningReview get(int reviewNo) throws Exception {
+    return learningReviewDao.findByNo(reviewNo);
   }
 
   @Override

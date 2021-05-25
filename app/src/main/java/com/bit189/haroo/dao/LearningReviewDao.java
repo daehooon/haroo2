@@ -11,11 +11,9 @@ public interface LearningReviewDao {
 
   List<LearningReview> findListByMemberNo(Map<String,Object> params) throws Exception;
 
-  LearningReview findByNo(int pno) throws Exception;
+  LearningReview findByNo(int reviewNo) throws Exception;
 
   int update(LearningReview review) throws Exception;
 
   List<LearningReview> findByKeyword(String keyword) throws Exception;
-  
-  int delete(int no) throws Exception;
 }

@@ -19,11 +19,19 @@ public class DefaultPostService implements PostService{
     return postDao.insert(post);
   }
 
+  @Override
+  public int delete(int feedNo) throws Exception {
+    return postDao.delete(feedNo);
+  }
+
 
   @Override
   public int addFile(AttachedFile file) throws Exception {
     return postDao.insertFile(file);
   }
+
+
+
 
 
 }

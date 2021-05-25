@@ -12,7 +12,7 @@ public interface ServiceQuestionDao {
 
   Question findByNo(int no) throws Exception;
 
-  int update(Question Question) throws Exception;
+  int update(Question question) throws Exception;
 
   int delete(int no) throws Exception;
 

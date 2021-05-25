@@ -34,6 +34,7 @@
     <mapper resource="com/bit189/haroo/mapper/FeedMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/CommentMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/ReCommentMapper.xml"/>
+    <mapper resource="com/bit189/haroo/mapper/LikeMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/MemberMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/LearningReviewMapper.xml"/>
     <mapper resource="com/bit189/haroo/mapper/ServiceQuestionMapper.xml"/>

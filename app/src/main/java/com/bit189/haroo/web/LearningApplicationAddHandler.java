@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bit189.haroo.domain.LearningApplication;
 import com.bit189.haroo.domain.LearningSchedule;
 import com.bit189.haroo.service.LearningApplicationService;
+import com.bit189.haroo.service.LearningScheduleService;
 
 @SuppressWarnings("serial")
 @WebServlet("/application/add")
@@ -19,12 +20,11 @@ public class LearningApplicationAddHandler extends HttpServlet{
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    // LearningScheduleService 삭제해서 주석 처리했음 - 대훈
-    //    LearningScheduleService learningScheduleService = (LearningScheduleService)
-    //        request.getServletContext().getAttribute("learningSchedules");
+    LearningScheduleService learningScheduleService = (LearningScheduleService)
+        request.getServletContext().getAttribute("learningSchedules");
 
     try {  
-      //      request.setAttribute("learningSchedules", learningScheduleService.list());
+      request.setAttribute("learningSchedules", learningScheduleService.list());
 
       response.setContentType("text/html;charset=UTF-8");
       request.getRequestDispatcher("/jsp/learningApplication/form.jsp").include(request, response);

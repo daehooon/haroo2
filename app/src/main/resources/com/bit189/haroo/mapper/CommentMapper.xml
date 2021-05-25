@@ -12,6 +12,7 @@
     <result column="feed_no" property="feedNo"/>
     <result column="comment" property="content"/>
     <result column="com_dttm" property="registeredDate"/>
+    <result column="com_stat" property="state"/>
     
     <association property="writer" javaType="Member"> <!-- 댓글작성자 -->
       <id column="wmno" property="no"/>
@@ -24,6 +25,7 @@
       <id column="recom_no" property="no"/>
       <result column="content" property="content"/>
       <result column="rdttm" property="registeredDate"/>
+      <result column="recom_stat" property="state"/>
       
       <association property="reWriter" javaType="Member"> <!-- 대댓글작성자 -->
         <id column="rmmno" property="no"/>
@@ -47,6 +49,7 @@
 	    c.feed_no,
 	    c.comment,
 	    c.com_dttm,
+	    c.com_stat,
 	    m.mno as wmno,
 	    m.name as wname,
 	    m.nickname as wnickname,
@@ -54,6 +57,7 @@
 	    r.recom_no,
 	    r.content,
 	    r.rdttm,
+	    r.recom_stat,
 	    rm.mno as rmmno,
 	    rm.name as rmname,
 	    rm.nickname as rmnickname,
@@ -68,13 +72,28 @@
 	    left join har_member rm on r.mno=rm.mno
 	    left join har_member tm on r.tagged_mem=tm.mno
 		where
-      c.feed_no=#{no}
-      and c.com_stat=1
-			or 
-			c.feed_no=#{no}
-			and c.com_stat=1
-			and r.recom_stat=1
-		order by c.com_no, r.recom_no
+		  c.feed_no=#{no}
+		  and c.com_stat=1
+		order by c.com_dttm desc, c.com_no desc, r.rdttm desc
+  </select>
+  
+  
+  <select id="findByComment" parameterType="int" resultMap="commentMap">
+    select
+	    c.com_no,
+	    c.feed_no,
+	    c.com_stat,
+	    c.comment,
+	    c.mno as wmno,
+	    m.name as wname,
+	    m.nickname as wnickname
+	  from 
+	    har_comment c
+	    inner join har_member m on c.mno=m.mno
+	  where
+	    c.com_no=#{no}
+      and m.mstat=1
+      and c.com_stat=1;
   </select>
   
   
@@ -82,6 +101,19 @@
     insert into har_comment (feed_no, mno, comment)
     value (#{feedNo}, #{writer.no}, #{content})
   </insert>
+  
+  <delete id="delete" parameterType="int">
+    update har_comment set
+        com_stat=0
+    where com_no = #{no}
+  </delete>
+  
+  
+  <select id="commentCount" parameterType="int" resultType="String">
+    select 
+    (select count(*) from har_comment where feed_no=#{no} and com_stat=1) +
+    (select count(*) from har_recomment r inner join har_comment c on r.com_no=c.com_no where c.feed_no=#{no} and r.recom_stat=1 and c.com_stat=1) com_cnt
+  </select>
   
   
   

@@ -36,7 +36,6 @@
       <result column="lno" property="learningNo"/>
       <result column="date" property="learningDate"/>
       <result column="etm" property="endTime"/>
-      <result column="sstat" property="state"/>
     </association>
     
     <collection property="attachedFiles" ofType="AttachedFile">
@@ -53,6 +52,7 @@
       title,
       sname,
       avg_rate,
+      rate,
       name,
       nickname,
       mstat,
@@ -62,32 +62,19 @@
   </sql>
   
   <sql id="sortingOrderBy">
-    order by
-    <if test="sortingStd == 2">
-      avg_rate 
-      <if test="isAsc == true">
-      asc,
-      </if>
-      <if test="isAsc == false">
-      desc,
-      </if>
-    </if>
-    <if test="sortingStd == 3">
-      rcm_cnt
-      <if test="isAsc == true">
-      asc,
-      </if>
-      <if test="isAsc == false">
-      desc,
-      </if>
-    </if>
-      pno 
-      <if test="isAsc == true">
-      asc;
-      </if>
-      <if test="isAsc == false">
-      desc;
-      </if>
+    <trim prefix="order by">
+    <choose>
+    <when test="sortingItem == 'rate'">
+      rate ${sortingType}
+    </when>
+    <when test="sortingItem == 'rcm_cnt'">
+      rcm_cnt ${sortingType}
+    </when>
+    <otherwise>
+      pno ${sortingType}
+    </otherwise>
+    </choose>
+    </trim>
   </sql>
   
   <select id="findListByLearningNo" resultMap="LearningReviewMap" parameterType="map">
@@ -101,40 +88,34 @@
   <select id="findListByMemberNo" resultMap="LearningReviewMap" parameterType="map">
     <include refid="selectList"/>
     where
-      lno = #{memberNo}
+      mno = #{memberNo}
       and pstat = 1
     <include refid="sortingOrderBy"/>
   </select>
   
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <select id="findByNo" resultMap="LearningReviewMap" parameterType="int">
+    select
+		  pno,
+		  content,
+		  wdttm,
+		  view_cnt,
+		  pstat,
+		  title,
+		  rate,
+		  rcm_cnt,
+		  mno,
+		  profile_pic,
+		  name,
+		  nickname,
+		  mstat,
+		  lno,
+		  sname,
+		  sstat
+		from
+		  har_vi_lrnrv
+		where
+		  pno = #{reviewNo}
+  </select>
 </mapper>
   
   

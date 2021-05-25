@@ -1,6 +1,6 @@
 package com.bit189.haroo.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class ReComment {
   private int no;

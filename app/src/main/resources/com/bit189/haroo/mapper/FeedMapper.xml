@@ -76,15 +76,6 @@
   order by d.feed_no
   </select>
   
-  <select id="likeCount" parameterType="int" resultType="String">
-  select 
-    count(feed_no)
-  from 
-    har_feed_like
-  where
-    feed_no = #{no}
-  </select>
-  
   <insert id="insert" parameterType="Map">
     insert into har_feed (feed_no, tno)
     values (#{no}, #{feed.writer.no})

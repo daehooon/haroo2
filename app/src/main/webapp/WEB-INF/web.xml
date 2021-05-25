@@ -31,10 +31,10 @@
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-	
+  
 <!-- 서블릿 등록 및 서블릿의 URL 설정 -->
 <!--
-	<servlet>
+  <servlet>
     <servlet-name>AppInitHandler</servlet-name>
     <servlet-class>com.bit189.haroo.web.AppInitHandler</servlet-class>
     <init-param>
@@ -55,12 +55,12 @@
     <location>/error/error404.html</location>
   </error-page>
   
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>
