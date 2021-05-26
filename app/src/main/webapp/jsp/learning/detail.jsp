@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri=" http://java.sun.com/jsp/jstl/fmt "%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +32,8 @@
     <c:set var="profilePictureUrl">../images/person_30x30.jpg</c:set>
   </c:if>
 
+  <fmt:formatDate value="${learning.registeredDate}" pattern="yyyy-MM-dd hh:mm:ss" var="registeredDate"/>
+
 	<table border='1'>
 		<tbody>
 			<tr><th>커버이미지</th>
@@ -42,7 +45,7 @@
 			<tr><th>광역시도</th> <td>${learning.sido}</td></tr>
 			<tr><th>시군구</th> <td>${learning.sigungu}</td></tr>
 			<tr><th>평균평점</th> <td>${learning.averageRate}</td></tr>
-			<tr><th>등록일</th> <td>${learning.registeredDate}</td></tr>
+			<tr><th>등록일</th> <td>${registeredDate}</td></tr>
 			<tr><th>본문</th> <td>${learning.intro}</td></tr>
 			<tr><th>진행순서</th> <td>${learning.progressOrder}</td></tr>
 			

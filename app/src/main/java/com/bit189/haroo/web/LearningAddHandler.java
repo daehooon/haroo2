@@ -1,6 +1,8 @@
 package com.bit189.haroo.web;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,8 +30,6 @@ import net.coobird.thumbnailator.name.Rename;
 @WebServlet("/learning/add")
 public class LearningAddHandler extends HttpServlet {
 
-  List<LearningSchedule> schedules = new ArrayList<LearningSchedule>();
-  LearningSchedule schedule = new LearningSchedule();
   private String uploadDir;
 
   @Override
@@ -64,7 +64,6 @@ public class LearningAddHandler extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    ServiceInfoService serviceInfoService = (ServiceInfoService) request.getServletContext().getAttribute("serviceInfoService");
     LearningService learningService = (LearningService) request.getServletContext().getAttribute("learningService");
 
     try {
@@ -93,11 +92,13 @@ public class LearningAddHandler extends HttpServlet {
       l.setMinPeople(Integer.parseInt(request.getParameter("minPeople")));
       l.setMaxPeople(Integer.parseInt(request.getParameter("maxPeople")));
 
-      //      schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
-      //      schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime")));
-      //      schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime")));
-      //      schedules.add(schedule);
-      //      l.setSchedules(schedules);
+      List<LearningSchedule> schedules = new ArrayList<LearningSchedule>();
+      LearningSchedule schedule = new LearningSchedule();
+      schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
+      schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime")));
+      schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime")));
+      schedules.add(schedule);
+      learningService.addSchedule(schedules);
 
       l.setPrice(Integer.parseInt(request.getParameter("price")));
 
@@ -130,7 +131,7 @@ public class LearningAddHandler extends HttpServlet {
         });
       }
 
-      learningService.add(l, l, schedule);
+      learningService.add(l, l);
 
       // list말고 detail?
       response.sendRedirect("list");

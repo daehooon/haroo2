@@ -7,7 +7,9 @@ import com.bit189.haroo.domain.ServiceInfo;
 
 public interface LearningService {
 
-  int add(ServiceInfo serviceInfo, Learning learning, LearningSchedule learningSchedule) throws Exception;
+  int add(ServiceInfo serviceInfo, Learning learning) throws Exception;
+
+  int addSchedule(List<LearningSchedule> schedule) throws Exception;
 
   List<Learning> list() throws Exception;
 
