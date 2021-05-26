@@ -92,13 +92,13 @@ public class LearningAddHandler extends HttpServlet {
       l.setMinPeople(Integer.parseInt(request.getParameter("minPeople")));
       l.setMaxPeople(Integer.parseInt(request.getParameter("maxPeople")));
 
-      List<LearningSchedule> schedules = new ArrayList<LearningSchedule>();
+      List<LearningSchedule> schedules = new ArrayList<>();
       LearningSchedule schedule = new LearningSchedule();
       schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
       schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime")));
       schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime")));
       schedules.add(schedule);
-      learningService.addSchedule(schedules);
+      l.setSchedules(schedules);
 
       l.setPrice(Integer.parseInt(request.getParameter("price")));
 

@@ -13,12 +13,6 @@
     <result column="lno" property="learningNo"/>
   </resultMap>
   
-  <insert id="insert" parameterType="learningSchedule">
-    insert into
-      har_schedule(date,stm,etm,lno)
-      values(#{date},#{stm},#{etm},#{lno})
-  </insert>
-  
 </mapper>
 
 

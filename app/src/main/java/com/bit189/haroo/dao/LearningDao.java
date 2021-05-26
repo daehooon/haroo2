@@ -1,11 +1,14 @@
 package com.bit189.haroo.dao;
 
 import java.util.List;
+import java.util.Map;
 import com.bit189.haroo.domain.Learning;
 
 public interface LearningDao {
 
-  int insert(Learning learning) throws Exception;
+  int insert(Map<String,Object> param) throws Exception;
+
+  int insertSchedules(Map<String,Object> param2) throws Exception;
 
   List<Learning> findAll() throws Exception;
 
