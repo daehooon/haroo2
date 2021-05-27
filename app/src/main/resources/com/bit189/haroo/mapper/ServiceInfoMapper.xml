@@ -17,7 +17,7 @@
     <result column="ncat_name" property="narrowCategory"/>
   </resultMap>
   
-  <insert id="insert" parameterType="serviceInfo">
+  <insert id="insert" parameterType="serviceInfo" useGeneratedKeys="true" keyColumn="sno" keyProperty="no">
     insert into har_service(sname,sintro,cov_img,ncat_no)
     values(#{name},#{intro},#{coverImage},#{narrowCategoryNo})
   </insert>

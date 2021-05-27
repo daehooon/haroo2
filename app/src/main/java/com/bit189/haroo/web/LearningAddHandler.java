@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import com.bit189.haroo.domain.Learning;
 import com.bit189.haroo.domain.LearningSchedule;
+import com.bit189.haroo.domain.Member;
+import com.bit189.haroo.domain.ServiceInfo;
+import com.bit189.haroo.domain.Tutor;
 import com.bit189.haroo.service.BroadCategoryService;
 import com.bit189.haroo.service.LearningService;
 import com.bit189.haroo.service.NarrowCategoryService;
@@ -72,12 +75,20 @@ public class LearningAddHandler extends HttpServlet {
        * 우편번호 API (기본주소, 광역시도명, 시군구명 자동출력),
        * 상세주소, 서비스소개, 진행순서, 환불정보, 최소인원수, 최대인원수,
        * 날짜, 시작시각, 종료시각,
-       * 가격 
+       * 가격
        */
+      ServiceInfo s = new ServiceInfo();
       Learning l = new Learning();
-      l.setName(request.getParameter("name"));
-      l.setBroadCategoryNo(Integer.parseInt(request.getParameter("broadCategoryNo")));
-      l.setNarrowCategoryNo(Integer.parseInt(request.getParameter("narrowCategoryNo")));
+
+      // 개설자
+      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+      Tutor tutor = new Tutor();
+      tutor.setNo(loginUser.getNo());
+      l.setOwner(tutor);
+
+      s.setName(request.getParameter("name"));
+      s.setBroadCategoryNo(Integer.parseInt(request.getParameter("broadCategoryNo")));
+      s.setNarrowCategoryNo(Integer.parseInt(request.getParameter("narrowCategoryNo")));
 
       // 추후 우편번호 API로 교체
       l.setZipcode(request.getParameter("zipcode"));
@@ -86,7 +97,7 @@ public class LearningAddHandler extends HttpServlet {
       l.setSigunguNo(Integer.parseInt(request.getParameter("sigunguNo")));
 
       l.setDetailAddress(request.getParameter("detailAddress"));
-      l.setIntro(request.getParameter("intro"));
+      s.setIntro(request.getParameter("intro"));
       l.setProgressOrder(request.getParameter("progressOrder"));
       l.setRefundInformation(request.getParameter("refundInformation"));
       l.setMinPeople(Integer.parseInt(request.getParameter("minPeople")));
@@ -106,7 +117,7 @@ public class LearningAddHandler extends HttpServlet {
       if (coverImagePart.getSize() > 0) {
         String filename = UUID.randomUUID().toString();
         coverImagePart.write(this.uploadDir + "/" + filename);
-        l.setCoverImage(filename);
+        s.setCoverImage(filename);
 
         Thumbnails.of(this.uploadDir + "/" + filename)
         .size(80, 80)
@@ -131,7 +142,7 @@ public class LearningAddHandler extends HttpServlet {
         });
       }
 
-      learningService.add(l, l);
+      learningService.add(s, l);
 
       // list말고 detail?
       response.sendRedirect("list");

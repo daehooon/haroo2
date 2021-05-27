@@ -6,7 +6,7 @@ import com.bit189.haroo.domain.ServiceInfo;
 
 public interface ServiceInfoDao {
 
-  int insert(ServiceInfo serviceInfo) throws Exception;
+  int insert(ServiceInfo serivceInfo) throws Exception;
 
   int insertSchedule(List<LearningSchedule> schedule) throws Exception;
 

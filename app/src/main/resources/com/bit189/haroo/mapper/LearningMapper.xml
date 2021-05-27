@@ -8,7 +8,7 @@
   <resultMap id="learningMap" type="learning">
   
     <!-- domain.ServiceInfo -->
-    <id column="sno" property="no"/>
+    <id column="lno" property="no"/>
     <result column="sname" property="name"/>
     <result column="sintro" property="intro"/>
     <result column="cov_img" property="coverImage"/>
@@ -45,7 +45,7 @@
       <result column="prom_dttm" property="promotedDate"/>
     </association>
     
-    <collection property="schedules" ofType="LearningSchedule">
+    <collection property="schedules" ofType="learningSchedule">
       <id column="sche_no" property="no"/>
       <result column="lno" property="learningNo"/>
       <result column="date" property="learningDate"/>
@@ -54,9 +54,17 @@
     </collection>
   </resultMap>
   
-  <insert id="insert" parameterType="learning">
-    insert into har_learning(min_head,max_head,curriculum,price,zipcode,addr,det_addr,rfnd_info,sgg_no)
-    values(#{minPeople},#{maxPeople},#{progressOrder},#{price},#{zipcode},#{address},#{detailAddress},#{refundInformation},#{sigunguNo})
+  <insert id="insert" parameterType="Map">
+    insert into har_learning(lno,tno,min_head,max_head,curriculum,price,zipcode,addr,det_addr,rfnd_info,sgg_no)
+    values(#{no},#{learning.owner.no},#{minPeople},#{maxPeople},#{progressOrder},#{price},#{zipcode},#{address},#{detailAddress},#{refundInformation},#{sigunguNo})
+  </insert>
+  
+  <insert id="insertSchedules" parameterType="Map">
+    insert into har_schedule(lno,date,stm,etm)
+    values
+    <foreach collection="schedules" item="s" separator=",">
+      (#{s.no},#{learningNo},#{learningDate},#{startTime},#{endTime})
+    </foreach>
   </insert>
   
   <!-- PK번호만 기입하였음 -->

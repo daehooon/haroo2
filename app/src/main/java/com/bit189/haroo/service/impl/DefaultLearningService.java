@@ -2,7 +2,6 @@ package com.bit189.haroo.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-import com.bit189.Mybatis.TransactionCallback;
 import com.bit189.Mybatis.TransactionManager;
 import com.bit189.Mybatis.TransactionTemplate;
 import com.bit189.haroo.dao.LearningDao;
@@ -14,7 +13,7 @@ import com.bit189.haroo.service.LearningService;
 
 public class DefaultLearningService implements LearningService {
 
-  TransactionTemplate transactionTemplate;
+  TransactionTemplate transactionTemplate; // 보류
   ServiceInfoDao serviceInfoDao;
   LearningDao learningDao;
   LearningScheduleDao learningScheduleDao; // 보류
@@ -31,24 +30,19 @@ public class DefaultLearningService implements LearningService {
   @Override
   public int add(ServiceInfo serviceInfo, Learning learning) throws Exception {
 
-    return (int) transactionTemplate.execute(new TransactionCallback() {
-      @Override
-      public Object doInTransaction() throws Exception {
-        serviceInfoDao.insert(serviceInfo);
+    int count = serviceInfoDao.insert(serviceInfo);
 
-        HashMap<String,Object> param = new HashMap<>();
-        param.put("no", serviceInfo.getNo());
-        param.put("learning", learning);
-        int count = learningDao.insert(param);
+    HashMap<String,Object> param = new HashMap<>();
+    param.put("no", serviceInfo.getNo());
+    param.put("learning", learning);
+    learningDao.insert(param);
 
-        HashMap<String,Object> param2 = new HashMap<>();
-        param2.put("no", learning.getNo());
-        param2.put("schedules", learning.getSchedules());
-        learningDao.insertSchedules(param2);
+    HashMap<String,Object> param2 = new HashMap<>();
+    param2.put("no", learning.getNo());
+    param2.put("schedules", learning.getSchedules());
+    learningDao.insertSchedules(param2);
 
-        return count;
-      }
-    });
+    return count;
   }
 
   @Override
