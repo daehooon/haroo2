@@ -54,22 +54,15 @@
     </collection>
   </resultMap>
   
-  <insert id="insert" parameterType="Map">
+  <insert id="insert" parameterType="map">
     insert into har_learning(lno,tno,min_head,max_head,curriculum,price,zipcode,addr,det_addr,rfnd_info,sgg_no)
-    values(#{no},#{learning.owner.no},#{minPeople},#{maxPeople},#{progressOrder},#{price},#{zipcode},#{address},#{detailAddress},#{refundInformation},#{sigunguNo})
-  </insert>
-  
-  <insert id="insertSchedules" parameterType="Map">
-    insert into har_schedule(lno,date,stm,etm)
-    values
-    <foreach collection="schedules" item="s" separator=",">
-      (#{s.no},#{learningNo},#{learningDate},#{startTime},#{endTime})
-    </foreach>
+    values(#{no},#{learning.owner.no},#{learning.minPeople},#{learning.maxPeople},#{learning.progressOrder},#{learning.price},#{learning.zipcode},#{learning.address},#{learning.detailAddress},#{learning.refundInformation},#{learning.sigunguNo})
   </insert>
   
   <!-- PK번호만 기입하였음 -->
   <select id="findAll" resultMap="learningMap">
     select
+      l.lno,
       l.min_head,
       l.max_head,
       l.curriculum,
@@ -131,6 +124,7 @@
       m.nickname,
       m.profile_pic,
       m.mrno,
+      l.lno,
       l.curriculum,
       l.rfnd_info,
       n.ncat_name,

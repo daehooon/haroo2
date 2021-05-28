@@ -33,6 +33,8 @@ import net.coobird.thumbnailator.name.Rename;
 @WebServlet("/learning/add")
 public class LearningAddHandler extends HttpServlet {
 
+  //  SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+
   private String uploadDir;
 
   @Override
@@ -108,6 +110,12 @@ public class LearningAddHandler extends HttpServlet {
       schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
       schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime")));
       schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime")));
+
+      //      String timeStart = formatter.format(request.getParameter("learningStartTime"));
+      //      schedule.setStartTime(Time.valueOf(timeStart));
+      //      String timeEnd = formatter.format(request.getParameter("learningEndTime"));
+      //      schedule.setEndTime(Time.valueOf(timeEnd));
+
       schedules.add(schedule);
       l.setSchedules(schedules);
 
@@ -120,13 +128,13 @@ public class LearningAddHandler extends HttpServlet {
         s.setCoverImage(filename);
 
         Thumbnails.of(this.uploadDir + "/" + filename)
-        .size(80, 80)
+        .size(240, 160)
         .outputFormat("jpg")
         .crop(Positions.CENTER)
         .toFiles(new Rename() {
           @Override
           public String apply(String name, ThumbnailParameter param) {
-            return name + "_80x80";
+            return name + "_240x160";
           }
         });
 

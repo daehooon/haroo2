@@ -8,8 +8,6 @@ public interface LearningDao {
 
   int insert(Map<String,Object> param) throws Exception;
 
-  int insertSchedules(Map<String,Object> param2) throws Exception;
-
   List<Learning> findAll() throws Exception;
 
   Learning findByNo(int no) throws Exception;

@@ -32,7 +32,7 @@
     <c:if test="${l.state == true}">
     
       <c:if test="${not empty l.coverImage}">
-        <c:set var="coverUrl">../upload/${l.coverImage}_80x80.jpg</c:set>
+        <c:set var="coverUrl">../upload/${l.coverImage}_240x160.jpg</c:set>
       </c:if>
       <c:if test="${not empty l.owner.profilePicture}">
         <c:set var="profilePictureUrl">../upload/${l.owner.profilePicture}_30x30.jpg</c:set>

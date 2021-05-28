@@ -13,6 +13,14 @@
     <result column="lno" property="learningNo"/>
   </resultMap>
   
+  <insert id="insert" parameterType="map">
+    insert into har_schedule(sche_no,lno,date,stm,etm)
+    values
+    <foreach collection="schedules" item="s" separator=",">
+      (#{s.no},#{learningNo},#{s.learningDate},#{s.startTime},#{s.endTime})
+    </foreach>
+  </insert>
+  
 </mapper>
 
 
