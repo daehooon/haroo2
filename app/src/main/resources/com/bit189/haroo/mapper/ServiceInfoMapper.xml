@@ -21,6 +21,15 @@
     insert into har_service(sname,sintro,cov_img,ncat_no)
     values(#{name},#{intro},#{coverImage},#{narrowCategoryNo})
   </insert>
+  
+  <update id="update" parameterType="serviceInfo">
+    update har_service set
+      sname=#{name},
+      sintro=#{intro},
+      cov_img=#{coverImage},
+      ncat_no=#{narrowCategoryNo}
+    where sno=#{no}
+  </update>
 
   <update id="delete" parameterType="int">
     update har_service set

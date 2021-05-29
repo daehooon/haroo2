@@ -12,7 +12,7 @@ public interface LearningService {
 
   Learning get(int no) throws Exception;
 
-  int update(Learning Learning) throws Exception;
+  int update(ServiceInfo serviceInfo, Learning Learning) throws Exception;
 
   int delete(int no) throws Exception;
 

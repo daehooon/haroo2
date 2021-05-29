@@ -14,7 +14,7 @@ public interface LearningDao {
 
   Learning findByName(String name) throws Exception;
 
-  int update(int no) throws Exception;
+  int update(Map<String,Object> param) throws Exception;
 
   int delete(int no) throws Exception;
 

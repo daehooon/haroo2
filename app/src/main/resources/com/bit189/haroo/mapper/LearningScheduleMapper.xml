@@ -21,6 +21,28 @@
     </foreach>
   </insert>
   
+  <!--
+  <insert id="update" parameterType="map">
+    update har_schedule set
+	    <foreach collection="schedules" item="s" separator=",">
+	      (lno=#{learningNo},
+	       date=#{s.learningDate},
+	       stm=#{s.startTime},
+	       etm=#{s.endTime})
+	       where sche_no=#{s.no}
+	    </foreach>
+  </insert>
+  -->
+  
+  <insert id="update" parameterType="map">
+    update har_schedule set
+      lno=#{learningNo},
+      date=#{s.learningDate},
+      stm=#{s.startTime},
+      etm=#{s.endTime}
+    where sche_no=#{s.no}
+  </insert>
+  
 </mapper>
 
 

@@ -14,7 +14,7 @@ import com.bit189.haroo.service.LearningService;
 
 public class DefaultLearningService implements LearningService {
 
-  TransactionTemplate transactionTemplate; // 보류
+  TransactionTemplate transactionTemplate;
   ServiceInfoDao serviceInfoDao;
   LearningDao learningDao;
   LearningScheduleDao learningScheduleDao;
@@ -63,8 +63,27 @@ public class DefaultLearningService implements LearningService {
   }
 
   @Override
-  public int update(Learning Learning) throws Exception {
-    return 0;
+  public int update(ServiceInfo serviceInfo, Learning learning) throws Exception {
+
+    return (int) transactionTemplate.execute(new TransactionCallback() {
+      @Override
+      public Object doInTransaction() throws Exception {
+
+        int count = serviceInfoDao.update(serviceInfo);
+
+        HashMap<String,Object> param = new HashMap<>();
+        param.put("no", serviceInfo.getNo());
+        param.put("learning", learning);
+        learningDao.update(param);
+
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("learningNo", serviceInfo.getNo());
+        params.put("schedules", learning.getSchedules());
+        learningScheduleDao.update(params);
+
+        return count;
+      }
+    });
   }
 
   @Override

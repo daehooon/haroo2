@@ -33,8 +33,6 @@ import net.coobird.thumbnailator.name.Rename;
 @WebServlet("/learning/add")
 public class LearningAddHandler extends HttpServlet {
 
-  //  SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-
   private String uploadDir;
 
   @Override
@@ -108,13 +106,8 @@ public class LearningAddHandler extends HttpServlet {
       List<LearningSchedule> schedules = new ArrayList<>();
       LearningSchedule schedule = new LearningSchedule();
       schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
-      schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime")));
-      schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime")));
-
-      //      String timeStart = formatter.format(request.getParameter("learningStartTime"));
-      //      schedule.setStartTime(Time.valueOf(timeStart));
-      //      String timeEnd = formatter.format(request.getParameter("learningEndTime"));
-      //      schedule.setEndTime(Time.valueOf(timeEnd));
+      schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime") + ":00"));
+      schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime") + ":00"));
 
       schedules.add(schedule);
       l.setSchedules(schedules);

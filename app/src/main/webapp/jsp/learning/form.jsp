@@ -48,8 +48,8 @@
 최대 인원수: <input type="number" name="maxPeople"><br>
 
 날짜: <input type="date" name="learningDate"><br>
-시작시각: <input type="text" name="learningStartTime"><br>
-종료시각: <input type="text" name="learningEndTime"><br>
+시작시각: <input type="time" name="learningStartTime"><br>
+종료시각: <input type="time" name="learningEndTime"><br>
 
 가격: <input type="number" name="price"><br>
 <input type="submit" value="등록">

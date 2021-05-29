@@ -2,63 +2,61 @@
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
-<title>체험학습 상세</title>
+<meta charset="UTF-8">
+<title>체험학습 수정</title>
 </head>
 <body>
-<h1>체험학습 상세보기</h1>
-
+<h1>체험학습 수정</h1>
 <c:if test="${not empty learning}">
-	<p><a href='/application/add'>체험학습 신청</a></p>
+<form action="update" method="post" enctype="multipart/form-data">
+커버이미지: <input type="file" name="coverImage" value="${learning.coverImage}"><br>
+체험학습 이름(제목): <input type="text" name="name" value="${learning.name}"><br>
 
-  <c:if test="${loginUser.no == learning.owner.no || loginUser.rank == 1}">
-    <p><a href='update?no=${learning.no}'>수정</a></p>
-    <p><a href='delete?no=${learning.no}'>삭제</a></p>
-	</c:if>
+<!-- 기존 분류 가져오기로 수정 -->
+대분류: <select name='broadCategoryNo'>
+<c:forEach items="${broadCategorys}" var="b">
+  <option value='${b.no}'>${b.name}</option>
+</c:forEach>
+</select><br>
+소분류: <select name='narrowCategoryNo'>
+<c:forEach items="${narrowCategorys}" var="n">
+  <option value='${n.no}'>${n.name}</option>
+</c:forEach>
+</select><br>
 
-  <c:if test="${not empty learning.coverImage}">
-    <c:set var="cover800x450Url">../upload/${learning.coverImage}_800x450.jpg</c:set>
-    <c:set var="coverUrl">../upload/${learning.coverImage}</c:set>
-  </c:if>
-  <c:if test="${not empty learning.owner.profilePicture}">
-    <c:set var="profilePictureUrl">../upload/${learning.owner.profilePicture}_30x30.jpg</c:set>
-  </c:if>
-  <c:if test="${empty learning.owner.profilePicture}">
-    <c:set var="profilePictureUrl">../images/person_30x30.jpg</c:set>
-  </c:if>
+<!-- 추후 우편번호 API로 수정 -->
+우편번호: <input type="text" name="zipcode" value="${learning.zipcode}"><br>
+기본주소: <input type="text" name="address" value="${learning.address}"><br>
+<!-- 기존 지역 가져오기로 수정 -->
+광역시도: <select name='sidoNo'>
+<c:forEach items="${sidos}" var="d">
+  <option value='${d.no}'>${d.name}</option>
+</c:forEach>
+</select>
+시군구: <select name='sigunguNo'>
+<c:forEach items="${sigungus}" var="g">
+  <option value='${g.no}'>${g.name}</option>
+</c:forEach>
+</select><br>
 
-  <fmt:formatDate value="${learning.registeredDate}" pattern="yyyy-MM-dd hh:mm:ss" var="registeredDate"/>
+상세주소: <input type="text" name="detailAddress" value="${learning.detailAddress}"><br>
+본문: <textarea name="intro" rows="10" cols="60">${learning.intro}</textarea><br>
+진행순서: <textarea name="progressOrder" rows="10" cols="30"${learning.progressOrder}></textarea><br>
+환불정보: <textarea name="refundInformation" rows="10" cols="30">${learning.refundInformation}</textarea><br>
+최소 인원수: <input type="number" name="minPeople" value="${learning.minPeople}"><br>
+최대 인원수: <input type="number" name="maxPeople" value="${learning.maxPeople}"><br>
 
-	<table border='1'>
-		<tbody>
-			<tr><th>커버이미지</th>
-			  <td><a href='${coverUrl}'>
-			  <img src='${cover800x450Url}'></a><br></td></tr>
-			<tr><th>대분류</th> <td>${learning.broadCategory}</td></tr>
-			<tr><th>소분류</th> <td>${learning.narrowCategory}</td></tr>
-			<tr><th>제목</th> <td>${learning.name}</td></tr>
-			<tr><th>광역시도</th> <td>${learning.sido}</td></tr>
-			<tr><th>시군구</th> <td>${learning.sigungu}</td></tr>
-			<tr><th>평균평점</th> <td>${learning.averageRate}</td></tr>
-			<tr><th>등록일</th> <td>${registeredDate}</td></tr>
-			<tr><th>본문</th> <td>${learning.intro}</td></tr>
-			<tr><th>진행순서</th> <td>${learning.progressOrder}</td></tr>
-			
-			<!-- 튜터 마이페이지 링크 연결하기 -->
-	    <tr><th>튜터사진</th> <td><img src="${profilePictureUrl}"></td></tr>
-			<tr><th>튜터명</th> <td>${learning.owner.nickname}</td></tr>
-			
-			<tr><th>튜터소개</th> <td>${learning.owner.intro}</td></tr>
-			<!-- 맵 api -->
-			<tr><th>환불정보</th> <td>${learning.refundInformation}</td></tr>
-			<tr><th>후기</th> <td><a href='review'>후기</a></td></tr>
-			<tr><th>문의</th> <td><a href='question'>문의</a></td></tr>
-		</tbody>
-	</table>
+날짜: <input type="date" name="learningDate" value="${learningSchedule.learningDate}"><br>
+시작시각: <input type="time" name="learningStartTime" value="${learningSchedule.startTime}"><br>
+종료시각: <input type="time" name="learningEndTime" value="${learningSchedule.endTime}"><br>
+
+가격: <input type="number" name="price" value="${learning.price}"><br>
+<input type="submit" value="변경">
+</form>
 </c:if>
 
 <c:if test="${empty learning}">
@@ -67,3 +65,11 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+

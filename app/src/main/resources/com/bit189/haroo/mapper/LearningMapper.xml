@@ -59,6 +59,20 @@
     values(#{no},#{learning.owner.no},#{learning.minPeople},#{learning.maxPeople},#{learning.progressOrder},#{learning.price},#{learning.zipcode},#{learning.address},#{learning.detailAddress},#{learning.refundInformation},#{learning.sigunguNo})
   </insert>
   
+  <update id="update" parameterType="map">
+    update har_learning set
+      min_head=#{learning.minPeople},
+      max_head=#{learning.maxPeople},
+      curriculum=#{learning.progressOrder},
+      price=#{learning.price},
+      zipcode=#{learning.zipcode},
+      addr=#{learning.address},
+      det_addr=#{learning.detailAddress},
+      rfnd_info=#{learning.refundInformation},
+      sgg_no=#{learning.sigunguNo}
+    where lno=#{no}
+  </update>
+  
   <!-- PK번호만 기입하였음 -->
   <select id="findAll" resultMap="learningMap">
     select
@@ -125,8 +139,15 @@
       m.profile_pic,
       m.mrno,
       l.lno,
+      l.min_head,
+      l.max_head,
       l.curriculum,
+      l.price,
       l.rfnd_info,
+      e.sche_no,
+      e.date,
+      e.stm,
+      e.etm,
       n.ncat_name,
       b.bcat_name,
       g.sgg_name,
@@ -139,6 +160,7 @@
       inner join har_broad_cat b on b.bcat_no=n.bcat_no
       inner join har_sigungu g on g.sgg_no=l.sgg_no
       inner join har_sido d on d.sido_no=g.sido_no
+      inner join har_schedule e on e.lno=l.lno
       inner join har_tutor t on t.tno=l.tno
       inner join har_member m on m.mno=t.tno
     where

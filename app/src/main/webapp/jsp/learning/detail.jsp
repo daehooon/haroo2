@@ -35,6 +35,18 @@
 
 	<table border='1'>
 		<tbody>
+		  <tr><th>가격</th> <td>${learning.price}</td></tr>
+		  
+<%--  <tr><th>체험날짜</th> <td>${learning.schedules.learningDate}</td></tr>
+      <tr><th>시작시간</th> <td>${learning.schedules.startTime}</td></tr>
+      <tr><th>종료시간</th> <td>${learning.schedules.endTime}</td></tr> --%>
+		  
+		  <tr><th>최소인원</th> <td>${learning.minPeople}</td></tr>
+		  <tr><th>최대인원</th> <td>${learning.maxPeople}</td></tr>
+		  
+		  <tr><th>장바구니</th> <td><a href='cart'>장바구니</a></td></tr>
+      <tr><th>찜</th> <td><a href='wishlist'>찜</a></td></tr>
+		  
 			<tr><th>커버이미지</th>
 			  <td><a href='${coverUrl}'>
 			  <img src='${cover800x450Url}'></a><br></td></tr>
