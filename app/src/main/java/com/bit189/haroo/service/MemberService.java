@@ -13,6 +13,10 @@ public interface MemberService {
 
   Member get(String email, String password) throws Exception;
 
+  Member getEmail(String email) throws Exception;
+
+  Member getNickname(String nickname) throws Exception;
+
   Member get(String password) throws Exception; //회원 정보 수정시 비번 입력
 
   int update(Member member) throws Exception;

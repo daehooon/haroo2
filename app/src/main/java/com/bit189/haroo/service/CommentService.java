@@ -10,6 +10,14 @@ public interface CommentService {
 
   Comment get(int commentNo) throws Exception;
 
+  int update(Comment comment) throws Exception;
+
   int delete(int commentNo) throws Exception;
+
+  int getLike(int commentNo, int memberNo) throws Exception;
+
+  int deleteLike(int commentNo, int memberNo) throws Exception;
+
+  int addLike(int commentNo, int memberNo) throws Exception;
 
 }

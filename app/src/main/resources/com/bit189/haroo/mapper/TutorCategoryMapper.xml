@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bit189.haroo.dao.TutorCategoryDao">
+  
+   <insert id="insert" parameterType="TutorCategory">
+    insert into har_tcat (tno, ncat_no)
+    values (#{tno}, #{narrowCategoryNo})
+  </insert>
+  
+   <update id="update" parameterType="TutorCategory">
+  update har_tcat set 
+    ncat_no = #{narrowCategoryNo}
+  where tno = #{tno}
+  </update>
+
+</mapper>
+
+
+
+
+
+

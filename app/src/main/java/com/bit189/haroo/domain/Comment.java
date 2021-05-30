@@ -7,6 +7,7 @@ public class Comment {
   private int no;
   private int feedNo;
   private String content;
+  private int likeCount;
   private boolean state;
   private Date registeredDate;
   private Member writer;
@@ -29,6 +30,12 @@ public class Comment {
   }
   public void setContent(String content) {
     this.content = content;
+  }
+  public int getLikeCount() {
+    return likeCount;
+  }
+  public void setLikeCount(int likeCount) {
+    this.likeCount = likeCount;
   }
   public boolean isState() {
     return state;
@@ -54,6 +61,8 @@ public class Comment {
   public void setReComments(List<ReComment> reComments) {
     this.reComments = reComments;
   }
+
+
 
 
 

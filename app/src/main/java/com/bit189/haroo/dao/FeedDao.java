@@ -10,5 +10,11 @@ public interface FeedDao {
   List<Feed> findAll() throws Exception;
 
   Feed findByNo(int no) throws Exception;
- 
+
+  String findLike(Map<String, Object> params) throws Exception;
+
+  int insertLike(Map<String, Object> params) throws Exception;
+
+  int deleteLike(Map<String, Object> params) throws Exception;
+
 }

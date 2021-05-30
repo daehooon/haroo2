@@ -1,43 +1,39 @@
 package com.bit189.haroo.web;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit189.haroo.domain.Member;
 import com.bit189.haroo.domain.ReComment;
 import com.bit189.haroo.service.ReCommentService;
 
-@SuppressWarnings("serial")
-@WebServlet("/feed/reComment/delete")
-public class ReCommentDeleteHandler extends HttpServlet {
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+@Controller
+public class ReCommentDeleteHandler {
 
-    ReCommentService reCommentService = (ReCommentService) request.getServletContext().getAttribute("reCommentService");
+  ReCommentService reCommentService;
 
-    try {
+  public ReCommentDeleteHandler(ReCommentService reCommentService) {
+    this.reCommentService = reCommentService;
+  }
 
-      int no = Integer.parseInt(request.getParameter("no"));
+  @RequestMapping("/feed/reComment/delete")
+  public String execute(HttpServletRequest request, HttpServletResponse response)
+      throws Exception {
 
-      ReComment reComment = reCommentService.get(no);
+    int no = Integer.parseInt(request.getParameter("no"));
 
-      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-      if (loginUser.getNo() != reComment.getReWriter().getNo()) {
-        throw new Exception("삭제 권한이 없습니다!");
-      }
+    ReComment reComment = reCommentService.get(no);
 
-      reCommentService.delete(no);
-
-      response.sendRedirect("../detail?no=" + Integer.parseInt(request.getParameter("feedNo")));
-
-    } catch (Exception e) {
-      throw new ServletException(e);
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    if (loginUser.getNo() != reComment.getReWriter().getNo()) {
+      throw new Exception("삭제 권한이 없습니다!");
     }
+
+    reCommentService.delete(no);
+
+    return "redirect:../detail?no=" + Integer.parseInt(request.getParameter("feedNo"));
 
   }
 

@@ -20,10 +20,10 @@
 <tbody>
 <c:forEach items="${list}" var="m">
 	  <c:if test="${not empty m.profilePicture}">
-	    <c:set var="profilePictureUrl">../upload/${m.profilePicture}_30x30.jpg</c:set>
+	    <c:set var="profilePictureUrl">../../upload/${m.profilePicture}_30x30.jpg</c:set>
 	  </c:if>
 	  <c:if test="${empty m.profilePicture}">
-	   <c:set var="profilePictureUrl">../upload/_30x30.jpg</c:set>
+	   <c:set var="profilePictureUrl">../../upload/_30x30.jpg</c:set>
 	  </c:if>
   <tr>
 		<td>${m.no}</td>

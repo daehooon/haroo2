@@ -13,6 +13,7 @@
     <result column="comment" property="content"/>
     <result column="com_dttm" property="registeredDate"/>
     <result column="com_stat" property="state"/>
+    <result column="cmt_like_cnt" property="likeCount"/>
     
     <association property="writer" javaType="Member"> <!-- 댓글작성자 -->
       <id column="wmno" property="no"/>
@@ -26,6 +27,7 @@
       <result column="content" property="content"/>
       <result column="rdttm" property="registeredDate"/>
       <result column="recom_stat" property="state"/>
+      <result column="recmt_like_cnt" property="likeCount"/>
       
       <association property="reWriter" javaType="Member"> <!-- 대댓글작성자 -->
         <id column="rmmno" property="no"/>
@@ -50,6 +52,7 @@
 	    c.comment,
 	    c.com_dttm,
 	    c.com_stat,
+	    (select count(*) from har_com_like where com_no=c.com_no) as cmt_like_cnt,
 	    m.mno as wmno,
 	    m.name as wname,
 	    m.nickname as wnickname,
@@ -58,6 +61,7 @@
 	    r.content,
 	    r.rdttm,
 	    r.recom_stat,
+	    (select count(*) from har_recom_like where recom_no=r.recom_no) as recmt_like_cnt,
 	    rm.mno as rmmno,
 	    rm.name as rmname,
 	    rm.nickname as rmnickname,
@@ -73,7 +77,6 @@
 	    left join har_member tm on r.tagged_mem=tm.mno
 		where
 		  c.feed_no=#{no}
-		  and c.com_stat=1
 		order by c.com_dttm desc, c.com_no desc, r.rdttm desc
   </select>
   
@@ -114,6 +117,33 @@
     (select count(*) from har_comment where feed_no=#{no} and com_stat=1) +
     (select count(*) from har_recomment r inner join har_comment c on r.com_no=c.com_no where c.feed_no=#{no} and r.recom_stat=1 and c.com_stat=1) com_cnt
   </select>
+  
+  <update id="update" parameterType="Comment">
+    update har_comment set
+        comment=#{content}
+    where com_no = #{no}
+  </update>
+  
+  <select id="findLike" parameterType="Map" resultType="String">
+    select
+      count(*)
+    from
+      har_com_like
+    where
+      com_no=#{commentNo}
+      and mno=#{memberNo}
+  </select>
+  
+  <delete id="deleteLike" parameterType="Map">
+    delete from har_com_like
+    where com_no=#{commentNo}
+          and mno=#{memberNo}
+  </delete>
+  
+  <insert id="addLike" parameterType="Map">
+    insert into har_com_like (com_no, mno)
+    values (#{commentNo}, #{memberNo})
+  </insert>
   
   
   

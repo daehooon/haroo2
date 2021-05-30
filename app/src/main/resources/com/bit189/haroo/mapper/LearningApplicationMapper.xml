@@ -1,10 +1,9 @@
-<!--  
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit189.haroo.dao.LearningApplicationDao">
-  
+ <!--  
   <resultMap id="learningApplicationMap" type="LearningApplication">
     <id column="lrn_appl_no" property="no"/>
     <result column="mno" property="membereNo"/>
@@ -50,7 +49,6 @@
       inner join har_member m on l.mno=m.mno
   </select>
 
--->
 <select id="findAllSchedules" resultMap="LearningScheduleMap">
      select
      l.sche_no,
@@ -60,7 +58,6 @@
     from har_lrn_appl l
       inner join har_schedule s on l.sche_no=s.sche_no
   </select>
-<!--
   
    
   <select id="findByNo" resultMap="learningApplicationMap" parameterType="int">
@@ -99,12 +96,5 @@
     delete from har_lrn_appl
     where no=#{value}
   </delete>
+  --> 
 </mapper>
-
--->
-
-
-
-
-
-

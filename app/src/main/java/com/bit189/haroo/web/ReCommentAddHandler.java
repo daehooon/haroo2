@@ -1,46 +1,41 @@
 package com.bit189.haroo.web;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit189.haroo.domain.Member;
 import com.bit189.haroo.domain.ReComment;
-import com.bit189.haroo.service.CommentService;
 import com.bit189.haroo.service.ReCommentService;
 
-@SuppressWarnings("serial")
-@WebServlet("/feed/reComment/add")
-public class ReCommentAddHandler extends HttpServlet {
 
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+@Controller
+public class ReCommentAddHandler {
 
-    ReCommentService reCommentService = (ReCommentService) request.getServletContext().getAttribute("reCommentService");
-    CommentService commentSerivce = (CommentService) request.getServletContext().getAttribute("commentService");
+  ReCommentService reCommentService;
 
-    try {
-      ReComment reComment = new ReComment();
+  public ReCommentAddHandler(ReCommentService reCommentService) {
+    this.reCommentService = reCommentService;
+  }
 
+  @RequestMapping("/feed/reComment/add")
+  public String execute(HttpServletRequest request, HttpServletResponse response)
+      throws Exception {
 
-      reComment.setCommentNo(Integer.parseInt(request.getParameter("commentNo")));
-      reComment.setContent(request.getParameter("content"));
-      Member taggedMember = new Member();
-      taggedMember.setNo(Integer.parseInt(request.getParameter("taggedNo")));
-      reComment.setTaggedMember(taggedMember);
-      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-      reComment.setReWriter(loginUser);
+    ReComment reComment = new ReComment();
 
-      reCommentService.add(reComment);
+    reComment.setCommentNo(Integer.parseInt(request.getParameter("commentNo")));
+    reComment.setContent(request.getParameter("content"));
+    Member taggedMember = new Member();
+    taggedMember.setNo(Integer.parseInt(request.getParameter("taggedNo")));
+    reComment.setTaggedMember(taggedMember);
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    reComment.setReWriter(loginUser);
 
-      response.sendRedirect("../detail?no=" + Integer.parseInt(request.getParameter("feedNo")));
+    reCommentService.add(reComment);
 
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
+    return "redirect:../detail?no=" + Integer.parseInt(request.getParameter("no"));
+
 
   }
 

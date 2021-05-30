@@ -6,10 +6,11 @@
 <mapper namespace="com.bit189.haroo.dao.TutorDao">
 
 <resultMap id="tutorMap" type="tutor">
-    <id column="tno" property="no"/>
+    <id column="mno" property="no"/>
     <result column="tintro" property="intro"/>
     <result column="tappl" property="application"/>
     <result column="prom_dttm" property="promotedDate"/>
+    <result column="rdttm" property="registeredDate"/>
     <result column="name" property="name"/>
     <result column="email" property="email"/>
     <result column="tel" property="tel"/>
@@ -26,34 +27,42 @@
     <collection property="tutorDistricts" ofType="TutorDistrict">
       <result column="sgg_name" property="sigungu"/>
       <result column="sido_name" property="sido"/>
+      <result column="sgg_no" property="sigunguNo"/>
+      <result column="sido_no" property="sidoNo"/>
     </collection>
     
     <collection property="tutorCategories" ofType="TutorCategory">
       <result column="ncat_name" property="narrowCategory"/>
       <result column="bcat_name" property="broadCategory"/>
+      <result column="ncat_no" property="narrowCategoryNo"/>
+      <result column="bcat_no" property="broadCategoryNo"/>
+      
     </collection>
   </resultMap>
 
-<insert id="insert" parameterType="tutor">
+  <insert id="insert" parameterType="tutor">
+  insert into har_tutor(tno, tintro, tappl)
+    values(#{no}, #{intro}, #{application})
   </insert>
   
   <select id="findByKeyword" resultMap="tutorMap" parameterType="string">
     select 
-      t.tno,
+      m.mno,
       m.name,
       m.email,
       m.profile_pic,
+      m.tel,
       m.nickname,
       m.sex,
-      nc.ncat_name,
-      bc.bcat_name,
-      sg.sgg_name,
-      sd.sido_name
+      <!--  bc.bcat_name,
+      nc.ncat_name,-->
+      sd.sido_name,
+      sg.sgg_name
     from har_tutor t
     inner join har_member m on m.mno=t.tno
-    inner join har_tcat tc on tc.tno=t.tno
+    <!--  inner join har_tcat tc on tc.tno=t.tno
     inner join har_narrow_cat nc on nc.ncat_no=tc.ncat_no
-    inner join har_broad_cat bc on bc.bcat_no=nc.bcat_no
+    inner join har_broad_cat bc on bc.bcat_no=nc.bcat_no-->
     inner join har_tdist td on td.tno=t.tno
     inner join har_sigungu sg on sg.sgg_no=td.sgg_no
     inner join har_sido sd on sd.sido_no=sg.sido_no
@@ -63,58 +72,64 @@
        or m.email like concat('%', #{keyword}, '%')
        or sg.sgg_name like concat('%', #{keyword}, '%')
        or sd.sido_name like concat('%', #{keyword}, '%')
-       or nc.ncat_name like concat('%', #{keyword}, '%')
-       or bc.bcat_name like concat('%', #{keyword}, '%')
+       <!--  or nc.ncat_name like concat('%', #{keyword}, '%')
+       or bc.bcat_name like concat('%', #{keyword}, '%')-->
       </if>
     </where>
-    order by t.tno asc 
+    where m.mrno=2
+    and m.mstat=1
+    order by m.mno asc 
   </select>
   
   <select id="findByNo" resultMap="tutorMap" parameterType="int">
   select 
-      t.tno,
+      m.mno,
       m.name,
       m.email,
       m.profile_pic,
       m.nickname,
+      m.tel,
       m.sex,
       m.bdate,
       m.zipcode,
       m.addr,
       m.det_addr,
       m.rdttm,
-      m.mrno,
-      m.mstat
+      t.tintro,
+      t.tappl,
+      t.prom_dttm,
       nc.ncat_name,
       bc.bcat_name,
+      nc.ncat_no,
+      bc.bcat_no,
       sg.sgg_name,
-      sd.sido_name
+      sd.sido_name,
+      sg.sgg_no,
+      sd.sido_no,
+      m.mrno,
+      m.mstat
     from har_tutor t
-     inner join har_member m on m.mno=t.tno
+    inner join har_member m on m.mno=t.tno
     inner join har_tcat tc on tc.tno=t.tno
     inner join har_narrow_cat nc on nc.ncat_no=tc.ncat_no
-    inner join har_broad_cat bc on bc.bcat_no=nc.bcat_no
+    inner join har_broad_cat bc on bc.bcat_no=nc.bcat_no 
     inner join har_tdist td on td.tno=t.tno
     inner join har_sigungu sg on sg.sgg_no=td.sgg_no
     inner join har_sido sd on sd.sido_no=sg.sido_no
-    where tno = #{value}
+    where mno = #{value}
+    and m.mrno=2
   </select>
   
   <update id="update" parameterType="tutor">
   update har_tutor set 
     tintro=#{intro},
-    tappl=#{application},
-    sgg_name=#{sigungu},
-    sido_name=#{sido},
-    ncat_name=#{narrowCategory},
-    bcat_name=#{broadCategory}
-  where no = #{no}
+    tappl=#{application}
+  where tno = #{no}
   </update>
   
-  
   <delete id="delete" parameterType="int">
-  delete from har_tutor 
-    where tno=#{value}
+    delete from har_tutor
+    where tno= #{value}
   </delete>
   
   </mapper>

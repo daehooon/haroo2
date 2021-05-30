@@ -21,14 +21,14 @@
 	</c:if>
 
   <c:if test="${not empty learning.coverImage}">
-    <c:set var="cover800x450Url">../upload/${learning.coverImage}_800x450.jpg</c:set>
-    <c:set var="coverUrl">../upload/${learning.coverImage}</c:set>
+    <c:set var="cover800x450Url">../../upload/${learning.coverImage}_800x450.jpg</c:set>
+    <c:set var="coverUrl">../../upload/${learning.coverImage}</c:set>
   </c:if>
   <c:if test="${not empty learning.owner.profilePicture}">
-    <c:set var="profilePictureUrl">../upload/${learning.owner.profilePicture}_30x30.jpg</c:set>
+    <c:set var="profilePictureUrl">../../upload/${learning.owner.profilePicture}_30x30.jpg</c:set>
   </c:if>
   <c:if test="${empty learning.owner.profilePicture}">
-    <c:set var="profilePictureUrl">../images/person_30x30.jpg</c:set>
+    <c:set var="profilePictureUrl">../../images/person_30x30.jpg</c:set>
   </c:if>
 
   <fmt:formatDate value="${learning.registeredDate}" pattern="yyyy-MM-dd hh:mm:ss" var="registeredDate"/>
@@ -55,7 +55,9 @@
 			<tr><th>제목</th> <td>${learning.name}</td></tr>
 			<tr><th>광역시도</th> <td>${learning.sido}</td></tr>
 			<tr><th>시군구</th> <td>${learning.sigungu}</td></tr>
+			<!-- 계산식 필요
 			<tr><th>평균평점</th> <td>${learning.averageRate}</td></tr>
+			-->
 			<tr><th>등록일</th> <td>${registeredDate}</td></tr>
 			<tr><th>본문</th> <td>${learning.intro}</td></tr>
 			<tr><th>진행순서</th> <td>${learning.progressOrder}</td></tr>

@@ -26,7 +26,7 @@
 		<tbody>
 			<c:forEach items="${feeds}" var="feed">
 				<c:if test="${not empty feed.attachedFiles.get(0)}">
-	       <c:set var="photoUrl">../upload/${feed.attachedFiles.get(0).name}_330x220.jpg</c:set>
+	       <c:set var="photoUrl">../../upload/${feed.attachedFiles.get(0).name}_330x220.jpg</c:set>
 	      </c:if>
 			<tr>
 			 <td>${feed.writer.profilePicture}</td>

@@ -1,47 +1,34 @@
 package com.bit189.haroo.web;
 
-import java.io.IOException;
 import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit189.haroo.domain.Question;
 import com.bit189.haroo.service.ServiceQuestionService;
 
 
+@Controller
+public class QuestionListHandler {
 
-@SuppressWarnings("serial")
-@WebServlet("/question/list")
-public class QuestionListHandler extends HttpServlet{
+  ServiceQuestionService serviceQuestionService;
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public QuestionListHandler(ServiceQuestionService serviceQuestionService) {
+    this.serviceQuestionService = serviceQuestionService;
+  }
 
-    ServiceQuestionService serviceQuestionService =
-        (ServiceQuestionService) request.getServletContext().getAttribute("serviceQuestionService");
+  @RequestMapping("/question/list")
+  public String execute(HttpServletRequest request, HttpServletResponse response)
+      throws Exception {
 
+    List<Question> questions = serviceQuestionService.list();
 
-    try {
-      String keyword = request.getParameter("keyword");
-      List<Question> questions = null;
-      if (keyword != null && keyword.length() > 0) {
-        questions = serviceQuestionService.Search(keyword);
-      } else {
-        questions = serviceQuestionService.list();
-      }
+    request.setAttribute("questions", questions);
+
+    return "/jsp/serviceQuestion/list.jsp";
 
 
-      request.setAttribute("list", questions);
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/jsp/serviceQuestion/list.jsp").include(request, response);
-
-
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
   }    
 }
 

@@ -2,14 +2,17 @@ package com.bit189.haroo.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import org.springframework.stereotype.Service;
 import com.bit189.haroo.dao.CommentDao;
 import com.bit189.haroo.dao.FeedDao;
 import com.bit189.haroo.dao.LikeDao;
 import com.bit189.haroo.dao.PostDao;
+import com.bit189.haroo.domain.AttachedFile;
 import com.bit189.haroo.domain.Feed;
 import com.bit189.haroo.domain.Post;
 import com.bit189.haroo.service.FeedService;
 
+@Service
 public class DefaultFeedService implements FeedService{
 
   FeedDao feedDao;
@@ -25,13 +28,19 @@ public class DefaultFeedService implements FeedService{
   }
 
   @Override
-  public int add(Post post, Feed feed) throws Exception {
+  public int add(Post post, List<AttachedFile> files, Feed feed) throws Exception {
     // 튜터가 스토리를 올리기위한 과정 
     // : har_post 에 먼저 insert되고, 그때 자동증가 된 pno를 가지고 har_feed테이블에 insert 해야함
 
 
     // 1. 파라미터로 받은 post객체를 har_post에 insert
     postDao.insert(post);
+
+    for (AttachedFile file : files) {
+      file.setPostNo(post.getNo());
+
+      postDao.insertFile(file);
+    }
 
     // 2. 파라미터로 받은 feed 객체와 har_post에 insert 하자마자 자동증가 된 pno를
     //    한번에 보내 주기위해 HashMap사용하여 insert
@@ -46,10 +55,10 @@ public class DefaultFeedService implements FeedService{
   public List<Feed> list() throws Exception {
     List<Feed> feeds = feedDao.findAll();
 
-    //    for (Feed f : feeds) {
-    //      f.setCommentCount(Integer.parseInt(commentDao.commentCount(f.getNo())));
-    //      f.setLikeCount(Integer.parseInt(likeDao.likeCount(f.getNo())));
-    //    }
+    for (Feed f : feeds) {
+      f.setCommentCount(Integer.parseInt(commentDao.commentCount(f.getNo())));
+      f.setLikeCount(Integer.parseInt(likeDao.likeCount(f.getNo())));
+    }
 
     return feeds;
   }
@@ -66,6 +75,33 @@ public class DefaultFeedService implements FeedService{
     }
 
     return feed;
+  }
+
+  @Override
+  public int getLike(int feedNo, int memberNo) throws Exception {
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("feedNo", feedNo);
+    params.put("memberNo", memberNo);
+
+    return Integer.parseInt(feedDao.findLike(params));
+  }
+
+  @Override
+  public int addLike(int feedNo, int memberNo) throws Exception {
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("feedNo", feedNo);
+    params.put("memberNo", memberNo);
+
+    return feedDao.insertLike(params);
+  }
+
+  @Override
+  public int deleteLike(int feedNo, int memberNo) throws Exception {
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("feedNo", feedNo);
+    params.put("memberNo", memberNo);
+
+    return feedDao.deleteLike(params);
   }
 
 

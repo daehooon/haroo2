@@ -2,25 +2,32 @@ package com.bit189.haroo.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-import com.bit189.Mybatis.TransactionManager;
-import com.bit189.Mybatis.TransactionTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 import com.bit189.haroo.dao.LearningReviewDao;
 import com.bit189.haroo.dao.LearningReviewRecommendDao;
+import com.bit189.haroo.dao.PostDao;
 import com.bit189.haroo.domain.LearningReview;
 import com.bit189.haroo.service.LearningReviewService;
 
+@Service
 public class DefaultLearningReviewService implements LearningReviewService {
 
   TransactionTemplate transactionTemplate;
   LearningReviewDao learningReviewDao;
   LearningReviewRecommendDao learningReviewRecommendDao;
+  PostDao postDao;
 
-  public DefaultLearningReviewService(TransactionManager txManager,
+  public DefaultLearningReviewService(PlatformTransactionManager txManager,
       LearningReviewDao learningReviewDao,  
-      LearningReviewRecommendDao learningReviewRecommendDao) {
+      LearningReviewRecommendDao learningReviewRecommendDao,
+      PostDao postDao) {
     this.transactionTemplate = new TransactionTemplate(txManager);
     this.learningReviewDao = learningReviewDao;
     this.learningReviewRecommendDao = learningReviewRecommendDao;
+    this.postDao = postDao;
+    System.out.println("DefaultLearningReviewService 객체 생성됨!");
   }
 
   @Override
@@ -53,7 +60,14 @@ public class DefaultLearningReviewService implements LearningReviewService {
 
   @Override
   public LearningReview get(int reviewNo) throws Exception {
-    return learningReviewDao.findByNo(reviewNo);
+
+    LearningReview learningReview = learningReviewDao.findByNo(reviewNo);
+
+    //    if(learningReview != null) {
+    //      postDao.updateViewCount(reviewNo);
+    //    }
+
+    return learningReview;
   }
 
   @Override

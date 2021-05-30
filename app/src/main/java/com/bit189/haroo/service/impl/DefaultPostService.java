@@ -1,11 +1,14 @@
 package com.bit189.haroo.service.impl;
 
+import org.springframework.stereotype.Service;
 import com.bit189.haroo.dao.PostDao;
 import com.bit189.haroo.domain.AttachedFile;
 import com.bit189.haroo.domain.Post;
 import com.bit189.haroo.service.PostService;
 
+@Service
 public class DefaultPostService implements PostService{
+
   PostDao postDao;
 
 

@@ -11,9 +11,9 @@
 <h1>회원 가입</h1>
 <form action="add" method="post" enctype="multipart/form-data">
 이름:   <input type="text" name="name"><br>
-이메일: <input type="email" name="email"><input type="button" value="이메일인증"><br>
+이메일: <input id="har-email" type="email" name="email"><button id="checkBtn" type="button">중복검사</button><br>
 비밀번호: <input type="password" name="password"><br>
-닉네임:  <input type="text" name="nickname"><input type="button" value="중복확인"><br>
+닉네임:  <input id="har-nickname" type="text" name="nickname"><button id="checkBtn2" type="button" >중복검사</button><br>
 사진: <input type="file" name="profile_pic"><br>
 생일:  <input type="date" name="bdate"><br>
 전화번호: <input type="tel" name="tel"><input type="button" value="문자인증"><br>
@@ -28,5 +28,33 @@
  회원등급: <input type="int" name="mrno"><br> -->
 <input type="submit" value="등록">
 </form>
+
+<script>
+document.querySelector("#checkBtn").onclick = function() {
+	var harEmail = document.querySelector("#har-email");
+	var xhr = new XMLHttpRequest();
+    xhr.open("GET", "check?email=" + harEmail.value, false);
+    xhr.send();
+    if (xhr.responseText == "yes") {
+        alert("존재하는 이메일입니다..");
+        harEmail.value = "";
+      } else {
+        alert("이 이메일을 사용할 수 있습니다.") 
+      }
+};
+
+document.querySelector("#checkBtn2").onclick = function() {
+	  var harNickname = document.querySelector("#har-nickname");
+	  var xhr = new XMLHttpRequest();
+	    xhr.open("GET", "check2?nickname=" + harNickname.value, false);
+	    xhr.send();
+	    if (xhr.responseText == "yes") {
+	        alert("존재하는 닉네임입니다..");
+	        harNickname.value = "";
+	      } else {
+	        alert("이 닉네임을 사용할 수 있습니다.") 
+	      }
+	};
+</script>
 </body>
 </html>

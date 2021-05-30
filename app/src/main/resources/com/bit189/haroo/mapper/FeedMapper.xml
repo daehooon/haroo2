@@ -80,6 +80,27 @@
     insert into har_feed (feed_no, tno)
     values (#{no}, #{feed.writer.no})
   </insert>
+  
+  <select id="findLike" parameterType="Map" resultType="String">
+    select
+      count(*)
+    from 
+      har_feed_like
+    where
+      feed_no=#{feedNo}
+      and mno=#{memberNo}
+  </select>
+  
+  <insert id="insertLike" parameterType="Map">
+    insert into har_feed_like (feed_no, mno)
+    values (#{feedNo}, #{memberNo})
+  </insert>
+  
+  <delete id="deleteLike" parameterType="Map">
+    delete from har_feed_like
+    where feed_no=#{feedNo}
+          and mno=#{memberNo}
+  </delete>
 
 
 

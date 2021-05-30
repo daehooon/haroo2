@@ -1,37 +1,27 @@
 package com.bit189.haroo.web;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit189.haroo.domain.Learning;
 import com.bit189.haroo.service.LearningService;
 
-@SuppressWarnings("serial")
-@WebServlet("/learning/detail")
-public class LearningDetailHandler extends HttpServlet {
+@Controller
+public class LearningDetailHandler {
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  LearningService learningService;
 
-    LearningService learningService = (LearningService) request.getServletContext().getAttribute("learningService");
+  public LearningDetailHandler(LearningService learningService) {
+    this.learningService = learningService;
+  }
 
-    try {
-      int no = Integer.parseInt(request.getParameter("no"));
-
-      Learning learning = learningService.get(no);
-
-      request.setAttribute("learning", learning);
-
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/jsp/learning/detail.jsp").include(request, response);
-
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
+  @RequestMapping("/learning/detail")
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    int no = Integer.parseInt(request.getParameter("no"));
+    Learning learning = learningService.get(no);
+    request.setAttribute("learning", learning);
+    return "/jsp/learning/detail.jsp";
   }
 }
 

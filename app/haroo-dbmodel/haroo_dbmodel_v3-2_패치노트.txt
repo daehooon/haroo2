@@ -1,0 +1,10 @@
+<haroo_dbmodel_v3-2_패치노트>
+ 1. 평균평점 삭제
+ 2. 수업일정 유니크 변경
+	(date+stm+etm) -> (lno+date+stm+etm)
+ 3. 튜터문의답글파일 물리컬럼명 변경
+	fno -> trpl_fno
+	fname -> trpl_fname
+ 4.서비스문의답글파일
+	fno ->srpl_fno
+	fname -> srpl_fname

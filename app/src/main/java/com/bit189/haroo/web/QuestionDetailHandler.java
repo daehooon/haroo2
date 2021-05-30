@@ -1,45 +1,38 @@
 package com.bit189.haroo.web;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit189.haroo.domain.Question;
 import com.bit189.haroo.service.ServiceQuestionService;
 
-@SuppressWarnings("serial")
-@WebServlet("/question/detail")
-public class QuestionDetailHandler extends HttpServlet {
 
-  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+@Controller
+public class QuestionDetailHandler {
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  ServiceQuestionService serviceQuestionService;
 
-    ServiceQuestionService serviceQuestionService =
-        (ServiceQuestionService) request.getServletContext().getAttribute("serviceQuestionService");
+  public QuestionDetailHandler(ServiceQuestionService serviceQuestionService) {
+    this.serviceQuestionService = serviceQuestionService;
+  }
 
 
-    response.setContentType("text/html;charset=UTF-8");
+  @RequestMapping("/question/detail")
+  public String execute(HttpServletRequest request, HttpServletResponse response)
+      throws Exception {
+
 
     int no = Integer.parseInt(request.getParameter("no"));
 
-    try { 
-      Question question = serviceQuestionService.get(no);
-      request.setAttribute("question", question);
+    Question question = serviceQuestionService.get(no);
+    request.setAttribute("question", question);
 
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/jsp/serviceQuestion/detail.jsp").include(request, response);
+    return "/jsp/serviceQuestion/detail.jsp";
 
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
   }
 }
+
 
 
 

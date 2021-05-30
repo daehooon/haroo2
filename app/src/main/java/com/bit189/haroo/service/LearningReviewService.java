@@ -4,9 +4,6 @@ import java.util.List;
 import com.bit189.haroo.domain.LearningReview;
 
 public interface LearningReviewService {
-  int WRITED_DATE = 1;
-  int AVERAGE_RATE = 2;
-  int RECOMMEND_COUNT = 3;
 
   int add(LearningReview review) throws Exception;
 

@@ -23,6 +23,8 @@ public class RequestLogFilter implements Filter {
     // => 클라이언트 요청에 대해 기록(log)을 남긴다.
     System.out.printf("[%s:%d] %s\n", 
         httpRequest.getRemoteAddr(), httpRequest.getRemotePort(), httpRequest.getServletPath());
+    System.out.printf("[%s:%d] %s\n", 
+        httpRequest.getRemoteAddr(), httpRequest.getRemotePort(), httpRequest.getPathInfo());
 
     // 이 필터에서 멈출게 아니라면 다음 체인을 실행시켜야 한다.
     // 만약 다음 체인을 실행하지 않으면 이 필터에서 ServerApp으로 리턴하게 된다.

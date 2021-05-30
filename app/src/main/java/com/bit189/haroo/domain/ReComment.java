@@ -9,6 +9,7 @@ public class ReComment {
   private String content;
   private Date registeredDate;
   private Member taggedMember;
+  private int likeCount;
   private boolean state;
 
   public int getNo() {
@@ -47,12 +48,20 @@ public class ReComment {
   public void setTaggedMember(Member taggedMember) {
     this.taggedMember = taggedMember;
   }
+  public int getLikeCount() {
+    return likeCount;
+  }
+  public void setLikeCount(int likeCount) {
+    this.likeCount = likeCount;
+  }
   public boolean isState() {
     return state;
   }
   public void setState(boolean state) {
     this.state = state;
   }
+
+
 
 
 }

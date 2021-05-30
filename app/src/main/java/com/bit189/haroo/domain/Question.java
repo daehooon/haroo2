@@ -1,12 +1,12 @@
 package com.bit189.haroo.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Question extends Post {
   private Member writer;
   private ServiceInfo serviceInfo;
   private String title;
-  private boolean secret;
+  private int secret;
   private String replyContent;
   private Date replyDate;
 
@@ -43,11 +43,11 @@ public class Question extends Post {
     this.title = title;
   }
 
-  public boolean isSecret() {
+  public int getSecret() {
     return secret;
   }
 
-  public void setSecret(boolean secret) {
+  public void setSecret(int secret) {
     this.secret = secret;
   }
 

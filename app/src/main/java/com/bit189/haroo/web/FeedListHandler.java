@@ -1,37 +1,32 @@
 package com.bit189.haroo.web;
 
-import java.io.IOException;
 import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit189.haroo.domain.Feed;
 import com.bit189.haroo.service.FeedService;
 
-@SuppressWarnings("serial")
-@WebServlet("/feed/list")
-public class FeedListHandler extends HttpServlet {
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+@Controller
+public class FeedListHandler {
 
-    FeedService feedService = (FeedService) request.getServletContext().getAttribute("feedService");
+  FeedService feedService;
 
-    try {
-      List<Feed> feeds = feedService.list();
+  public FeedListHandler(FeedService feedService) {
+    this.feedService = feedService;
+  }
 
-      request.setAttribute("feeds", feeds);
+  @RequestMapping("/feed/list")
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/jsp/feed/list.jsp").include(request, response);
+    List<Feed> feeds = feedService.list();
 
-    } catch (Exception e) {
-      throw new ServletException(e);
+    request.setAttribute("feeds", feeds);
 
-    }
+    return "/jsp/feed/list.jsp";
+
   }
 
 }

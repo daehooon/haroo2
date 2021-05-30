@@ -3,10 +3,12 @@ package com.bit189.haroo.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.stereotype.Service;
 import com.bit189.haroo.dao.MemberDao;
 import com.bit189.haroo.domain.Member;
 import com.bit189.haroo.service.MemberService;
 
+@Service
 public class DefaultMemberService implements MemberService {
 
   MemberDao memberDao;
@@ -23,7 +25,6 @@ public class DefaultMemberService implements MemberService {
 
   @Override
   public List<Member> list(String keyword) throws Exception {
-    System.out.println("여기2");
     return memberDao.findByKeyword(keyword);
   }
 
@@ -40,6 +41,16 @@ public class DefaultMemberService implements MemberService {
     params.put("password", password);
 
     return memberDao.findByEmailPassword(params);
+  }
+
+  @Override
+  public Member getEmail(String email) throws Exception {
+    return memberDao.findByEmail(email);
+  }
+
+  @Override
+  public Member getNickname(String nickname) throws Exception {
+    return memberDao.findByNickname(nickname);
   }
 
   // 내정보 수정시 비밀번호 재검증 - Dao에 없음

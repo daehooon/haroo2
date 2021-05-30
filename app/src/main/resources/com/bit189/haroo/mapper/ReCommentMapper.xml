@@ -78,11 +78,38 @@
     values (#{no}, #{commentNo}, #{reWriter.no}, #{content}, #{taggedMember.no})
   </insert>
   
+  <update id="update" parameterType="ReComment">
+    update har_recomment set
+        content = #{content}
+    where recom_no = #{no}
+  </update>
+  
   <delete id="delete" parameterType="int">
     update har_recomment set
         recom_stat=0
     where recom_no = #{no}
   </delete>
+  
+  <select id="findLike" parameterType="Map" resultType="String">
+    select
+      count(*)
+    from
+      har_recom_like
+    where
+      recom_no=#{reCommentNo}
+      and mno=#{memberNo}
+  </select>
+  
+  <delete id="deketeLike" parameterType="Map">
+    delete from har_recom_like
+    where recom_no=#{reCommentNo}
+          and mno=#{memberNo}
+  </delete>
+  
+  <insert id="addLike" parameterType="Map">
+    insert into har_recom_like (recom_no, mno)
+    values (#{reCommentNo}, #{memberNo})
+  </insert>
   
   
   

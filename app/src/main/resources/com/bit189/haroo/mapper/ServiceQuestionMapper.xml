@@ -38,67 +38,95 @@
     
   </resultMap>
   
-  <insert id="insert" parameterType="Question">
-    insert into har_sqna (pno, mno, sno, title, secret)
-    values (#{no}, #{writer.no}, #{serviceInfo.no}, #{title}, #{secret})
+  <insert id="insert" parameterType="Map">
+    insert into har_sqna (pno, mno, sno, title, secret, rpl_content)
+    values (#{no}, #{question.writer.no}, #{question.serviceInfo.no}, #{question.title}, #{question.secret}
+    , #{question.replyContent})
   </insert>
+  
   
   <select id="findAll" resultMap="serviceQuestionMap">
     select
       q.pno,
-      p.content,
-      p.wdttm,
-      p.view_cnt,
-      p.pstat,
       q.mno,
       q.sno,
       q.title,
       q.secret,
       q.rpl_content,
       q.rpl_dttm,
+      p.content,
+      p.wdttm,
+      p.view_cnt,
+      p.pstat,
       m.profile_pic,
       m.name,
       m.nickname,
-      s.sname 
+      f.fno,
+      f.fname,
+      s.sname,
+      s.sstat,
+      r.fno,
+      r.fname 
     from
       har_sqna q
       inner join har_member m on m.mno=q.mno
       inner join har_post p on p.pno=q.pno
-      inner join har_srpl_file f on f.fno=q.pno
+      left join har_file f on f.pno=p.pno
       inner join har_service s on s.sno=q.sno
+      left join har_srpl_file r on r.pno=q.pno
       where
     p.pstat=1
+    order by q.pno
   </select>
   
    <select id="findByNo" parameterType="int" resultMap="serviceQuestionMap">
- select
+    select
       q.pno,
-      p.content,
-      p.wdttm,
-      p.view_cnt,
-      p.pstat,
       q.mno,
       q.sno,
       q.title,
       q.secret,
       q.rpl_content,
       q.rpl_dttm,
+      p.content,
+      p.wdttm,
+      p.view_cnt,
+      p.pstat,
       m.profile_pic,
       m.name,
       m.nickname,
-      s.sname 
+      f.fno,
+      f.fname,
+      s.sname,
+      s.sstat
     from
       har_sqna q
       inner join har_member m on m.mno=q.mno
       inner join har_post p on p.pno=q.pno
-      inner join har_srpl_file f on f.fno=q.pno
+      left join har_file f on f.pno=p.pno
       inner join har_service s on s.sno=q.sno
       where
       q.pno = #{no}
-    p.pstat=1
+      and p.pstat=1
+      order by q.pno
   </select>
 
-
+ <update id="update" parameterType="question">
+    update har_post set
+        content = #{content}
+    where pno = #{no}
+  </update>
+  
+  <update id="replyUpdate" parameterType="question">
+    update har_sqna set
+        rpl_content = #{replyContent}
+    where pno = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from har_sqna
+    where pno = #{value}
+  </delete>
 
 
 

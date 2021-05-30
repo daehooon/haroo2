@@ -63,6 +63,8 @@
       or mno like concat('%', #{keyword}, '%')
       </if>
     </where>
+    where
+     mstat=1
     order by mno asc 
   </select>
   
@@ -88,6 +90,7 @@
     har_member m
     inner join har_mrank mr on m.mrno=mr.mrno
     where mno = #{value}
+    and m.mstat=1
   </select>
   
   <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
@@ -101,25 +104,60 @@
     where email = #{email} and password = password(#{password})
   </select>
   
+  <select id="findByEmail" resultMap="memberMap" parameterType="string">
+    select 
+      mno,
+      name,
+      email,
+      profile_pic,
+      tel 
+    from har_member
+    where email = #{value}
+    order by name asc
+  </select>
+  
+  <select id="findByNickname" resultMap="memberMap" parameterType="string">
+    select 
+      mno,
+      name,
+      email,
+      profile_pic,
+      tel,
+      nickname 
+    from har_member
+    where nickname = #{value}
+    order by name asc
+  </select>
+  
   <update id="update" parameterType="member">
   update har_member set
     name=#{name},
      email=#{email},
-      password=password(#{password}),
       nickname=#{nickname},
       profile_pic=#{profilePicture},
       tel=#{tel},
       zipcode=#{zipcode},
       addr=#{address},
-      det_addr=#{detailAddress},
-      <!-- rank=#{rank} --> 
-      mstat=#{state}
+      det_addr=#{detailAddress}
+    where mno=#{no}
+  </update>
+  
+  <update id="update1" parameterType="member">
+  update har_member set
+  mrno=2
     where mno=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
-  delete from har_member 
-    where mno=#{value}
+  update har_member set
+  mstat=0 
+    where mno=#{no}
+  </delete>
+  
+  <delete id="deleteTutor" parameterType="int">
+  update from har_member set
+  mstat=0
+    where mno=#{no}
   </delete>
   
   <select id="findByName" resultMap="memberMap" parameterType="string">

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bit189.haroo.dao.TutorDistrictDao">
+  
+   <insert id="insert" parameterType="TutorDistrict">
+    insert into har_tdist (tno, sgg_no)
+    values (#{tno}, #{sigunguNo})
+  </insert>
+  
+   <update id="update" parameterType="TutorDistrict">
+  update har_tdist set 
+    sgg_no = #{sigunguNo}
+  where tno = #{tno}
+  </update>
+
+</mapper>
+
+
+
+
+
+
