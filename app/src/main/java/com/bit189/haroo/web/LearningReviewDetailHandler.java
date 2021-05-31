@@ -21,9 +21,6 @@ public class LearningReviewDetailHandler {
   public String execute(HttpServletRequest request, HttpServletResponse response) 
       throws Exception {
 
-    LearningReviewService learningReviewService = 
-        (LearningReviewService) request.getServletContext().getAttribute("learningReviewService");
-
     String lno = request.getParameter("lno");
     if(lno == null) {
       throw new ServletException("파라미터가 없습니다.");

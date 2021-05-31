@@ -26,7 +26,7 @@ public class FeedAddHandler {
   FeedService feedService;
 
   public FeedAddHandler(FeedService feedService) {
-    this.feedService = feedService;
+    this.feedService = feedService; 
   }
 
 

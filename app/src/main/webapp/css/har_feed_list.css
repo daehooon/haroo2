@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+body {
+  line-height: 1;
+}
+
+.card {
+  width: 330px;
+  height: 330px;
+  display: inline-block;
+  margin: 0 30px 30px 0px;
+}
+
+.card img {
+  height: 219px;
+  border-radius: 0;
+  border: 0;
+}
+
+.har-feed-info {
+  padding: 14px 10px;
+}
+
+.har-feed-pro {
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 20px;
+  float: left;
+  margin-right: 10px;
+}
+
+.har-feed-pro img {
+  height: 35px;
+}
+
+.har-feed-font {
+  font-size: 14px;
+  display: inline;
+}
+
+.har-feed-font2 {
+  font-size: 12px;
+  margin: 3px 0 0 0px;
+  color: #999;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.like {
+  display: inline-block;
+  height: 20px;
+  width: 23px;
+  background-image: url('../images/icon.png');
+  background-repeat: no-repeat;
+  background-position: -9px -9px;
+  background-size: 560px;
+  box-sizing: border-box;
+  position: relative;
+  top: 6px;
+}
+
+.comment {
+  display: inline-block;
+  height: 20px;
+  width: 23px;
+  background-image: url('../images/icon.png');
+  background-repeat: no-repeat;
+  background-position: -67px -9px;
+  background-size: 560px;
+  box-sizing: border-box;
+  position: relative;
+  top: 6px;
+}
+
+.har-feed-font3 {
+  font-size: 13px;
+  display: inline-block;
+  margin-right: 15px;
+  color: #7F7F7F;
+  position: relative;
+  top: 1px;
+}

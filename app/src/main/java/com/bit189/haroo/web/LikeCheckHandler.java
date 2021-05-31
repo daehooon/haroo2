@@ -32,8 +32,14 @@ public class LikeCheckHandler {
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 
+    if (loginUser == null) {
+      return "no";
+    }
+
     int no = Integer.parseInt(request.getParameter("no"));
     int likeType = Integer.parseInt(request.getParameter("lType"));
+
+    System.out.println("likeType : " + likeType);
 
     int isLike = 0;
 
@@ -44,6 +50,8 @@ public class LikeCheckHandler {
     } else if (likeType == 3) {
       isLike = reCommentService.getLike(no, loginUser.getNo());
     }
+
+    System.out.println("isLike : " + isLike);
 
 
     if (isLike == 1) {

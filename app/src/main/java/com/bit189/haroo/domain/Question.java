@@ -1,6 +1,7 @@
 package com.bit189.haroo.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Question extends Post {
   private Member writer;
@@ -9,14 +10,16 @@ public class Question extends Post {
   private int secret;
   private String replyContent;
   private Date replyDate;
+  private List<AttachedFile> replyAttachedFiles;
 
   @Override
   public String toString() {
     return "Question [writer=" + writer + ", serviceInfo=" + serviceInfo + ", title=" + title
         + ", secret=" + secret + ", replyContent=" + replyContent + ", replyDate=" + replyDate
-        + ", getNo()=" + getNo() + ", getContent()=" + getContent() + ", getWritingDate()="
-        + getWritingDate() + ", getViewCount()=" + getViewCount() + ", isState()=" + isState()
-        + ", getAttachedFiles()=" + getAttachedFiles() + "]";
+        + ", replyAttachedFiles=" + replyAttachedFiles + ", getNo()=" + getNo() + ", getContent()="
+        + getContent() + ", getWritingDate()=" + getWritingDate() + ", getViewCount()="
+        + getViewCount() + ", isState()=" + isState() + ", getAttachedFiles()=" + getAttachedFiles()
+        + "]";
   }
 
   public Member getWriter() {
@@ -65,6 +68,14 @@ public class Question extends Post {
 
   public void setReplyDate(Date replyDate) {
     this.replyDate = replyDate;
+  }
+
+  public List<AttachedFile> getReplyAttachedFiles() {
+    return replyAttachedFiles;
+  }
+
+  public void setReplyAttachedFiles(List<AttachedFile> replyAttachedFiles) {
+    this.replyAttachedFiles = replyAttachedFiles;
   }
 
 

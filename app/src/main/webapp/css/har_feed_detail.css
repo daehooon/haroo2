@@ -1,0 +1,323 @@
+@charset "UTF-8";
+
+a {
+  text-decoration: none; 
+  color: #333;
+}
+
+body {
+  line-height: 1;
+  color: #333;
+}
+
+section {
+  width: 1100px;
+  margin: 0 auto;
+}
+
+button {
+  border: 0;
+  background-color: #fff;
+  color: #666;
+}
+
+.card {
+  width: 610px;
+  /* height: 1230px; */
+  border-radius: 10px;
+  font-size: 12px;
+  /* float: left; */
+  display: inline-block;
+}
+
+.card img {
+  
+}
+
+.card-img-top {
+  width: 550px;
+  height: 550px;
+  border-radius: 0;
+  margin: 0 30px;
+}
+
+.har-feed-info {
+  padding: 30px;
+  height: 120px;
+}
+
+.har-feed-pro {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 30px;
+  float: left;
+  margin-right: 15px;
+}
+
+.btn-primary {
+  width: 72px;
+  height: 27px;
+  border-radius: 10px;
+  float: right;
+  font-size: 12px;
+  padding-top: 4px;
+  position: relative;
+  top: -13px;
+  margin-left: 15px;
+}
+
+.har-feed-btn {
+  width: 72px;
+  height: 27px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, .125);
+  float: right;
+  font-size: 12px;
+  padding-top: 4px;
+  position: relative;
+  top: -13px;
+  margin-left: 15px;
+}
+
+.har-feed-pro img {
+  width: 60px;
+}
+
+.har-feed-font {
+  font-size: 15px;
+  display: inline;
+  position: relative;
+  top: 10px;
+}
+
+.har-feed-font2 {
+  font-size: 13px;
+  margin: 3px 0 0 0px;
+  color: #999;
+  position: relative;
+  top: 15px;
+}
+
+.har-feed-view {
+  font-size: 13px;
+  color: #999;
+  float: right;
+  position: relative;
+  top: -5px;
+}
+
+.card-body {
+  padding: 50px 30px;
+}
+
+#like {
+  display: inline-block;
+  height: 20px;
+  width: 23px;
+  background-image: url('../images/icon.png');
+  background-repeat: no-repeat;
+  background-position: -9px -9px;
+  background-color: #fff;
+  background-size: 560px;
+  box-sizing: border-box;
+  position: relative;
+  margin-right: 3px;
+  border: 0;
+}
+
+#like:hover {
+  display: inline-block;
+  height: 20px;
+  width: 23px;
+  background-image: url('../images/icon.png');
+  background-repeat: no-repeat;
+  background-position: -38px -9px;
+  background-size: 560px;
+  box-sizing: border-box;
+  position: relative;
+  margin-right: 3px;
+}
+
+.comment {
+  display: inline-block;
+  height: 20px;
+  width: 23px;
+  background-image: url('../images/icon.png');
+  background-repeat: no-repeat;
+  background-position: -67px -9px;
+  background-size: 560px;
+  box-sizing: border-box;
+  position: relative;
+  margin-right: 3px;
+}
+
+.har-feed-font3 {
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 15px;
+  color: #333;
+  position: relative;
+  top: -5px;
+  line-height: 1.5;
+}
+
+.card2 {
+  float: right;
+  width: 420px;
+}
+
+.card3 {
+  width: 418px;
+  height: 75px;
+  padding: 25px 30px 30px 25px;
+  border-radius: 0px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+  margin-top: 5px;
+}
+
+.card4 {
+  width: 420px;
+  padding: 30px;
+  max-height: 700px;
+  overflow-y: scroll;
+}
+
+.har-comment1 {
+  margin-bottom: 35px;
+}
+
+.har-writer-pro {
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 30px;
+  float: left;
+  margin-right: 10px;
+}
+
+.har-writer-pro img {
+  width: 35px;
+}
+
+.har-feed-font4 {
+  font-size: 15px;
+  /* display: inline-block; */
+  margin-right: 15px;
+  color: #333;
+  position: relative;
+  top: 5px;
+  line-height: 1.5;
+}
+
+.har-cmt-content {
+  display: block;
+  position: relative;
+  top: 15px;
+  font-size: 14px;
+  padding-left: 45px;
+}
+
+.har-like-box {
+  border: 0;
+  background-color: #fff;
+  position: relative;
+  top: 23px;
+  left: 39px;
+  font-size: 11px;
+}
+
+.har-like-box2 {
+  position: relative;
+  top:9px;
+}
+
+.har-comment-delete {
+  padding-top: 15px;
+}
+
+.har-comment2 {
+  margin-left: 30px;
+  margin-bottom: 15px;
+}
+
+.har-reComment-tag {
+display:block;
+position:relative;
+top:15px;
+  color: rgb(5, 102, 163);
+  font-size: 14px;
+}
+
+.har-rcmt-content {
+  position: relative;
+  top:0;
+  left: 110px;
+  width: 220px;
+  padding: 0;
+}
+
+.har-comment-input {
+  width: 418px;
+  height: 50px;
+  border-top: 1px solid rgba(0, 0, 0, .125);
+}
+
+.har-comment-input form {
+  float: right;
+}
+
+.har-comment-text {
+  padding: 14px 15px;
+  width: 290px;
+  border: 0;
+  font-size: 13px;
+}
+
+.har-comment-btn {
+  width: 75px;
+  height: 49px;
+  background-color: #fff;
+  border: 0;
+  border-radius: 10px;
+  color: rgb(5, 102, 163);
+}
+
+.har-cmt-delete-bnt {
+  color: #666;
+  margin-left: 5px;
+}
+
+.har-cmt-input {
+  margin: 15px 0 0 45px;
+  display: block;
+}
+
+.har-cmt-input {
+  width: 180px;
+}
+
+.har-rcmt-input {
+  position: relative;
+  left: -38px;
+  margin: 0;
+}
+
+.har-feed-wr-pro {
+  margin:0;
+  width: 60px;
+}
+
+.listBtn {
+  width: 60px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: 10px;
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+  padding-top: 8px;
+  font-size: 13px;
+  color: #333;
+}

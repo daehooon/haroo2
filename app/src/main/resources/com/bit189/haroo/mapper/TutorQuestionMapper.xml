@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bit189.haroo.dao.TutorQuestionDao">
+
+  <resultMap id="tutorQuestionMap" type="TutorQuestion">
+    <id column="pno" property="no"/>
+    <result column="content" property="content"/>
+    <result column="wdttm" property="writingDate"/>
+    <result column="view_cnt" property="viewCount"/>
+    <result column="pstat" property="state"/>
+    <result column="title" property="title"/>
+    <result column="secret" property="secret"/>
+    <result column="reply" property="reply"/>
+    <result column="rpl_dttm" property="replyDate"/>
+  
+  <association property="writer" javaType="Member">
+      <id column="mno" property="no"/>
+      <result column="profile_pic" property="profilePicture"/>
+      <result column="name" property="name"/>
+      <result column="nickname" property="nickname"/>
+    </association> 
+    
+  <association property="tutor" javaType="Member">
+      <id column="tno" property="no"/>
+      <result column="name" property="name"/>
+      <result column="mstat" property="state"/>
+  </association> 
+    
+  <collection property="attachedFiles" ofType="AttachedFile">
+      <id column="fno" property="no"/>
+       <result column="pno" property="postNo"/>
+      <result column="fname" property="name"/>
+  </collection>
+  
+  </resultMap>
+    
+  <select id="findAll" resultMap="tutorQuestionMap">
+    select
+      tq.pno,
+      tq.mno,
+      tq.tno,
+      tq.title,
+      tq.secret,
+      tq.reply,
+      tq.rpl_dttm,
+      p.content,
+      p.wdttm,
+      p.view_cnt,
+      p.pstat,
+      m.profile_pic,
+      m.name,
+      m.nickname,
+      f.fno,
+      f.fname,
+      m.name,
+      m.mstat,
+      r.trpl_fno,
+      r.trpl_fname 
+    from
+      har_tqna tq
+      inner join har_member m on m.mno=tq.mno
+      inner join har_post p on p.pno=tq.pno
+      left join har_file f on f.pno=p.pno
+      inner join har_tutor t on t.tno=tq.tno
+      left join har_trpl_file r on r.pno=tq.pno
+      where
+    p.pstat=1
+    order by tq.pno
+  </select>
+</mapper>

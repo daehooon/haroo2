@@ -35,6 +35,11 @@
       <result column="fname" property="name"/>
     </collection>
     
+     <collection property="replyAttachedFiles" ofType="AttachedFile">
+      <id column="srpl_fno" property="no"/>
+       <result column="pno" property="postNo"/>
+      <result column="srpl_fname" property="name"/>
+    </collection>
     
   </resultMap>
   
@@ -65,8 +70,8 @@
       f.fname,
       s.sname,
       s.sstat,
-      r.fno,
-      r.fname 
+      r.srpl_fno,
+      r.srpl_fname 
     from
       har_sqna q
       inner join har_member m on m.mno=q.mno
