@@ -54,7 +54,7 @@
 <input class='har-lrv-det-up' type='submit' style='{display: none;}' value='확인'><a class='har-lrv-det-up' style='{display: none;}'>취소</a>
 </form>
 	<c:if test="${not empty loginUser and loginUser.no == review.writer.no}">
-	  <button id="har-lrv-det-up-btn" class = "har-up-hid">수정</button><a class = "har-up-hid" href='delete?no=${review.no}'>삭제</a>
+	  <button id='har-lrv-det-up-btn' class = 'har-lrv-det-up-hid'>수정</button><a class = 'har-lrv-det-up-hid' href='delete?no=${review.no}'>삭제</a>
 	</c:if>
 </c:if>
 
@@ -66,7 +66,7 @@
 <script>
 "use stricet";
 
-$("#har-up").click({
+$("#har-lrv-det-up-btn").click({
 	
 });
 	

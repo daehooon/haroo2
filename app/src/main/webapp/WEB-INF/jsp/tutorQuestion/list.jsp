@@ -5,15 +5,16 @@
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의 목록</title>
+<title>튜터에게물어봐</title>
 </head>
 <body>
-<h1>문의 목록</h1>
-<p><a href='form'>새 글</a></p>
+<h1>튜터에게물어봐</h1>
+<p><a href='add'>새 글</a></p>
 <table border='1'>
 <thead>
 <tr>
@@ -25,20 +26,20 @@
 </tr>
 </thead>
 <tbody>
-<c:forEach items="${questions}" var="question">
-<fmt:formatDate value="${question.writingDate}" pattern="yyyy-MM-dd" var="writingDate"/>
+<c:forEach items="${tutorQuestions}" var="tutorQuestion">
+<fmt:formatDate value="${tutorQuestion.writingDate}" pattern="yyyy-MM-dd" var="writingDate"/>
 <tr> 
-    <c:set var="title" value="${question.secret eq '1' || question.writer.no eq loginUser.no ? question.title : '비밀글은 작성자와 튜터만 볼 수 있습니다.'}"/>
-      <td>${question.no}</td>
-  <td><a href='detail?no=${question.no}'>${title}</a></td>
-  <td>${question.writer.nickname}</td>
+    <c:set var="title" value="${tutorQuestion.secret eq '1' || tutorQuestion.writer.no eq loginUser.no ? tutorQuestion.title : '비밀글은 작성자와 튜터만 볼 수 있습니다.'}"/>
+      <td>${tutorQuestion.no}</td>
+  <td><a href='detail?no=${tutorQuestion.no}'>${title}</a></td>
+  <td>${tutorQuestion.writer.nickname}</td>
   <td>${writingDate}</td>
-  <td>${question.viewCount}</td>        
+  <td>${tutorQuestion.viewCount}</td>        
     </tr>
 </c:forEach>
   
-<c:if test="${question.title > 0 }">
-<c:forEach begin="1" end="${question.title}">
+<c:if test="${tutorQuestion.title > 0 }">
+<c:forEach begin="1" end="${tutorQuestion.title}">
 &nbsp;&nbsp;
 </c:forEach>
 RE :

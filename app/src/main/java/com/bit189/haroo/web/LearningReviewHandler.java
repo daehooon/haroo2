@@ -2,45 +2,42 @@ package com.bit189.haroo.web;
 
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.bit189.haroo.domain.Learning;
 import com.bit189.haroo.domain.LearningReview;
 import com.bit189.haroo.service.LearningReviewService;
 import com.bit189.haroo.service.LearningService;
 
 @Controller
-public class LearningReviewListHandler {
+@RequestMapping("/learning/review/")
+public class LearningReviewHandler {
 
   LearningService learningService;
   LearningReviewService learningReviewService;
 
-  public LearningReviewListHandler(LearningService learningService,
+  public LearningReviewHandler(LearningService learningService,
       LearningReviewService learningReviewService) {
     this.learningService = learningService;
     this.learningReviewService = learningReviewService;
     System.out.println("LearningReviewListHandler 객체 생성됨!");
   }
 
-  @RequestMapping("/learning/review/list")
-  public String execute(HttpServletRequest request, HttpServletResponse response) 
-      throws Exception { 
+  @RequestMapping("list")
+  public void list(@RequestParam(defaultValue = "0") int lno, Model model,
+      String sortingItem, String sortingType) throws Exception { 
 
-    String lno = request.getParameter("lno");
-    if(lno == null) {
+    if(lno == 0) {
       throw new ServletException("파라미터가 없습니다.");
     } 
-    Learning learning = learningService.get(Integer.parseInt(lno));
+    Learning learning = learningService.get(lno);
     if(learning == null) {
       throw new ServletException("해당 번호의 체험 학습이 없습니다.");
     }
 
-    request.setAttribute("learning", learning);
-
-    String sortingItem = request.getParameter("sortingItem");
-    String sortingType = request.getParameter("sortingType");
+    model.addAttribute("learning", learning);
 
     sortingType = (sortingType == null ? "d" : sortingType); 
 
@@ -53,12 +50,26 @@ public class LearningReviewListHandler {
     }
 
     List<LearningReview> reviews = 
-        learningReviewService.listByLearning(
-            Integer.parseInt(lno), sortingItem, sortingType);
+        learningReviewService.listByLearning(lno, sortingItem, sortingType);
 
-    request.setAttribute("reviews", reviews);
+    model.addAttribute("reviews", reviews);
+  }
 
-    return "/jsp/learningReview/list.jsp";
+  @RequestMapping("detail")
+  public void detail(@RequestParam(defaultValue = "0") int lno,
+      @RequestParam(defaultValue = "0") int rno, Model model) throws Exception {
+
+    if(lno == 0) {
+      throw new ServletException("파라미터가 없습니다.");
+    } 
+
+    if(rno == 0) {
+      throw new ServletException("파라미터가 없습니다.");
+    }
+
+    LearningReview review = learningReviewService.get(rno);
+
+    model.addAttribute("review", review);
   }
 
 }

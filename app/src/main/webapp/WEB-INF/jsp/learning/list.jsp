@@ -15,9 +15,9 @@
 <p><a href='basket'>장바구니에 넣기</a></p>
 <p><a href='wish'>찜하기</a></p>
 
+<c:if test="${loginUser.rank == 1 || loginUser.rank == 2}">
 <p><a href='form'>체험학습 등록</a></p>
-<!-- <c:if test="${loginUser.rank == 1 || loginUser.rank == 2}">
-</c:if>  -->
+</c:if>
 
 <table border='1'>
 <thead>

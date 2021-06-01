@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:if test="${param.broadCategory == '1'}">
+<c:if test="${param.broadCategoryNo == '1'}">
 	<option value="1">도자기</option>
 	<option value="2">가죽</option>
 	<option value="3">목공</option>
@@ -16,7 +16,7 @@
 	<option value="12">기타</option>
 </c:if>
 
-<c:if test="${param.broadCategory == '2'}">
+<c:if test="${param.broadCategoryNo == '2'}">
 	<option value="13">방송댄스</option>
 	<option value="14">스포츠댄스</option>
 	<option value="15">폴댄스</option>
@@ -26,7 +26,7 @@
 	<option value="19">기타</option>
 </c:if>
 
-<c:if test="${param.broadCategory == '3'}">
+<c:if test="${param.broadCategoryNo == '3'}">
 	<option value="20">한식</option>
 	<option value="21">일식</option>
 	<option value="22">중식</option>
@@ -36,7 +36,7 @@
 	<option value="26">기타</option>
 </c:if>
 
-<c:if test="${param.broadCategory == '4'}">
+<c:if test="${param.broadCategoryNo == '4'}">
 	<option value="27">맥주</option>
 	<option value="28">와인</option>
 	<option value="29">칵테일·위스키</option>
@@ -45,7 +45,7 @@
 	<option value="32">기타</option>
 </c:if>
 
-<c:if test="${param.broadCategory == '5'}">
+<c:if test="${param.broadCategoryNo == '5'}">
 	<option value="33">피아노</option>
 	<option value="34">기타(악기)</option>
 	<option value="35">드럼</option>
@@ -56,7 +56,7 @@
 	<option value="40">기타</option>
 </c:if>
 
-<c:if test="${param.broadCategory == '6'}">
+<c:if test="${param.broadCategoryNo == '6'}">
 	<option value="41">클라이밍</option>
 	<option value="42">구기스포츠</option>
 	<option value="43">라켓스포츠</option>
@@ -74,20 +74,20 @@
 	<option value="55">기타</option>
 </c:if>
 
-<c:if test="${param.broadCategory == '7'}">
+<c:if test="${param.broadCategoryNo == '7'}">
 	<option value="56">사진</option>
 	<option value="57">영상</option>
 	<option value="58">기타</option>
 </c:if>
 
-<c:if test="${param.broadCategory == '8'}">
+<c:if test="${param.broadCategoryNo == '8'}">
 	<option value="59">동양화</option>
 	<option value="60">서양화</option>
 	<option value="61">캘리그라피·드로잉</option>
 	<option value="62">기타</option>
 </c:if>
 
-<c:if test="${param.broadCategory == '9'}">
+<c:if test="${param.broadCategoryNo == '9'}">
 	<option value="63">헤어·메이크업</option>
 	<option value="64">이미지메이킹</option>
 	<option value="65">네일·왁싱</option>

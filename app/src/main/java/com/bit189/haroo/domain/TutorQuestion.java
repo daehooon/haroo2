@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class TutorQuestion extends Post{
   private Member writer;
+  private Member tutorNickname;
   private String title;
   private int secret;
   private String reply;
@@ -11,14 +12,20 @@ public class TutorQuestion extends Post{
 
   @Override
   public String toString() {
-    return "TutorQuestion [writer=" + writer + ", title=" + title + ", secret=" + secret
-        + ", reply=" + reply + ", replyDate=" + replyDate + "]";
+    return "TutorQuestion [writer=" + writer + ", tutorNickname=" + tutorNickname + ", title="
+        + title + ", secret=" + secret + ", reply=" + reply + ", replyDate=" + replyDate + "]";
   }
   public Member getWriter() {
     return writer;
   }
   public void setWriter(Member writer) {
     this.writer = writer;
+  }
+  public Member getTutorNickname() {
+    return tutorNickname;
+  }
+  public void setTutorNickname(Member tutorNickname) {
+    this.tutorNickname = tutorNickname;
   }
   public String getTitle() {
     return title;
@@ -44,6 +51,7 @@ public class TutorQuestion extends Post{
   public void setReplyDate(Date replyDate) {
     this.replyDate = replyDate;
   }
+
 
 
 }

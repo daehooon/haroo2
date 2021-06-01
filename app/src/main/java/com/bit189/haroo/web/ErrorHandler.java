@@ -31,7 +31,7 @@ public class ErrorHandler extends HttpServlet {
     request.setAttribute("errorMessage", e.getMessage());
 
     response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/jsp/error/errorServletException.jsp")
+    request.getRequestDispatcher("/WEB-INF/jsp/error/errorServletException.jsp")
     .include(request, response);
 
   }

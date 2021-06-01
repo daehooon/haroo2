@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>회원 목록</h1>
-<p><a href='add'>회원등록</a></p>
+<p><a href='form'>회원등록</a></p>
 <table border='1'>
 <thead>
 <tr>
@@ -20,10 +20,10 @@
 <tbody>
 <c:forEach items="${list}" var="m">
 	  <c:if test="${not empty m.profilePicture}">
-	    <c:set var="profilePictureUrl">../upload/${m.profilePicture}_30x30.jpg</c:set>
+	    <c:set var="profilePictureUrl">../../upload/${m.profilePicture}_30x30.jpg</c:set>
 	  </c:if>
 	  <c:if test="${empty m.profilePicture}">
-	   <c:set var="profilePictureUrl">../upload/_30x30.jpg</c:set>
+	   <c:set var="profilePictureUrl">../../images/person_30x30.jpg</c:set>
 	  </c:if>
   <tr>
 		<td>${m.no}</td>

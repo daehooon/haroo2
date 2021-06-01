@@ -19,12 +19,8 @@ import com.bit189.haroo.domain.LearningSchedule;
 import com.bit189.haroo.domain.Member;
 import com.bit189.haroo.domain.ServiceInfo;
 import com.bit189.haroo.domain.Tutor;
-import com.bit189.haroo.service.BroadCategoryService;
 import com.bit189.haroo.service.LearningService;
 import com.bit189.haroo.service.MemberService;
-import com.bit189.haroo.service.NarrowCategoryService;
-import com.bit189.haroo.service.SidoService;
-import com.bit189.haroo.service.SigunguService;
 import net.coobird.thumbnailator.ThumbnailParameter;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -35,38 +31,25 @@ import net.coobird.thumbnailator.name.Rename;
 public class LearningController {
 
   ServletContext sc;
-  BroadCategoryService broadCategoryService;
-  NarrowCategoryService narrowCategoryService;
-  SidoService sidoService;
-  SigunguService sigunguService;
   LearningService learningService;
   MemberService memberService;
 
-  public LearningController(ServletContext sc, BroadCategoryService broadCategoryService, NarrowCategoryService narrowCategoryService,
-      SidoService sidoService, SigunguService sigunguService, LearningService learningService, MemberService memberService) {
-
+  public LearningController(ServletContext sc, LearningService learningService, MemberService memberService) {
     this.sc = sc;
-    this.broadCategoryService = broadCategoryService;
-    this.narrowCategoryService = narrowCategoryService;
-    this.sidoService = sidoService;
-    this.sigunguService = sigunguService;
     this.learningService = learningService;
     this.memberService = memberService;
   }
 
   @GetMapping("form")
-  public void form(Model model) throws Exception {
-    model.addAttribute("broadCategorys", broadCategoryService.list());
-    model.addAttribute("narrowCategorys", narrowCategoryService.list());
-    model.addAttribute("sidos", sidoService.list());
-    model.addAttribute("sigungus", sigunguService.list());
-  }
+  public void form() throws Exception {}
 
   @PostMapping("add")
-  public String add(ServiceInfo s, Learning l, Part coverImage,
-      HttpSession session, HttpServletRequest request) throws Exception {
+  public String add(Part coverImage, HttpSession session, HttpServletRequest request) throws Exception {
 
     String uploadDir = sc.getRealPath("/upload");
+
+    ServiceInfo s = new ServiceInfo();
+    Learning l = new Learning();
 
     // 개설자
     Member loginUser = (Member) session.getAttribute("loginUser");
@@ -81,16 +64,32 @@ public class LearningController {
      * 날짜, 시작시각, 종료시각,
      * 가격
      */
+    s.setName(request.getParameter("name"));
+    s.setBroadCategoryNo(Integer.parseInt(request.getParameter("broadCategoryNo")));
+    s.setNarrowCategoryNo(Integer.parseInt(request.getParameter("narrowCategoryNo")));
 
     // 우편번호 API 추가하기
+    l.setZipcode(request.getParameter("zipcode"));
+    l.setAddress(request.getParameter("address"));
+    l.setSidoNo(Integer.parseInt(request.getParameter("sidoNo")));
+    l.setSigunguNo(Integer.parseInt(request.getParameter("sigunguNo")));
+
+    l.setDetailAddress(request.getParameter("detailAddress"));
+    s.setIntro(request.getParameter("intro"));
+    l.setProgressOrder(request.getParameter("progressOrder"));
+    l.setRefundInformation(request.getParameter("refundInformation"));
+    l.setMinPeople(Integer.parseInt(request.getParameter("minPeople")));
+    l.setMaxPeople(Integer.parseInt(request.getParameter("maxPeople")));
 
     List<LearningSchedule> schedules = new ArrayList<>();
     LearningSchedule schedule = new LearningSchedule();
     schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
-    schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime") + ":00"));
-    schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime") + ":00"));
+    schedule.setStartTime(Time.valueOf(request.getParameter("startTime") + ":00"));
+    schedule.setEndTime(Time.valueOf(request.getParameter("endTime") + ":00"));
     schedules.add(schedule);
     l.setSchedules(schedules);
+
+    l.setPrice(Integer.parseInt(request.getParameter("price")));
 
     if (coverImage.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
@@ -157,28 +156,40 @@ public class LearningController {
   }
 
   @GetMapping("updateForm")
-  public void updateForm(Model model) throws Exception {
-    model.addAttribute("broadCategorys", broadCategoryService.list());
-    model.addAttribute("narrowCategorys", narrowCategoryService.list());
-    model.addAttribute("sidos", sidoService.list());
-    model.addAttribute("sigungus", sigunguService.list());
-  }
+  public void updateForm(Model model) throws Exception {}
 
   @PostMapping("update")
-  public String update(int no, Model model, ServiceInfo s, Learning l, Part coverImage,
+  public String update(int no, Model model, Part coverImage,
       HttpSession session, HttpServletRequest request) throws Exception {
 
     String uploadDir = sc.getRealPath("/upload");
     model.addAttribute("learning", learningService.get(no));
 
-    //      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    //      if (oldLearning.getOwner().getNo() != loginUser.getNo()) {
-    //        throw new Exception("변경 권한이 없습니다!");
-    //      }
+    ServiceInfo s = new ServiceInfo();
+    Learning l = new Learning();
 
-    //    s.setNo(no);
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    if (l.getOwner().getNo() != loginUser.getNo()) {
+      throw new Exception("변경 권한이 없습니다!");
+    }
+
+    s.setNo(no);
+    s.setName(request.getParameter("name"));
+    s.setBroadCategoryNo(Integer.parseInt(request.getParameter("broadCategoryNo")));
+    s.setNarrowCategoryNo(Integer.parseInt(request.getParameter("narrowCategoryNo")));
 
     // 우편번호 API 추가하기
+    l.setZipcode(request.getParameter("zipcode"));
+    l.setAddress(request.getParameter("address"));
+    l.setSidoNo(Integer.parseInt(request.getParameter("sidoNo")));
+    l.setSigunguNo(Integer.parseInt(request.getParameter("sigunguNo")));
+
+    l.setDetailAddress(request.getParameter("detailAddress"));
+    s.setIntro(request.getParameter("intro"));
+    l.setProgressOrder(request.getParameter("progressOrder"));
+    l.setRefundInformation(request.getParameter("refundInformation"));
+    l.setMinPeople(Integer.parseInt(request.getParameter("minPeople")));
+    l.setMaxPeople(Integer.parseInt(request.getParameter("maxPeople")));
 
     List<LearningSchedule> schedules = new ArrayList<>();
     LearningSchedule schedule = new LearningSchedule();

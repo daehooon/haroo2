@@ -12,11 +12,11 @@
 <h1>회원 상세보기</h1>
 <c:if test="${not empty member}">
   <c:if test="${not empty member.profilePicture}">
-    <c:set var="profilePicture80x80Url">../upload/${member.profilePicture}_80x80.jpg</c:set>
-    <c:set var="profilePictureUrl">../upload/${member.profilePicture}</c:set>
+    <c:set var="profilePicture80x80Url">../../upload/${member.profilePicture}_80x80.jpg</c:set>
+    <c:set var="profilePictureUrl">../../upload/${member.profilePicture}</c:set>
   </c:if>
   <c:if test="${empty member.profilePicture}">
-    <c:set var="profilePicture80x80Url">../images/person_80x80.jpg</c:set>
+    <c:set var="profilePicture80x80Url">../../images/person_80x80.jpg</c:set>
     <c:set var="profilePictureUrl"></c:set>
   </c:if>
 		<form action='update' method='post' enctype='multipart/form-data'>
@@ -38,17 +38,17 @@
 		  <th>사진</th> 
 		  <td><a href='${profilePictureUrl}'>
 		  <img src='${profilePicture80x80Url}'></a><br>
-		  <input name='profilepicture' type='file'></td></tr>
+		  <input name='profileFile' type='file'></td></tr>
 		<tr>
 		  <th>전화번호</th> 
 		  <td><input type='tel' name='tel' value='${member.tel}' >  <input type='button' value='문자인증'></td></tr>
 		<tr>
 		  <th>성별</th> 
-		  <td><input type='checkbox' name='sex' ${member.sex == 1 ? "checked" : ""}  onclick='return(false);'>남 
-		      <input type='checkbox' name='sex' ${member.sex == 2 ? "checked" : ""}  onclick='return(false);'>여
+		  <td><input type='checkbox' ${member.sex == 1 ? "checked" : ""}  onclick='return(false);'>남 
+		      <input type='checkbox' ${member.sex == 2 ? "checked" : ""}  onclick='return(false);'>여
 		<tr>
 		  <th>생일</th> 
-		  <td><input type='date' name='birthdate' value='${member.birthDate}' readonly></td></tr>
+		  <td><input type='date' name='birthDate' value='${member.birthDate}' readonly></td></tr>
 		<tr>
 		  <th>우편번호</th> 
 		  <td><input type='text' name='zipcode' value='${member.zipcode}' >  
@@ -59,7 +59,7 @@
 		      <input type='button' value='주소찾기'></td></tr>
 		<tr>
 		  <th>상세주소</th> 
-		  <td><input type='text' name='detailaddress' value='${member.detailAddress}' ></td></tr>
+		  <td><input type='text' name='detailAddress' value='${member.detailAddress}' ></td></tr>
 		<tr>
 		  <th>가입일</th> 
 		  <td>${member.registeredDate}</td></tr>

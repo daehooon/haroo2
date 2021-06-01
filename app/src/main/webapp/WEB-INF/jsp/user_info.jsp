@@ -16,11 +16,11 @@
 
 <c:if test="${not empty loginUser}">
   <c:if test="${not empty loginUser.profilePicture}">
-  <c:set var="profilePicture80x80Url">upload/${loginUser.profilePicture}_80x80.jpg</c:set>
-  <c:set var="profilePictureUrl">upload/${loginUser.profilePicture}</c:set>
+  <c:set var="profilePicture80x80Url">../upload/${loginUser.profilePicture}_80x80.jpg</c:set>
+  <c:set var="profilePictureUrl">../upload/${loginUser.profilePicture}</c:set>
   </c:if>
   <c:if test="${empty loginUser.profilePicture}">
-    <c:set var="profilePicture80x80Url">images/person_80x80.jpg</c:set>
+    <c:set var="profilePicture80x80Url">../images/person_80x80.jpg</c:set>
     <c:set var="profilePictureUrl"></c:set>
 </c:if>
 	<table border='1'>

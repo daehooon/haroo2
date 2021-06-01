@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:if test="${param.sido == '1'}">
+<c:if test="${param.sidoNo == '1'}">
   <option value="1">도봉구</option>
   <option value="2">노원구</option>
   <option value="3">강북구</option>
@@ -29,7 +29,7 @@
   <option value="25">관악구</option>
 </c:if>
 
-<c:if test="${param.sido == '2'}">
+<c:if test="${param.sidoNo == '2'}">
   <option value="26">김포</option>
 	<option value="27">파주</option>
 	<option value="28">연천</option>
@@ -63,7 +63,7 @@
 	<option value="56">안성</option>
 </c:if>
 
-<c:if test="${param.sido == '3'}">
+<c:if test="${param.sidoNo == '3'}">
 	<option value="57">남동구</option>
 	<option value="58">연수구</option>
 	<option value="59">미추홀구</option>
@@ -73,7 +73,7 @@
 	<option value="63">동구</option>
 </c:if>
 
-<c:if test="${param.sido == '4'}">
+<c:if test="${param.sidoNo == '4'}">
 	<option value="64">철원</option>
 	<option value="65">화천</option>
 	<option value="66">양구</option>
@@ -93,7 +93,7 @@
 	<option value="80">동해</option>
 </c:if>
 
-<c:if test="${param.sido == '5'}">
+<c:if test="${param.sidoNo == '5'}">
 	<option value="81">강서구</option>
 	<option value="82">북구</option>
 	<option value="83">금정구</option>
@@ -112,7 +112,7 @@
 	<option value="96">영도구</option>
 </c:if>
 
-<c:if test="${param.sido == '6'}">
+<c:if test="${param.sidoNo == '6'}">
 	<option value="97">달성군</option>
 	<option value="98">북구</option>
 	<option value="99">동구</option>
@@ -123,7 +123,7 @@
 	<option value="104">수성구</option>
 </c:if>
 
-<c:if test="${param.sido == '7'}">
+<c:if test="${param.sidoNo == '7'}">
 	<option value="105">동구</option>
 	<option value="106">서구</option>
 	<option value="107">중구</option>
@@ -131,7 +131,7 @@
 	<option value="109">대덕구</option>
 </c:if>
 
-<c:if test="${param.sido == '8'}">
+<c:if test="${param.sidoNo == '8'}">
 	<option value="110">울주군</option>
 	<option value="111">동구</option>
 	<option value="112">중구</option>
@@ -139,7 +139,7 @@
 	<option value="114">북구</option>
 </c:if>
 
-<c:if test="${param.sido == '9'}">
+<c:if test="${param.sidoNo == '9'}">
 	<option value="115">영주</option>
 	<option value="116">봉화</option>
 	<option value="117">울진</option>
@@ -164,7 +164,7 @@
 	<option value="136">청도</option>
 </c:if>
 
-<c:if test="${param.sido == '10'}">
+<c:if test="${param.sidoNo == '10'}">
 	<option value="137">거창</option>
 	<option value="138">함양</option>
 	<option value="139">산청</option>
@@ -185,7 +185,7 @@
 	<option value="154">거제</option>
 </c:if>
 
-<c:if test="${param.sido == '11'}">
+<c:if test="${param.sidoNo == '11'}">
   <option value="155">청주</option>
 	<option value="156">충주</option>
 	<option value="157">제천</option>
@@ -199,7 +199,7 @@
 	<option value="165">단양</option>
 </c:if>
 
-<c:if test="${param.sido == '12'}">
+<c:if test="${param.sidoNo == '12'}">
 	<option value="166">태안</option>
 	<option value="167">서산</option>
 	<option value="168">당진</option>
@@ -217,7 +217,7 @@
 	<option value="180">금산</option>
 </c:if>
 
-<c:if test="${param.sido == '13'}">
+<c:if test="${param.sidoNo == '13'}">
 	<option value="181">익산</option>
 	<option value="182">군산</option>
 	<option value="183">완주</option>
@@ -234,7 +234,7 @@
 	<option value="194">장수</option>
 </c:if>
 
-<c:if test="${param.sido == '14'}">
+<c:if test="${param.sidoNo == '14'}">
 	<option value="195">목포</option>
 	<option value="196">여수</option>
 	<option value="197">순천</option>
@@ -259,7 +259,7 @@
 	<option value="216">신안</option>
 </c:if>
 
-<c:if test="${param.sido == '15'}">
+<c:if test="${param.sidoNo == '15'}">
 	<option value="217">광산구</option>
 	<option value="218">북구</option>
 	<option value="219">서구</option>
@@ -267,11 +267,11 @@
 	<option value="221">동구</option>
 </c:if>
 
-<c:if test="${param.sido == '16'}">
+<c:if test="${param.sidoNo == '16'}">
   <option value="222">세종</option> 
 </c:if>
 
-<c:if test="${param.sido == '17'}">
+<c:if test="${param.sidoNo == '17'}">
   <option value="223">제주</option>
   <option value="224">서귀포</option>
 </c:if>

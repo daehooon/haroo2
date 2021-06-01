@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 "use strict"
 
 
@@ -90,6 +86,8 @@ function reCommentAdd(cmtNo, tgNo, fdNo) {
     + "<input type='hidden' name='no' value='" + fdNo + "' />"
     + "<input type='text' name='content' placeholder='댓글을 달아주세요.'  class='har-comment-text'/>"
     + "<input type='submit' value='등록' class='har-comment-btn'>";
+    
+    document.querySelector("input").focus();
 }
 
 

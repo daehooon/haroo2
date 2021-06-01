@@ -11,10 +11,10 @@
 <body>
 <h1>튜터 등록</h1>
 <form action="add" method="post" enctype="multipart/form-data">
-멤버번호: <input type="number" name='tno'><br>
-튜터소개:   <br><textarea name='tintro' rows='5' cols='40'></textarea><br>
-튜터신청서: <br><textarea name='tappl' rows='5' cols='40'></textarea><br>
-<select id="sido" name="sido">
+멤버번호: <input type="number" name='no'><br>
+튜터소개:   <br><textarea name='intro' rows='5' cols='40'></textarea><br>
+튜터신청서: <br><textarea name='application' rows='5' cols='40'></textarea><br>
+<select id="sido" name="sidoNo">
     <option value="1">서울</option> -- 특별시
     <option value="2">경기</option>
     <option value="3">인천</option> -- 광역시
@@ -34,7 +34,7 @@
     <option value="17">제주</option>
 </select>
 
-<select id="sigungu" name="sgg_no">
+<select id="sigungu" name="sigunguNo">
   <option value="1">도봉구</option>
   <option value="2">노원구</option>
   <option value="3">강북구</option>
@@ -62,7 +62,7 @@
   <option value="25">관악구</option>
 </select>
 <br>
-<select id="broadCategory" name="broadCategory">
+<select id="broadCategory" name="broadCategoryNo">
   <option value="1">공예·DIY</option>
   <option value="2">댄스</option>
   <option value="3">요리</option>
@@ -74,7 +74,7 @@
   <option value="9">뷰티</option>
 </select>
 
-<select id="narrowCategory" name="ncat_no">
+<select id="narrowCategory" name="narrowCategoryNo">
   <option value="1">도자기</option>
   <option value="2">가죽</option>
   <option value="3">목공</option>
@@ -96,7 +96,7 @@ var t1 = document.querySelector("#sido");
 var t2 = document.querySelector("#sigungu");
 t1.onchange = function() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "../../jsp/tutor/district2.jsp?sido=" + t1.value, false);
+  xhr.open("GET", "../../jsp/tutor/district2.jsp?sidoNo=" + t1.value, false);
   xhr.send();
   
   t2.innerHTML = xhr.responseText;  
@@ -106,7 +106,7 @@ var t3 = document.querySelector("#broadCategory");
 var t4 = document.querySelector("#narrowCategory");
 t3.onchange = function() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "../../jsp/tutor/category2.jsp?broadCategory=" + t3.value, false);
+  xhr.open("GET", "../../jsp/tutor/category2.jsp?broadCategoryNo=" + t3.value, false);
   xhr.send();
   
   t4.innerHTML = xhr.responseText;  

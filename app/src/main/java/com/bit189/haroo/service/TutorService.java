@@ -8,7 +8,7 @@ import com.bit189.haroo.domain.TutorDistrict;
 
 public interface TutorService {
 
-  int add(Tutor tutor , Member member , TutorDistrict tutorDistrict, TutorCategory tutorCategory) throws Exception;
+  int add(Tutor tutor, TutorDistrict tutorDistrict, TutorCategory tutorCategory) throws Exception;
 
   List<Tutor> list(String keyword) throws Exception;
 

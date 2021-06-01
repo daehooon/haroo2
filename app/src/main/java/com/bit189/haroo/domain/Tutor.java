@@ -16,7 +16,6 @@ public class Tutor extends Member {
         + promotedDate + ", tutorDistricts=" + tutorDistricts + ", tutorCategories="
         + tutorCategories + "]";
   }
-
   public String getIntro() {
     return intro;
   }
@@ -47,4 +46,5 @@ public class Tutor extends Member {
   public void setTutorCategories(List<TutorCategory> tutorCategories) {
     this.tutorCategories = tutorCategories;
   }
+
 }

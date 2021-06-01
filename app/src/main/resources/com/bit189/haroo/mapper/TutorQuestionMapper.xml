@@ -24,7 +24,7 @@
     </association> 
     
   <association property="tutor" javaType="Member">
-      <id column="tno" property="no"/>
+      <id column="mno" property="no"/>
       <result column="name" property="name"/>
       <result column="mstat" property="state"/>
   </association> 
@@ -39,13 +39,13 @@
     
   <select id="findAll" resultMap="tutorQuestionMap">
     select
-      tq.pno,
-      tq.mno,
-      tq.tno,
-      tq.title,
-      tq.secret,
-      tq.reply,
-      tq.rpl_dttm,
+      q.pno,
+      q.mno,
+      q.tno,
+      q.title,
+      q.secret,
+      q.reply,
+      q.rpl_dttm,
       p.content,
       p.wdttm,
       p.view_cnt,
@@ -60,14 +60,47 @@
       r.trpl_fno,
       r.trpl_fname 
     from
-      har_tqna tq
-      inner join har_member m on m.mno=tq.mno
-      inner join har_post p on p.pno=tq.pno
+      har_tqna q
+      inner join har_member m on m.mno=q.mno
+      inner join har_post p on p.pno=q.pno
       left join har_file f on f.pno=p.pno
-      inner join har_tutor t on t.tno=tq.tno
-      left join har_trpl_file r on r.pno=tq.pno
+      inner join har_tutor t on t.tno=q.tno
+      left join har_trpl_file r on r.pno=q.pno
       where
     p.pstat=1
-    order by tq.pno
+    order by q.pno
+  </select>
+  
+  <select id="findByNo" resultMap="tutorQuestionMap" parameterType="int">
+    select
+      q.pno,
+      q.mno,
+      q.tno,
+      q.title,
+      q.secret,
+      q.reply,
+      q.rpl_dttm,
+      p.content,
+      p.wdttm,
+      p.view_cnt,
+      p.pstat,
+      m.profile_pic,
+      m.name,
+      m.nickname,
+      f.fno,
+      f.fname,
+      m.name,
+      m.mstat
+    from
+      har_tqna q
+      inner join har_member m on m.mno=q.mno
+      inner join har_post p on p.pno=q.pno
+      left join har_file f on f.pno=p.pno
+      inner join har_tutor t on t.tno=q.tno
+      where
+      q.pno = #{no}
+      and p.pstat=1
+      order by q.pno
+  
   </select>
 </mapper>

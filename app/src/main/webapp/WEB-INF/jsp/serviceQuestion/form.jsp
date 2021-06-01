@@ -14,8 +14,9 @@
 제목: <input type="text" name="title" ><br>
 내용: <textarea name="content" rows="20" cols="60"></textarea><br>
 첨부 파일: <input type="file" name="file" multiple><br>
-      <input type="radio" name="secret" value="Y">공개
-      <input type="radio" name="secret" value="N">비공개<br>
+
+      <input type="radio" name="secret" id="secret" value="1" class="radio" />공개
+      <input type="radio" name="secret" id="secret" value="0" class="radio" />비공개
 
 <input type="submit" value="등록">
 </form>

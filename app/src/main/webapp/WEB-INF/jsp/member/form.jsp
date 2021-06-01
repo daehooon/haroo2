@@ -14,18 +14,14 @@
 이메일: <input id="har-email" type="email" name="email"><button id="checkBtn" type="button">중복검사</button><br>
 비밀번호: <input type="password" name="password"><br>
 닉네임:  <input id="har-nickname" type="text" name="nickname"><button id="checkBtn2" type="button" >중복검사</button><br>
-사진: <input type="file" name="profile_pic"><br>
-생일:  <input type="date" name="bdate"><br>
+사진: <input type="file" name="profileFile"><br>
+생일:  <input type="date" name="birthDate"><br>
 전화번호: <input type="tel" name="tel"><input type="button" value="문자인증"><br>
 성별: <input type="radio" name="sex" value="1">남
       <input type="radio" name="sex" value="2">여<br>
 우편번호: <input type="text" name="zipcode"> <input type="button" value="우편번호찾기"><br>
-기본주소: <input type="text" name="addr"> <input type="button" value="주소찾기"><br>
-상세주소: <input type="text" name="det_addr"><br>
-<!--회원등급: <input type="radio" name="mrno" value="회원" checked>회원
-      <input type="radio" name="mrno" value="튜터">튜터
-      <input type="radio" name="mrno" value="관리자">관리자<br>
- 회원등급: <input type="int" name="mrno"><br> -->
+기본주소: <input type="text" name="address"> <input type="button" value="주소찾기"><br>
+상세주소: <input type="text" name="detailAddress"><br>
 <input type="submit" value="등록">
 </form>
 

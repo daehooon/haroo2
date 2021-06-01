@@ -143,8 +143,8 @@
   </update>
   
   <update id="update1" parameterType="member">
-  update har_member set
-  mrno=2
+    update har_member set
+    mrno=2
     where mno=#{no}
   </update>
   

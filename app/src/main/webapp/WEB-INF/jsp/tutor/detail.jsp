@@ -35,7 +35,7 @@
 		  <th>사진</th> 
 		  <td><a href='${profilePictureUrl}'>
 		  <img src='${profilePicture80x80Url}'></a><br>
-		  <input name='profilepicture' type='file'></td></tr>
+		  <input name='profileFile' type='file'></td></tr>
 		<tr>
 		  <th>닉네임</th> 
 		  <td><input type='text' name='nickname' value='${tutor.nickname}' ></td></tr>
@@ -44,8 +44,8 @@
 		  <td><input type='tel' name='tel' value='${tutor.tel}' >  <input type='button' value='문자인증'></td></tr>
 		<tr>
 		  <th>성별</th> 
-		  <td><input type='checkbox' name='sex' ${tutor.sex == 1 ? "checked" : ""}  onclick='return(false);'>남 
-		      <input type='checkbox' name='sex' ${tutor.sex == 2 ? "checked" : ""}  onclick='return(false);'>여
+		  <td><input type='checkbox'  ${tutor.sex == 1 ? "checked" : ""}  onclick='return(false);'>남 
+		      <input type='checkbox'  ${tutor.sex == 2 ? "checked" : ""}  onclick='return(false);'>여
 		<tr>
 		  <th>생일</th> 
 		  <td><input type='date' name='birthdate' value='${tutor.birthDate}' readonly></td></tr>
@@ -76,7 +76,7 @@
 	    <tr>
 	      <th>카테고리</th>
 	      <td>
-<select id="broadCategory" name="broadCategory" data-broadCategory="${tc.broadCategoryNo}">
+<select id="broadCategory" name="broadCategoryNo" data-broadCategory="${tc.broadCategoryNo}">
   <option value="1">공예·DIY</option>
   <option value="2">댄스</option>
   <option value="3">요리</option>
@@ -88,7 +88,7 @@
   <option value="9">뷰티</option>
 </select>
 
-<select id="narrowCategory" name="narrowCategory" data-narrowCategory="${tc.narrowCategoryNo}">
+<select id="narrowCategory" name="narrowCategoryNo" data-narrowCategory="${tc.narrowCategoryNo}">
   <option value="1">도자기</option>
   <option value="2">가죽</option>
   <option value="3">목공</option>
@@ -109,7 +109,7 @@
 	    <tr>
 		    <th>지역</th>
 		    <td>
-<select id="sido" name="sido" data-sido="${td.sidoNo}">
+<select id="sido" name="sidoNo" data-sido="${td.sidoNo}">
     <option value="1">서울</option> -- 특별시
     <option value="2">경기</option>
     <option value="3">인천</option> -- 광역시
@@ -129,7 +129,7 @@
     <option value="17">제주</option>
 </select>
 
-<select id="sigungu" name="sigungu" data-sigungu="${td.sigunguNo}">
+<select id="sigungu" name="sigunguNo" data-sigungu="${td.sigunguNo}">
   <option value="1">도봉구</option>
   <option value="2">노원구</option>
   <option value="3">강북구</option>
@@ -204,7 +204,7 @@ var t3 = document.querySelector("#broadCategory");
 var t4 = document.querySelector("#narrowCategory");
 t3.onchange = function() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "../../jsp/tutor/category2.jsp?broadCategory=" + t3.value, false);
+  xhr.open("GET", "../../jsp/tutor/category2.jsp?broadCategoryNo=" + t3.value, false);
   xhr.send();
   
   t4.innerHTML = xhr.responseText;  
@@ -214,7 +214,7 @@ var t1 = document.querySelector("#sido");
 var t2 = document.querySelector("#sigungu");
 t1.onchange = function() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "../../jsp/tutor/district2.jsp?sido=" + t1.value, false);
+  xhr.open("GET", "../../jsp/tutor/district2.jsp?sidoNo=" + t1.value, false);
   xhr.send();
   
   t2.innerHTML = xhr.responseText;  
@@ -223,13 +223,13 @@ t1.onchange = function() {
 //
 
 var xhr = new XMLHttpRequest();
-xhr.open("GET", "../../jsp/tutor/category2.jsp?broadCategory=" + t3.value, false);
+xhr.open("GET", "../../jsp/tutor/category2.jsp?broadCategoryNo=" + t3.value, false);
 xhr.send();
 
 t4.innerHTML = xhr.responseText; 
 
 var xhr = new XMLHttpRequest();
-xhr.open("GET", "../../jsp/tutor/district2.jsp?sido=" + t1.value, false);
+xhr.open("GET", "../../jsp/tutor/district2.jsp?sidoNo=" + t1.value, false);
 xhr.send();
 
 t2.innerHTML = xhr.responseText; 

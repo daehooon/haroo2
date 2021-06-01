@@ -182,6 +182,7 @@ button {
   padding: 30px;
   max-height: 700px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .har-comment1 {
@@ -226,6 +227,7 @@ button {
   top: 23px;
   left: 39px;
   font-size: 11px;
+  width: 300px;
 }
 
 .har-like-box2 {
@@ -243,9 +245,6 @@ button {
 }
 
 .har-reComment-tag {
-display:block;
-position:relative;
-top:15px;
   color: rgb(5, 102, 163);
   font-size: 14px;
 }
@@ -253,9 +252,9 @@ top:15px;
 .har-rcmt-content {
   position: relative;
   top:0;
-  left: 110px;
-  width: 220px;
+  width: 280px;
   padding: 0;
+  margin:13px 0 0 45px;
 }
 
 .har-comment-input {

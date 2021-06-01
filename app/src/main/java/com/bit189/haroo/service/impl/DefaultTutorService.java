@@ -44,13 +44,13 @@ public class DefaultTutorService implements TutorService {
   //  }
 
   @Override
-  public int add(Tutor tutor, Member member, TutorDistrict tutorDistrict, TutorCategory tutorCategory) throws Exception {
+  public int add(Tutor tutor, TutorDistrict tutorDistrict, TutorCategory tutorCategory) throws Exception {
     return transactionTemplate.execute(new TransactionCallback<Integer>() {
       @Override
       public Integer doInTransaction(TransactionStatus status) {
         try {
           tutorDao.insert(tutor);
-          memberDao.update1(member);
+          memberDao.update1(tutor);
           tutorDistrictDao.insert(tutorDistrict);
           tutorCategoryDao.insert(tutorCategory);
           return 1;
