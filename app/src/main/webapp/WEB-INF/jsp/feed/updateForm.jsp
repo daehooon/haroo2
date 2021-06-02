@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
@@ -127,16 +125,16 @@
 
 </head>
 <body>
-<h1>스토리 작성</h1>
-<c:if test="${not empty loginUser}">
-
+<h1>스토리 수정</h1>
+<c:if test="${not empty feed}">
 	<section>
 		<div id="har-feed-add1">
-			<form action="add" method="post" enctype="multipart/form-data">
+			<form action="update" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="no" value="${feed.no}"/>
 			<div id="har-feed-add2">
 				<div class="mb-3">
 					<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-					<textarea name="content" class="form-control" id="exampleFormControlTextarea1" ></textarea>
+					<textarea name="content" class="form-control" id="exampleFormControlTextarea1" >${feed.content}</textarea>
 				</div>
 
 					<div class="mb-3" id="har-feed-file">
@@ -162,7 +160,7 @@
 
 
 			<button type="submit" id="har-feed-ok" class="btn btn-primary">등록</button>
-			<a href='list' class="listBtn">취소</a>
+			<a href='detail?no=${feed.no}' class="listBtn">취소</a>
 				</form>
 		</div>
 	</section>
@@ -170,24 +168,6 @@
 	
 	<script>
 	"use strict"
-	
-	
-	
-	$.ajax("../member/loginCheck", {
-      method: "POST",
-      success: function(data) {
-
-        if (data == "no") {
-        	  alert("로그인 후 다시 시도해주세요.");
-        	  window.location.href="../login_form";
-        } 
-      },
-      error: function(data) {
-        console.log(data);
-      }
-    });
-	
-	
 	
 	var btnAddName = document.getElementById("har-add-btn");
 	
@@ -225,14 +205,11 @@
 	}
 	
 	
-	/* var okBtn = document.getElementById("har-feed-ok");
+	var okBtn = document.getElementById("har-feed-ok");
 	  
 	okBtn.onclick = function() {
 	    
-	}; */
-	
-	
-	
+	};
 	</script>
 
 </body>

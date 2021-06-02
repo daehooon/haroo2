@@ -13,6 +13,10 @@ public interface FeedService {
 
   Feed get(int no) throws Exception;
 
+  Feed getCheck(int no) throws Exception;
+
+  int update(Post post, List<AttachedFile> files) throws Exception;
+
   int getLike(int feedNo, int memberNo) throws Exception;
 
   int addLike(int feedNo, int memberNo) throws Exception;

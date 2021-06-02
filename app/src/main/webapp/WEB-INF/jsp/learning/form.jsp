@@ -98,6 +98,19 @@
 최소 인원수: <input type="number" name="minPeople"><br>
 최대 인원수: <input type="number" name="maxPeople"><br>
 
+<!-- 
+<div class="mb-3" id="har-feed-file">
+  <label for="formFileSm" class="form-label form-label2">파일선택</label>
+  <div class="har-file-box">
+    <div class="har-file-box2">
+    <input class="form-control form-control-sm" name="files" type="file">
+    <button type="button" class="btn btn-outline-secondary" onclick="fileDeleteBtn(event)" class="har-delete-btn">삭제</button>
+    </div>
+  </div>
+  <button type="button" class="btn2 btn-outline-secondary" id="har-add-btn">추가</button>
+</div>
+ -->
+
 날짜: <input type="date" name="learningDate"><br>
 시작시각: <input type="time" name="startTime"><br>
 종료시각: <input type="time" name="endTime"><br>
@@ -127,6 +140,21 @@ t3.onchange = function() {
   
   t4.innerHTML = xhr.responseText;
 }
+
+/*
+var btnAddName = document.getElementById("har-add-btn");
+
+btnAddName.onclick = function() {
+  var fileDivs = document.querySelectorAll(".har-file-box2");
+  
+  var inputFile = document.querySelector(".har-file-box");
+
+  inputFile.innerHTML += "<div class='har-file-box2'>"
+      + "<input class='form-control form-control-sm' name='files' type='file'>"
+      + "<button type='button' class='btn btn-outline-secondary' onclick='fileDeleteBtn(event)' class='har-delete-btn'>삭제</button>"
+      + "</div>";
+};
+*/
 </script>
 
 </body>

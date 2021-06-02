@@ -30,6 +30,12 @@
     where pno = #{no}
   </delete>
   
+  <update id="update" parameterType="Post">
+    update har_post set
+      content=#{content}
+    where pno=#{no}
+  </update>
+  
   <update id="updateViewCount" parameterType="int">
     update har_post set
         view_cnt=(view_cnt+1)
@@ -40,6 +46,10 @@
     insert into har_file (fname, pno)
     values (#{name}, #{postNo})
   </insert>
+  
+  <delete id="deleteFile" parameterType="int">
+    delete from har_file where pno=#{no}
+  </delete>
 
 
 

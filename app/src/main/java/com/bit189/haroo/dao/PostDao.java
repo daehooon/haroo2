@@ -8,7 +8,11 @@ public interface PostDao {
 
   int delete(int feedNo) throws Exception;
 
+  int update(Post post) throws Exception;
+
   int updateViewCount(int no) throws Exception;
 
   int insertFile(AttachedFile file) throws Exception;
+
+  int deleteFile(int feedNo) throws Exception;
 }

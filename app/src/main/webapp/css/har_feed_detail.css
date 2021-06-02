@@ -285,7 +285,7 @@ button {
 
 .har-cmt-delete-bnt {
   color: #666;
-  margin-left: 5px;
+  /* margin-left: 5px; */
 }
 
 .har-cmt-input {
@@ -319,4 +319,29 @@ button {
   padding-top: 8px;
   font-size: 13px;
   color: #333;
+}
+
+#har-feed-file {
+  position: relative;
+}
+
+#har-feed-file img {
+  display: none;
+}
+
+.har-feed-fileBtn {
+  width: 30px;
+  position: absolute;
+  top:260px;
+}
+
+.har-feed-next {
+  /* float:right; */
+  right:0px;
+  margin-right: 15px;
+}
+
+.har-feed-pre {
+  /* float:left; */
+  left:0px;
 }
