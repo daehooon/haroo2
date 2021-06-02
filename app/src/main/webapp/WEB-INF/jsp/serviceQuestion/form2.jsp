@@ -7,14 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>문의 - 답변글</title>
- 
 
 </head>
 <body>
 <h1>문의 - 답변글</h1>
-<form action="add" method="post" enctype="multipart/form-data">
-번호: <input type ="text" value = "${param.no}">
-내용: <textarea name="content" rows="20" cols="60"></textarea><br>
+<form action="reply/add" method="post" enctype="multipart/form-data">
+<input type = "hidden" name = "pno" value = "${pno}">
+내용: <textarea name="replyContent" rows="20" cols="60"></textarea><br>
 첨부 파일: <input type="file" name="file" multiple><br>
 
 

@@ -107,7 +107,8 @@
 종료시각: <input type="time" name="endTime" value="${learningSchedule.endTime}"><br>
 
 가격: <input type="number" name="price" value="${learning.price}"><br>
-<input type="submit" value="변경">
+<a href='../learning/detail?no=${learning.no}'><input type="submit" value="변경"></a>
+<p><a href='../learning/detail?no=${learning.no}'>취소</a></p>
 </form>
 </c:if>
 

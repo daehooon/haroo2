@@ -66,8 +66,8 @@
 <script>
 "use stricet";
 
-$("#har-lrv-det-up-btn").click({
-	
+$("#har-lrv-det-up-btn").click(() => {
+	$(.har-lrv-det-up-hid).remove();
 });
 	
 	

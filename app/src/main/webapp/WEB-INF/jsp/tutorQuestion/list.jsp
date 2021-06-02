@@ -14,7 +14,7 @@
 </head>
 <body>
 <h1>튜터에게물어봐</h1>
-<p><a href='add'>새 글</a></p>
+<p><a href='form'>물어보기</a></p>
 <table border='1'>
 <thead>
 <tr>

@@ -37,6 +37,12 @@
   
   </resultMap>
     
+  <insert id="insert" parameterType="Map">
+    insert into har_tqna (pno, mno, tno, title, secret, reply)
+    values (#{no}, #{tutorQuestion.writer.no}, #{tutorQuestion.serviceInfo.no}, #{tutorQuestion.title}, #{tutorQuestion.secret}
+    , #{tutorQuestion.replyContent})
+  </insert>
+    
   <select id="findAll" resultMap="tutorQuestionMap">
     select
       q.pno,
@@ -103,4 +109,13 @@
       order by q.pno
   
   </select>
+  
+  <update id="update" parameterType="tutorQuestion">
+    update har_post set
+        content = #{content}
+    where pno = #{no}
+  </update>
+  
+  
+  
 </mapper>

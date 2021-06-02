@@ -104,6 +104,7 @@
 
 가격: <input type="number" name="price"><br>
 <input type="submit" value="등록">
+<p><a href='list'>취소</a></p>
 </form>
 
 <script>

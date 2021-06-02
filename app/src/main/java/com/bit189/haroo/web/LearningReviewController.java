@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.bit189.haroo.domain.Learning;
@@ -13,25 +14,26 @@ import com.bit189.haroo.service.LearningService;
 
 @Controller
 @RequestMapping("/learning/review/")
-public class LearningReviewHandler {
+public class LearningReviewController {
 
   LearningService learningService;
   LearningReviewService learningReviewService;
 
-  public LearningReviewHandler(LearningService learningService,
+  public LearningReviewController(LearningService learningService,
       LearningReviewService learningReviewService) {
     this.learningService = learningService;
     this.learningReviewService = learningReviewService;
-    System.out.println("LearningReviewListHandler 객체 생성됨!");
+    System.out.println("LearningReviewController 객체 생성됨!");
   }
 
-  @RequestMapping("list")
+  @GetMapping("list")
   public void list(@RequestParam(defaultValue = "0") int lno, Model model,
       String sortingItem, String sortingType) throws Exception { 
 
     if(lno == 0) {
       throw new ServletException("파라미터가 없습니다.");
-    } 
+    }
+    System.out.println(lno);
     Learning learning = learningService.get(lno);
     if(learning == null) {
       throw new ServletException("해당 번호의 체험 학습이 없습니다.");
@@ -55,7 +57,7 @@ public class LearningReviewHandler {
     model.addAttribute("reviews", reviews);
   }
 
-  @RequestMapping("detail")
+  @GetMapping("detail")
   public void detail(@RequestParam(defaultValue = "0") int lno,
       @RequestParam(defaultValue = "0") int rno, Model model) throws Exception {
 

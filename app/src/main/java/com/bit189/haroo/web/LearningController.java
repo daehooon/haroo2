@@ -51,24 +51,15 @@ public class LearningController {
     ServiceInfo s = new ServiceInfo();
     Learning l = new Learning();
 
-    // 개설자
     Member loginUser = (Member) session.getAttribute("loginUser");
     Tutor tutor = new Tutor();
     tutor.setNo(loginUser.getNo());
     l.setOwner(tutor);
 
-    /* 커버이미지
-     * 서비스이름, 대분류, 소분류
-     * 우편번호 API (기본주소, 광역시도명, 시군구명 자동출력),
-     * 상세주소, 서비스소개, 진행순서, 환불정보, 최소인원수, 최대인원수,
-     * 날짜, 시작시각, 종료시각,
-     * 가격
-     */
     s.setName(request.getParameter("name"));
     s.setBroadCategoryNo(Integer.parseInt(request.getParameter("broadCategoryNo")));
     s.setNarrowCategoryNo(Integer.parseInt(request.getParameter("narrowCategoryNo")));
 
-    // 우편번호 API 추가하기
     l.setZipcode(request.getParameter("zipcode"));
     l.setAddress(request.getParameter("address"));
     l.setSidoNo(Integer.parseInt(request.getParameter("sidoNo")));
@@ -121,7 +112,7 @@ public class LearningController {
 
     learningService.add(s, l);
 
-    // list말고 detail?
+    // 등록한 체험학습으로 연결하기 detail?
     return "redirect:list";
   }
 
@@ -156,20 +147,22 @@ public class LearningController {
   }
 
   @GetMapping("updateForm")
-  public void updateForm(Model model) throws Exception {}
+  public void updateForm(int no, Model model) throws Exception {
+    model.addAttribute("learning", learningService.get(no));
+  }
 
   @PostMapping("update")
   public String update(int no, Model model, Part coverImage,
       HttpSession session, HttpServletRequest request) throws Exception {
 
+    Learning learning = learningService.get(no);
     String uploadDir = sc.getRealPath("/upload");
-    model.addAttribute("learning", learningService.get(no));
 
     ServiceInfo s = new ServiceInfo();
     Learning l = new Learning();
 
     Member loginUser = (Member) session.getAttribute("loginUser");
-    if (l.getOwner().getNo() != loginUser.getNo()) {
+    if (learning.getOwner().getNo() != loginUser.getNo()) {
       throw new Exception("변경 권한이 없습니다!");
     }
 
@@ -178,7 +171,6 @@ public class LearningController {
     s.setBroadCategoryNo(Integer.parseInt(request.getParameter("broadCategoryNo")));
     s.setNarrowCategoryNo(Integer.parseInt(request.getParameter("narrowCategoryNo")));
 
-    // 우편번호 API 추가하기
     l.setZipcode(request.getParameter("zipcode"));
     l.setAddress(request.getParameter("address"));
     l.setSidoNo(Integer.parseInt(request.getParameter("sidoNo")));
@@ -194,10 +186,12 @@ public class LearningController {
     List<LearningSchedule> schedules = new ArrayList<>();
     LearningSchedule schedule = new LearningSchedule();
     schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
-    schedule.setStartTime(Time.valueOf(request.getParameter("learningStartTime") + ":00"));
-    schedule.setEndTime(Time.valueOf(request.getParameter("learningEndTime") + ":00"));
+    schedule.setStartTime(Time.valueOf(request.getParameter("startTime") + ":00"));
+    schedule.setEndTime(Time.valueOf(request.getParameter("endTime") + ":00"));
     schedules.add(schedule);
     l.setSchedules(schedules);
+
+    l.setPrice(Integer.parseInt(request.getParameter("price")));
 
     if (coverImage.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
@@ -229,7 +223,7 @@ public class LearningController {
 
     learningService.update(s, l);
 
-    // list말고 detail?
+    // 수정한 체험학습으로 연결하기 detail?
     return "redirect:list";
   }
 }
