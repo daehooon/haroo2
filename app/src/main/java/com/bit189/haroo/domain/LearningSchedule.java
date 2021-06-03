@@ -1,7 +1,7 @@
 package com.bit189.haroo.domain;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.util.Date;
 
 public class LearningSchedule {
   private int no;
