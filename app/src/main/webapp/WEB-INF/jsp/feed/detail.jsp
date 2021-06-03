@@ -13,36 +13,9 @@
 <link href="../../css/har_feed_detail.css" rel="stylesheet" />
 <!-- <script type="text/javascript" src="../../js/har_feed_detail.js"></script> -->
 
-<style>
-#har-feed-file {
-	  position: relative;
-	}
-
-	#har-feed-file img {
-	  display: none;
-	}
-
-	.har-feed-fileBtn {
-	  width: 30px;
-	  position: absolute;
-	  top:260px;
-	}
-
-	.har-feed-next {
-	  /* float:right; */
-	  right:0px;
-	  margin-right: 15px;
-	}
-
-	.har-feed-pre {
-	  /* float:left; */
-	  left:0px;
-	}
-</style>
 </head>
 <body>
-	<h1>피드 상세보기2</h1>
-
+<jsp:include page="/jsp/header/header.jsp"/>
 	<section>
 		<c:if test="${not empty feed}">
 			<fmt:formatDate value="${feed.writingDate}" pattern="yyyy년 MM월 dd일" var="writingDate" />
@@ -52,7 +25,7 @@
 					<div class="har-feed-info">
 						<div class="har-feed-pro">
 							<c:if test="${not empty feed.writer.profilePicture}">
-								<c:set var="profilePictureUrl">../../upload/${feed.writer.profilePicture}_30x30.jpg</c:set>
+								<c:set var="profilePictureUrl">../../upload/${feed.writer.profilePicture}_110x110.jpg</c:set>
 							</c:if>
 							<c:if test="${empty feed.writer.profilePicture}">
 								<c:set var="profilePictureUrl">../../images/person_30x30.jpg</c:set>
@@ -72,7 +45,7 @@
 						<c:if
 							test="${not empty loginUser and loginUser.no == feed.writer.no}">
 							<button type="submit" class="btn har-feed-btn">수정</button>
-							<button onclick="deleteCheck('delete?no=${feed.no}')" class="btn har-feed-btn" >삭제</button>
+							<button type="button" onclick="deleteCheck('delete?no=${feed.no}')" class="btn har-feed-btn" >삭제</button>
 							<%-- <a href="delete?no=${feed.no}">삭제</a> --%>
 						</c:if>
 						<p class="fw-light har-feed-view">${feed.viewCount}view</p>
@@ -224,8 +197,10 @@
 			<p>없는 피드입니다.</p>
 		</c:if>
 
-		<a href='list' class="listBtn">목록</a>
+		<a href='list?no=${feed.writer.no}' class="listBtn">목록</a>
 	</section>
+	
+	<jsp:include page="/jsp/footer/footer.jsp"/>
 	
 	
 	
@@ -421,7 +396,7 @@
 		  
 		  if (ok == true) {
 			  console.log("옙");
-			  window.location.href=link;
+			  location.href=link;
 		  } else {
 			  return;
 		  }

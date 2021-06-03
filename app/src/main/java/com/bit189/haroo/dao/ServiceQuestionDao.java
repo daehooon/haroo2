@@ -19,5 +19,5 @@ public interface ServiceQuestionDao {
 
   List<Question> findByKeyword(String keyword) throws Exception;
 
-  int replyUpdate(Question question) throws Exception;
+  int replyAdd(Map<String,Object> param) throws Exception;
 }

@@ -39,8 +39,8 @@
     
   <insert id="insert" parameterType="Map">
     insert into har_tqna (pno, mno, tno, title, secret, reply)
-    values (#{no}, #{tutorQuestion.writer.no}, #{tutorQuestion.serviceInfo.no}, #{tutorQuestion.title}, #{tutorQuestion.secret}
-    , #{tutorQuestion.replyContent})
+    values (#{no}, #{tutorQuestion.writer.no}, #{tutorQuestion.tutor.no}, #{tutorQuestion.title}, #{tutorQuestion.secret}
+    , #{tutorQuestion.reply})
   </insert>
     
   <select id="findAll" resultMap="tutorQuestionMap">
@@ -74,7 +74,7 @@
       left join har_trpl_file r on r.pno=q.pno
       where
     p.pstat=1
-    order by q.pno
+    order by q.pno desc
   </select>
   
   <select id="findByNo" resultMap="tutorQuestionMap" parameterType="int">

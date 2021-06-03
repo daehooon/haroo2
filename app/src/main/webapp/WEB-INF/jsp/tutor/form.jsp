@@ -7,13 +7,36 @@
 <head>
 <meta charset="UTF-8">
 <title>튜터 등록</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<link href="../css/common.css" rel="stylesheet" >
 </head>
 <body>
+<jsp:include page="/jsp/header/header.jsp"/>
+
+<div class="container">
 <h1>튜터 등록</h1>
 <form action="add" method="post" enctype="multipart/form-data">
-멤버번호: <input type="number" name='no'><br>
-튜터소개:   <br><textarea name='intro' rows='5' cols='40'></textarea><br>
-튜터신청서: <br><textarea name='application' rows='5' cols='40'></textarea><br>
+<div class="mb-3 row">
+    <label for="no" class="col-sm-1 col-form-label">멤버번호</label>
+    <div class="col-sm-7">
+      <input type="number" class="form-control form-control-sm" id="no" name="no">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="intro" class="col-sm-1 col-form-label">소개서</label>
+    <div class="col-sm-7">
+      <textarea class="form-control-plaintext form-control-sm" name="intro" rows='3' cols='40'></textarea>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="application" class="col-sm-1 col-form-label">신청서</label>
+    <div class="col-sm-7">
+      <textarea class="form-control-plaintext form-control-sm" name="application" rows='3' cols='40'></textarea>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="sido" class="col-sm-1 col-form-label">지역</label>
 <select id="sido" name="sidoNo">
     <option value="1">서울</option> -- 특별시
     <option value="2">경기</option>
@@ -61,7 +84,9 @@
   <option value="24">금천구</option>
   <option value="25">관악구</option>
 </select>
-<br>
+</div>
+<div class="mb-3 row">
+    <label for="broadCategory" class="col-sm-1 col-form-label">카테고리</label>
 <select id="broadCategory" name="broadCategoryNo">
   <option value="1">공예·DIY</option>
   <option value="2">댄스</option>
@@ -88,9 +113,12 @@
   <option value="11">조명·네온사인</option>
   <option value="12">기타</option>
 </select>
-<!--  <button>전송</button> -->
-<input type="submit" value="등록">
+</div>
+<button class="btn btn-primary btn-sm">등록</button>
 </form>
+
+<jsp:include page="/jsp/footer/footer.jsp"/>
+
 <script>
 var t1 = document.querySelector("#sido");
 var t2 = document.querySelector("#sigungu");

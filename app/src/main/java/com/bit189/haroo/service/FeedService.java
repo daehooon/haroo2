@@ -9,7 +9,7 @@ public interface FeedService {
 
   int add(Post post, List<AttachedFile> files, Feed feed) throws Exception;
 
-  List<Feed> list() throws Exception;
+  List<Feed> list(int no) throws Exception;
 
   Feed get(int no) throws Exception;
 

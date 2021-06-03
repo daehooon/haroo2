@@ -10,13 +10,26 @@
 <head>
 <meta charset="UTF-8">
 <title>체험 후기 목록</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
+<jsp:include page="/jsp/header/header.jsp"/>
+
 <h1>체험 후기 목록</h1>
 <h2>${learning.name}</h2>
 <!-- 러닝.평균평점 만들기 -->
-<p><a href='add'>후기 작성</a></p>
-
+<c:if test="${not empty loginUser}">
+  <!-- 안 지난 경우
+  <p><Button id='har-lrv-li-add-btn'>후기 작성</button></p>
+   -->
+  <p><a href='form?lno=${learning.no}'>후기 작성</a></p>
+</c:if>
+<c:if test="${empty loginUser}">
+  <p><Button id='har-lrv-li-login-btn'>후기 작성</button></p>
+</c:if>
 <c:if test="${empty reviews}">
   <p>아직 작성된 후기가 없습니다.</p> 
 </c:if>
@@ -30,8 +43,8 @@
     <c:if test="${param.sortingItem == 'rcm_cnt'}">
       <c:set var="rcm_cntSortingType" value="${param.sortingType == 'a' ? 'd' : 'a'}"/> 
     </c:if>
- <table border='1'>
- <thead>
+ <table border='1' class="table">
+ <thead class="table-light">
  <tr>
   <th>
     <a href="list?lno=${learning.no}&sortingItem=pno&sortingType=${pnoSortingType}">번호
@@ -72,5 +85,23 @@
 <button>검색</button>
 </form>
 </c:if>
+
+<jsp:include page="/jsp/footer/footer.jsp"/>
+<script>
+if (${not empty loginUser}) {
+	$(document).ready(function() { confirm("로그인 "); });
+	
+} else {
+	
+}
+
+
+$('#har-lrv-li-login-btn').click(()=> {
+	if (confirm("로그인이 필요합니다. 로그인으로 이동합니다.")) {
+		location.href="../../login_form";
+	}
+});
+
+</script>
 </body>
 </html>

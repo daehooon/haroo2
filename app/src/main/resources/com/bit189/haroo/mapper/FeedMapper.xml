@@ -28,7 +28,7 @@
   </resultMap>
   
   
-  <select id="findAll" resultMap="feedMap">
+  <select id="findAll" resultMap="feedMap" parameterType="int">
   select
     p.content,
     p.wdttm,
@@ -48,7 +48,8 @@
     inner join har_member m on t.tno=m.mno
   where
     p.pstat=1
-  order by d.feed_no
+    and m.mno=#{no}
+  order by d.feed_no desc
   </select>
   
   
@@ -73,7 +74,7 @@
   where
     d.feed_no = #{no}
     and p.pstat=1
-  order by d.feed_no
+  order by d.feed_no desc
   </select>
   
   <insert id="insert" parameterType="Map">

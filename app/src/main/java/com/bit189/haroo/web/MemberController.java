@@ -55,13 +55,13 @@ public class MemberController {
       });
 
       Thumbnails.of(uploadDir + "/" + filename)
-      .size(80, 80)
+      .size(110, 110)
       .outputFormat("jpg")
       .crop(Positions.CENTER)
       .toFiles(new Rename() {
         @Override
         public String apply(String name, ThumbnailParameter param) {
-          return name + "_80x80";
+          return name + "_110x110";
         }
       });
     }
@@ -114,24 +114,13 @@ public class MemberController {
       member.setProfilePicture(filename);
 
       Thumbnails.of(uploadDir + "/" + filename)
-      .size(30, 30)
+      .size(110, 110)
       .outputFormat("jpg")
       .crop(Positions.CENTER)
       .toFiles(new Rename() {
         @Override
         public String apply(String name, ThumbnailParameter param) {
-          return name + "_30x30";
-        }
-      });
-
-      Thumbnails.of(uploadDir + "/" + filename)
-      .size(80, 80)
-      .outputFormat("jpg")
-      .crop(Positions.CENTER)
-      .toFiles(new Rename() {
-        @Override
-        public String apply(String name, ThumbnailParameter param) {
-          return name + "_80x80";
+          return name + "_110x110";
         }
       });
     }
@@ -158,6 +147,7 @@ public class MemberController {
 
 
   }
+
 }
 
 

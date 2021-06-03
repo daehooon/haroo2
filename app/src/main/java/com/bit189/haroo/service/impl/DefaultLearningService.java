@@ -37,7 +37,7 @@ public class DefaultLearningService implements LearningService {
       @Override
       public Integer doInTransaction(TransactionStatus status) {
         try {
-          int count = serviceInfoDao.insert(serviceInfo);
+          serviceInfoDao.insert(serviceInfo);
 
           HashMap<String,Object> param = new HashMap<>();
           param.put("no", serviceInfo.getNo());
@@ -49,7 +49,7 @@ public class DefaultLearningService implements LearningService {
           params.put("schedules", learning.getSchedules());
           learningScheduleDao.insert(params);
 
-          return count;
+          return serviceInfo.getNo();
 
         } catch (Exception e) {
           throw new RuntimeException(e);
@@ -74,7 +74,7 @@ public class DefaultLearningService implements LearningService {
       @Override
       public Integer doInTransaction(TransactionStatus status) {
         try {
-          int count = serviceInfoDao.update(serviceInfo);
+          serviceInfoDao.update(serviceInfo);
 
           HashMap<String,Object> param = new HashMap<>();
           param.put("no", serviceInfo.getNo());
@@ -86,7 +86,7 @@ public class DefaultLearningService implements LearningService {
           params.put("schedules", learning.getSchedules());
           learningScheduleDao.update(params);
 
-          return count;
+          return serviceInfo.getNo();
         } catch (Exception e) {
           throw new RuntimeException(e);
         }

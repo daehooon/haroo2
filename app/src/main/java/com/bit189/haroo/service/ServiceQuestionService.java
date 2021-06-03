@@ -17,7 +17,7 @@ public interface ServiceQuestionService {
 
   int update(Question question) throws Exception;
 
-  int replyUpdate(Question question, AttachedFile attachedFile) throws Exception;
+  int replyAdd(Question question, AttachedFile attachedFile) throws Exception;
 
   int delete(int no) throws Exception;
 

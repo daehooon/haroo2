@@ -2,36 +2,36 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
 <mapper namespace="com.bit189.haroo.dao.LearningApplicationDao">
- <!--  
+
   <resultMap id="learningApplicationMap" type="LearningApplication">
     <id column="lrn_appl_no" property="no"/>
-    <result column="mno" property="membereNo"/>
-     <result column="sche_no" property="schedules"/>
      <result column="appl_size" property="applySize"/>
     <result column="appl_dttm" property="registeredDate"/>
     
     
-     <association property="memberNo" javaType="member">
+     <association property="writer" javaType="member">
       <id column="mno" property="no"/>
+      <result column="name" property="name"/>
+      <result column="nickname" property="nickname"/>
     </association>
       
-       <collection property="schedules" ofType="LearningSchedule">
+       <collection property="schedules" ofType="learningSchedule">
       <id column="sche_no" property="no"/>
       <result column="lno" property="learningNo"/>
-      <result column="date" property="LearningDate"/>
+      <result column="date" property="learningDate"/>
       <result column="stm" property="startTime"/>
       <result column="etm" property="endTime"/>
     </collection>
 
-
-   
   </resultMap>
 
     
   <insert id="insert" parameterType="LearningApplication">
-    insert into har_lrn_appl(sche_no,appl_size,appl_dttm) 
-    values(#{schedules},#{applySize},#{registeredDate})
+    insert into har_lrn_appl(lrn_appl_no, mno, sche_no, appl_size) 
+    values(#{no}, #{writer.no}, #{schedules.no}, #{applySize})
   </insert>
   
   <select id="findAll" resultMap="learningApplicationMap">
@@ -43,25 +43,17 @@
       l.appl_size,
       s.date,
       s.stm,
-      s.etm
+      s.etm,
+      m.name,
+      m.nickname
     from har_lrn_appl l
       inner join har_schedule s on l.sche_no=s.sche_no
       inner join har_member m on l.mno=m.mno
   </select>
 
-<select id="findAllSchedules" resultMap="LearningScheduleMap">
-     select
-     l.sche_no,
-       s.date,
-      s.stm,
-      s.etm
-    from har_lrn_appl l
-      inner join har_schedule s on l.sche_no=s.sche_no
-  </select>
-  
-   
+
   <select id="findByNo" resultMap="learningApplicationMap" parameterType="int">
-    select
+       select
       l.lrn_appl_no,
       l.mno,
       l.sche_no,
@@ -69,32 +61,19 @@
       l.appl_size,
       s.date,
       s.stm,
-      s.etm
+      s.etm,
+      m.name,
+      m.nickname
     from har_lrn_appl l
       inner join har_schedule s on l.sche_no=s.sche_no
       inner join har_member m on l.mno=m.mno
-    where no = #{value}
-  </select>
-  
-
-  <select id="findByKeywords" resultMap="learningApplicationMap" parameterType="map">
-    <include refid="select1"/>
-    <where>
-      <if test="LearningDate != null and LearningDate != ''">
-        s.LearningDate like concat('%', #{LearningDate}, '%')
-      </if>
-      <if test="startTime != null and startTime != ''">
-        and s.startTime like concat('%', #{startTime}, '%')
-      </if>
-      <if test="endTime != null and endTime != ''">
-        and s.endTime like concat('%', #{endTime}, '%')
-      </if>
-    </where>
+    where l.lrn_appl_no = #{value}
   </select>
   
   <delete id="delete" parameterType="int">
     delete from har_lrn_appl
-    where no=#{value}
+    where l.lrn_appl_no = #{value}
   </delete>
-  --> 
+
 </mapper>
+

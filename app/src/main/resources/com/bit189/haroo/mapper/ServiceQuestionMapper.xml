@@ -122,7 +122,7 @@
     where pno = #{no}
   </update>
   
-  <update id="replyUpdate" parameterType="question">
+  <update id="replyAdd" parameterType="question">
     update har_sqna set
         rpl_content = #{replyContent}
     where pno = #{no}

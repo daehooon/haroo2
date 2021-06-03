@@ -103,8 +103,21 @@ public class DefaultServiceQuestionService implements ServiceQuestionService{
   }
 
   @Override
-  public int replyUpdate(Question question, AttachedFile attachedFile) throws Exception {
+  public int replyAdd(Question question, AttachedFile attachedFile) throws Exception {
+
+    int count = attachedFileDao.insert(attachedFile);
+
+    HashMap<String,Object> param = new HashMap<>();
+    param.put("postNo", attachedFile.getPostNo());
+    param.put("question", question);
+
+    attachedFile.setNo(attachedFile.getPostNo());
+
     attachedFileDao.insert(attachedFile);
-    return serviceQuestionDao.update(question);
+
+    serviceQuestionDao.replyAdd(param);
+
+    return count;
+
   }
 }

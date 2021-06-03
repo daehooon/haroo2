@@ -15,6 +15,8 @@
 <link href="../css/common.css" rel="stylesheet">
 </head>
 <body>
+<jsp:include page="/jsp/header/header.jsp"/>
+
 <div class="container">
 <h1>문의 목록</h1>
 
@@ -64,6 +66,6 @@ RE :
 <a href='form' class="btn btn-outline-primary btn-sm" type="button">문의하기</a>
 </div>
 
-
+<jsp:include page="/jsp/footer/footer.jsp"/>
 </body>
 </html>

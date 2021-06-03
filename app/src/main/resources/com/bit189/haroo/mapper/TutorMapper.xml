@@ -54,15 +54,15 @@
       m.tel,
       m.nickname,
       m.sex,
-      <!--  bc.bcat_name,
-      nc.ncat_name,-->
+      bc.bcat_name,
+      nc.ncat_name,
       sd.sido_name,
       sg.sgg_name
     from har_tutor t
     inner join har_member m on m.mno=t.tno
-    <!--  inner join har_tcat tc on tc.tno=t.tno
+    inner join har_tcat tc on tc.tno=t.tno
     inner join har_narrow_cat nc on nc.ncat_no=tc.ncat_no
-    inner join har_broad_cat bc on bc.bcat_no=nc.bcat_no-->
+    inner join har_broad_cat bc on bc.bcat_no=nc.bcat_no
     inner join har_tdist td on td.tno=t.tno
     inner join har_sigungu sg on sg.sgg_no=td.sgg_no
     inner join har_sido sd on sd.sido_no=sg.sido_no

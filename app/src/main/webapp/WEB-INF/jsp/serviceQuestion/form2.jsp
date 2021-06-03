@@ -9,6 +9,8 @@
 <title>문의 - 답변글</title>
 
 </head>
+<jsp:include page="/jsp/header/header.jsp"/>
+
 <body>
 <h1>문의 - 답변글</h1>
 <form action="reply/add" method="post" enctype="multipart/form-data">
@@ -23,5 +25,7 @@
 
 
 </form>
+
+<jsp:include page="/jsp/footer/footer.jsp"/>
 </body>
 </html>

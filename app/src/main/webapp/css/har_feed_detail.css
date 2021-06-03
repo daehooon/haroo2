@@ -345,3 +345,33 @@ button {
   /* float:left; */
   left:0px;
 }
+
+
+
+
+
+
+#har-feed-file {
+    position: relative;
+  }
+
+  #har-feed-file img {
+    display: none;
+  }
+
+  .har-feed-fileBtn {
+    width: 30px;
+    position: absolute;
+    top:260px;
+  }
+
+  .har-feed-next {
+    /* float:right; */
+    right:0px;
+    margin-right: 15px;
+  }
+
+  .har-feed-pre {
+    /* float:left; */
+    left:0px;
+  }

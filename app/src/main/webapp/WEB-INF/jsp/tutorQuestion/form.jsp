@@ -9,6 +9,9 @@
 <title>튜터 문의글</title>
 </head>
 <body>
+
+<jsp:include page="/jsp/header/header.jsp"/>
+
 <h1>튜터 문의글</h1>
 <form action="add" method="post" enctype="multipart/form-data">
 제목: <input type="text" name="title" ><br>
@@ -20,5 +23,8 @@
 
 <input type="submit" value="등록">
 </form>
+
+<jsp:include page="/jsp/footer/footer.jsp"/>
+
 </body>
 </html>

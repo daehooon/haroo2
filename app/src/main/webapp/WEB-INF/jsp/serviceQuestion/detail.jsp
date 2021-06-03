@@ -14,49 +14,83 @@
 <link href="../css/common.css" rel="stylesheet" >
 </head>
 <body>
+<jsp:include page="/jsp/header/header.jsp"/>
+
+
 <div class="container">
+
 <h1>문의</h1>
 <c:if test="${not empty question}">
+
 <h2>${question.serviceInfo.name}</h2>
 <fmt:formatDate value="${question.writingDate}" pattern="yyyy-MM-dd HH:mm:ss" var="writingDate"/>
 <form action='update' method='post'>
-<table border='1'>
-  <tbody>
-    <tr><th>번호</th> <td><input type='text' name='no' value='${question.no}' readonly></td>
-    <th>조회수</th> <td>${question.viewCount}</td></tr>
-    <tr><th>제목</th> <td colspan='5'><input name='title' type='text' value='${question.title}' readonly></td></tr>
-    <tr><th>내용</th> <td colspan='5'><textarea name='content' rows='30' cols='180'>${question.content}</textarea></td></tr>
-    <tr><th>첨부파일</th> <td>
+<div class="mb-3 row">
+    <label for="no" class="col-sm-1 col-form-label">번호</label>
+    <div class="col-sm-7">
+    <input type='text' class="form-control-plaintext form-control-sm" name='no' value='${question.no}' readonly>
+        </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="viewCount" class="col-sm-1 col-form-label">조회수</label>
+    <div class="col-sm-7">
+    <input type="text" class="form-control-plaintext form-control-sm" id="viewCount" value='${question.viewCount}'>
+    </div>
+    </div>
+    <div class="mb-3 row">
+    <label for="title" class="col-sm-1 col-form-label">제목</label>
+    <div class="col-sm-7">
+   <input type='text' class="form-control form-control-sm" id="title" value='${question.title}' readonly>
+   </div>
+   </div>
+   <div class="mb-3 row">
+    <label for="content" class="col-sm-1 col-form-label">내용</label>
+    <div class="col-sm-7">
+    <textarea class="form-control form-control-sm" id="content" rows='30' cols='180'>${question.content}</textarea>
+    </div>
+    </div>
+     <div class="mb-3 row">
+    <label for="file" class="col-sm-1 col-form-label">첨부파일</label>
+    <div class="col-sm-7">
           <c:forEach items="${question.attachedFiles}" var="file">
             <c:if test="${not empty file.name}">
-             <c:set var="photoUrl">../upload/${file.name}_500x500.jpg</c:set>
+             <c:set var="photoUrl">../../upload/${file.name}_300x300.jpg</c:set>
             </c:if>     
-            <img src='${photoUrl}'>
+            <img src='${photoUrl}'> 
           </c:forEach>
-        </td>
-      </tr>
- <tr><th>작성자</th> <td>${question.writer.name}</td><th>작성일</th> <td colspan='3'>${writingDate}</td></tr>
+      </div>
+      </div>
+   <div class="mb-3 row">
+    <label for="writer" class="col-sm-1 col-form-label">작성자</label>
+    <div class="col-sm-7"> 
+    <input type="text" class="form-control-plaintext form-control-sm" id="writer" value='${question.writer.name}'>
+    </div>
+    </div>
+    <div class="mb-3 row">
+    <label for="writingDate" class="col-sm-1 col-form-label">작성일</label>
+    <div class="col-sm-7">
+<input type="text" class="form-control-plaintext form-control-sm" value='${writingDate}'>
+    </div>
+  </div>
     
-  </tbody>
-
  <c:if test="${not empty loginUser and loginUser.no == question.writer.no}">
   <tfoot>
   <tr>
     <td colspan='2'>
-      <input type='submit' value='수정'><a href='delete?no=${question.no}'>삭제</a>
+      <input class="btn btn-outline-primary btn-sm" type="button" value='수정'><a href='delete?no=${question.no}'class="btn btn-outline-primary btn-sm" type="button">삭제</a>
     </td>
   </tr>
   
   <c:if test="${not empty loginUser and loginUser.no == question.writer.no}">
   <td colspan='2'>
-  <a href='form2' class="btn btn-outline-primary btn-sm" type="button">답글</a>
+  <a href='form2?pno=${question.no}' class="btn btn-outline-primary btn-sm" type="button">답글</a>
     </td>
   </c:if>
 
   </tfoot>    
   </c:if>
   
-  </table>
+
 </form>
 </c:if>
 
@@ -64,6 +98,8 @@
 <p>해당 번호의 문의글이 없습니다.</p>
 </c:if>
 <p><a href='list'>목록</a></p>
+
+<jsp:include page="/jsp/footer/footer.jsp"/>
 
 </body>
 </html>

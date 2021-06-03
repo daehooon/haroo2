@@ -116,6 +116,49 @@
 		where
 		  pno = #{reviewNo}
   </select>
+  
+  <select id="findRecommend" resultType="int" parameterType="Map" >
+    select
+      count(*)
+    from
+      har_lrnrv_rcm
+    where
+      mno = #{memberNo} and
+      pno = #{reviewNo}
+  </select>
+  
+  <insert id="insertRecommend" parameterType="Map">
+    insert into har_lrnrv_rcm (mno, pno)
+    values (#{memberNo}, #{reviewNo})
+  </insert>
+  
+  <delete id="deleteRecommend" parameterType="Map">
+    delete from har_lrnrv_rcm
+    where 
+      mno = #{memberNo} and
+      pno = #{reviewNo}
+  </delete>
+  
+  <select id="isReviewedByApplicationNo" resultType="int" parameterType="int" >
+    select
+      count(*)
+    from
+      har_lrnrv
+    where
+      lrn_appl_no = #{applicationNo}
+  </select>
+  
+  <select id="findApllicationNo" resultType="String" parameterType="Map" >
+    select
+      lrn_appl_no
+    from
+      har_lrn_appl ap
+    inner join har_schedule sch on ap.sche_no = sch.sche_no
+    where
+      ap.mno = #{memberNo} and 
+      sch.lno = #{learningNo}
+  </select>
+  
 </mapper>
   
   

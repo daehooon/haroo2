@@ -12,6 +12,8 @@
 <link href="../css/common.css" rel="stylesheet">
 </head>
 <body>
+<jsp:include page="/jsp/header/header.jsp"/>
+
 <div class="container">
 <h1>문의글</h1>
 <form action="add" method="post" enctype="multipart/form-data">
@@ -47,5 +49,7 @@
 <button class="btn btn-outline-primary">등록</button>
 </form>
 </div>
+
+<jsp:include page="/jsp/footer/footer.jsp"/>
 </body>
 </html>

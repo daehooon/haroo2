@@ -7,25 +7,18 @@
 <html>
 <head>
 <title>체험학습 목록</title>
+
 </head>
 <body>
-<h1>체험학습 목록</h1>
+<jsp:include page="/jsp/header/header.jsp"/>
 
-<!-- 체험학습 한 개당 한 쌍씩 -->
-<button>장바구니에 넣기</button>
-<button>찜하기</button>
+<h1>체험학습 목록</h1>
 
 <c:if test="${loginUser.rank == 1 || loginUser.rank == 2}">
 <p><a href='form'>체험학습 등록</a></p>
 </c:if>
 
 <table border='1'>
-<thead>
-<tr>
-<th>썸네일</th> <th>대분류</th> <th>소분류</th> <th>제목</th> <!-- <th>구매횟수</th> -->
-<th>광역시도</th> <th>시군구</th> <th>튜터프로필사진</th> <th>튜터명</th> <th>가격</th>
-</tr>
-</thead>
 <tbody>
 
 <c:forEach items="${learnings}" var="l" >
@@ -43,17 +36,17 @@
       
       <tr>
         <td><a href='detail?no=${l.no}'><img src='${coverUrl}'></a></td>
-        <td>${l.broadCategory}</td>
-        <td>${l.narrowCategory}</td>
+        <td><b>${l.broadCategory}</b></td>
+        <td><b>${l.narrowCategory}</b></td>
         <td><a href='detail?no=${l.no}'>${l.name}</a></td>
-        <td>${l.sido}</td>
         <!-- 구매횟수 -->
+        <td>${l.sido}</td>
         <td>${l.sigungu}</td>
         
         <td><a href="../tutor/detail?no=${l.owner.no}"><img src='${profilePictureUrl}'></a></td>
         <td><a href="../tutor/detail?no=${l.owner.no}">${l.owner.nickname}</a></td>
         
-        <td>${l.price}</td>
+        <td><b>${l.price}</b></td>
       </tr>
       
     </c:if>
@@ -61,6 +54,8 @@
 
 </tbody>
 </table>
+
+<jsp:include page="/jsp/footer/footer.jsp"/>
 
 </body>
 </html>

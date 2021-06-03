@@ -77,8 +77,8 @@ public class DefaultFeedService implements FeedService{
   }
 
   @Override
-  public List<Feed> list() throws Exception {
-    List<Feed> feeds = feedDao.findAll();
+  public List<Feed> list(int no) throws Exception {
+    List<Feed> feeds = feedDao.findAll(no);
 
     for (Feed f : feeds) {
       f.setCommentCount(Integer.parseInt(commentDao.commentCount(f.getNo())));

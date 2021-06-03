@@ -7,7 +7,7 @@ import com.bit189.haroo.domain.Feed;
 public interface FeedDao {
   int insert(Map<String,Object> param) throws Exception;
 
-  List<Feed> findAll() throws Exception;
+  List<Feed> findAll(int no) throws Exception;
 
   Feed findByNo(int no) throws Exception;
 

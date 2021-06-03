@@ -5,7 +5,7 @@
   
 <mapper namespace="com.bit189.haroo.dao.PostDao">
 
-  <resultMap id="posttMap" type="Post">
+  <resultMap id="postMap" type="Post">
     <id column="pno" property="no"/>
     <result column="content" property="content"/>
     <result column="wdttm" property="writingDate"/>

@@ -25,6 +25,7 @@ import com.bit189.haroo.service.CommentService;
 import com.bit189.haroo.service.FeedService;
 import com.bit189.haroo.service.PostService;
 import com.bit189.haroo.service.ReCommentService;
+import com.bit189.haroo.service.TutorService;
 import net.coobird.thumbnailator.ThumbnailParameter;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -39,14 +40,16 @@ public class FeedController {
   PostService postService;
   CommentService commentService;
   ReCommentService reCommentService;
+  TutorService tutorService;
   ServletContext sc;
 
   public FeedController(FeedService feedService, PostService postService, CommentService commentService, 
-      ReCommentService reCommentService, ServletContext sc) {
+      ReCommentService reCommentService, TutorService tutorService, ServletContext sc) {
     this.feedService = feedService; 
     this.postService = postService;
     this.commentService = commentService;
     this.reCommentService = reCommentService;
+    this.tutorService = tutorService;
     this.sc = sc;
   }
 
@@ -63,8 +66,8 @@ public class FeedController {
     Member loginUser = (Member) session.getAttribute("loginUser");
 
     // 로그인유저가 튜터인지 확인하는 코드 작성 필요
-    Tutor tutor = new Tutor();
-    tutor.setNo(loginUser.getNo());
+
+    Tutor tutor = tutorService.get(loginUser.getNo());
 
     Feed feed = new Feed();
     feed.setWriter(tutor);
@@ -98,7 +101,7 @@ public class FeedController {
             return name + "_330x220";
           }
         });
-
+        System.out.println("여기?");
         Thumbnails.of(uploadDir + "/" + filename)
         .size(500, 500)
         .outputFormat("jpg")
@@ -110,23 +113,25 @@ public class FeedController {
           }
         });
       }
-
+      System.out.println("여기?1");
 
     }
 
     feedService.add(post, attachedFiles, feed);
+    System.out.println("여기?3");
 
-
-    return "redirect:list";
+    return "redirect:list?no=" + tutor.getNo();
   }
 
 
   @GetMapping("list")
-  public void list(Model model) throws Exception {
+  public void list(Model model, int no) throws Exception {
+    Tutor tutor = tutorService.get(no);
 
-    List<Feed> feeds = feedService.list();
+    List<Feed> feeds = feedService.list(no);
 
     model.addAttribute("feeds", feeds);
+    model.addAttribute("tutor", tutor);
 
 
   }
@@ -146,7 +151,7 @@ public class FeedController {
 
     postService.delete(no);
 
-    return "redirect:list";
+    return "redirect:list?no=" + feed.getWriter().getNo();
 
   }
 
@@ -164,29 +169,29 @@ public class FeedController {
 
 
   @RequestMapping("updateForm")
-  public String updateForm(Feed feed, Model model, HttpSession session, RedirectAttributes redirectAttrs)
+  public void updateForm(Feed feed, Model model, HttpSession session, RedirectAttributes redirectAttrs)
       throws Exception {
 
 
-    Feed oldFeed = feedService.get(feed.getNo());
+    Feed oldFeed = feedService.getCheck(feed.getNo());
 
-    if (oldFeed == null) {
-      redirectAttrs.addFlashAttribute("updateMsg","해당 번호의 스토리가 없습니다.");
+    //    if (oldFeed == null) {
+    //      redirectAttrs.addFlashAttribute("updateMsg","해당 번호의 스토리가 없습니다.");
+    //
+    //      return "redirect:list";
+    //    }
 
-      return "redirect:list";
-    }
+    //    Member loginUser = (Member) session.getAttribute("loginUser");
 
-    Member loginUser = (Member) session.getAttribute("loginUser");
-
-    if (loginUser.getNo() != oldFeed.getWriter().getNo()) {
-      redirectAttrs.addFlashAttribute("updateMsg","수정 권한이 없습니다.");
-
-      return "redirect:detail?no=" + feed.getNo();
-    }
+    //    if (loginUser.getNo() != oldFeed.getWriter().getNo()) {
+    //      redirectAttrs.addFlashAttribute("updateMsg","수정 권한이 없습니다.");
+    //
+    //      return "redirect:detail?no=" + feed.getNo();
+    //    }
 
     model.addAttribute("feed", oldFeed);
 
-    return "redirect:list";
+    //    return "updateForm";
   }
 
 

@@ -10,6 +10,8 @@
 <title>체험학습 등록</title>
 </head>
 <body>
+<jsp:include page="/jsp/header/header.jsp"/>
+
 <h1>체험학습 등록</h1>
 <form action="add" method="post" enctype="multipart/form-data">
 커버이미지: <input type="file" name="coverImage"><br>
@@ -41,9 +43,6 @@
   <option value="12">기타</option>
 </select><br>
 
-<!-- 추후 우편번호 API로 수정 -->
-우편번호: <input type="text" name="zipcode"><br>
-기본주소: <input type="text" name="address"><br>
 <select id="sido" name="sidoNo">
     <option value="1">서울</option>
     <option value="2">경기</option>
@@ -91,10 +90,13 @@
   <option value="25">관악구</option>
 </select><br>
 
+<!-- 추후 우편번호 API로 수정 -->
+우편번호: <input type="text" name="zipcode"><br>
+기본주소: <input type="text" name="address"><br>
 상세주소: <input type="text" name="detailAddress"><br>
-본문: <textarea name="intro" rows="10" cols="60"></textarea><br>
-진행순서: <textarea name="progressOrder" rows="10" cols="30"></textarea><br>
-환불정보: <textarea name="refundInformation" rows="10" cols="30"></textarea><br>
+　본문　: <textarea name="intro" rows="10" cols="60"></textarea><br>
+진행순서: <textarea name="progressOrder" rows="10" cols="60"></textarea><br>
+환불정보: <textarea name="refundInformation" rows="10" cols="60"></textarea><br>
 최소 인원수: <input type="number" name="minPeople"><br>
 최대 인원수: <input type="number" name="maxPeople"><br>
 
@@ -120,6 +122,7 @@
 <p><a href='list'>취소</a></p>
 </form>
 
+<jsp:include page="/jsp/footer/footer.jsp"/>
 <script>
 var t1 = document.querySelector("#sido");
 var t2 = document.querySelector("#sigungu");

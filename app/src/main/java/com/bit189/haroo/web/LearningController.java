@@ -110,10 +110,9 @@ public class LearningController {
       });
     }
 
-    learningService.add(s, l);
+    int learningNo = learningService.add(s, l);
 
-    // 등록한 체험학습으로 연결하기 detail?
-    return "redirect:list";
+    return "redirect:detail?no=" + learningNo;
   }
 
   @RequestMapping("delete")
@@ -186,8 +185,8 @@ public class LearningController {
     List<LearningSchedule> schedules = new ArrayList<>();
     LearningSchedule schedule = new LearningSchedule();
     schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
-    schedule.setStartTime(Time.valueOf(request.getParameter("startTime") + ":00"));
-    schedule.setEndTime(Time.valueOf(request.getParameter("endTime") + ":00"));
+    schedule.setStartTime(Time.valueOf(request.getParameter("startTime")));
+    schedule.setEndTime(Time.valueOf(request.getParameter("endTime")));
     schedules.add(schedule);
     l.setSchedules(schedules);
 
@@ -221,10 +220,9 @@ public class LearningController {
       });
     }
 
-    learningService.update(s, l);
+    int learningNo = learningService.update(s, l);
 
-    // 수정한 체험학습으로 연결하기 detail?
-    return "redirect:list";
+    return "redirect:detail?no=" + learningNo;
   }
 }
 

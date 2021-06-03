@@ -5,7 +5,7 @@ import java.util.Map;
 import com.bit189.haroo.domain.LearningReview;
 
 public interface LearningReviewDao {
-  int insert(LearningReview review) throws Exception;
+  int insert(Map<String,Object> params) throws Exception;
 
   List<LearningReview> findListByLearningNo(Map<String,Object> params) throws Exception;
 
@@ -13,7 +13,17 @@ public interface LearningReviewDao {
 
   LearningReview findByNo(int reviewNo) throws Exception;
 
+  int isReviewedByApplicationNo(int applicationNo) throws Exception;
+
   int update(LearningReview review) throws Exception;
 
   List<LearningReview> findByKeyword(String keyword) throws Exception;
+
+  int insertRecommend (Map<String,Object> params) throws Exception;
+
+  int deleteRecommend (Map<String,Object> params) throws Exception;
+
+  int findRecommend (Map<String,Object> params) throws Exception;
+
+  String findApllicationNo(Map<String,Object> params) throws Exception;
 }

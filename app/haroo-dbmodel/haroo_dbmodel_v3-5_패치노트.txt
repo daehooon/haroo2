@@ -1,0 +1,4 @@
+<haroo_dbmodel_v3-4_패치노트>
+ 1. har_tqna Null 여부 변경
+    - 답변내용(reply) NULL 허용
+    - 답변일시(rpl_dttm) NULL 허용

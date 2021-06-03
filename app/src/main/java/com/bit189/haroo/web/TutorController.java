@@ -83,34 +83,23 @@ public class TutorController {
     String uploadDir = sc.getRealPath("/upload");
 
 
-    //      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    //      if (oldTutor.getWriter().getNo() != loginUser.getNo()) {
-    //        throw new Exception("변경 권한이 없습니다!");
-    //      }
+    //    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    //    if (oldTutor.getWriter().getNo() != loginUser.getNo()) {
+    //      throw new Exception("변경 권한이 없습니다!");
+    //    }
     if (profileFile.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       profileFile.write(uploadDir + "/" + filename);
       m.setProfilePicture(filename);
 
       Thumbnails.of(uploadDir + "/" + filename)
-      .size(30, 30)
+      .size(110, 110)
       .outputFormat("jpg")
       .crop(Positions.CENTER)
       .toFiles(new Rename() {
         @Override
         public String apply(String name, ThumbnailParameter param) {
-          return name + "_30x30";
-        }
-      });
-
-      Thumbnails.of(uploadDir + "/" + filename)
-      .size(80, 80)
-      .outputFormat("jpg")
-      .crop(Positions.CENTER)
-      .toFiles(new Rename() {
-        @Override
-        public String apply(String name, ThumbnailParameter param) {
-          return name + "_80x80";
+          return name + "_110x110";
         }
       });
     }

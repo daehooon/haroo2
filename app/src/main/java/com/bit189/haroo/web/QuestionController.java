@@ -63,53 +63,46 @@ public class QuestionController{
       if (file.getName().equals("file") && file.getSize() > 0) {
         System.out.println(">" + file.getSubmittedFileName());
 
-        System.out.println("uploadDir1 : " + uploadDir);
+        // 파일을 선택해서 업로드 했다면,
+        String filename = UUID.randomUUID().toString();
 
-        if (file.getSize() > 0) {
-          // 파일을 선택해서 업로드 했다면,
-          String filename = UUID.randomUUID().toString();
+        System.out.println("uploadDir2 : " + uploadDir);
 
-          System.out.println("uploadDir2 : " + uploadDir);
+        file.write(uploadDir + "/" + filename);
+        System.out.println("uploadDir3 : " + uploadDir);
+        System.out.println(uploadDir + "/");
 
-          file.write(uploadDir + "/" + filename);
-          System.out.println("uploadDir3 : " + uploadDir);
-          System.out.println(uploadDir + "/");
+        attachedFile.setName(filename);
 
-          attachedFile.setName(filename);
+        attachedFiles.add(attachedFile);
 
-          attachedFiles.add(attachedFile);
-          //          f.setPostNo(post.getNo());
-          //          postService.addFile(f);
 
-          // 썸네일 이미지 생성
-          Thumbnails.of(uploadDir + "/" + filename)
-          .size(330, 220)
-          .outputFormat("jpg")
-          .crop(Positions.CENTER)
-          .toFiles(new Rename() {
-            @Override
-            public String apply(String name, ThumbnailParameter param) {
-              return name + "_330x220";
-            }
-          });
+        // 썸네일 이미지 생성
+        Thumbnails.of(uploadDir + "/" + filename)
+        .size(330, 220)
+        .outputFormat("jpg")
+        .crop(Positions.CENTER)
+        .toFiles(new Rename() {
+          @Override
+          public String apply(String name, ThumbnailParameter param) {
+            return name + "_330x220";
+          }
+        });
 
-          System.out.println("uploadDir4 : " + uploadDir);
 
-          Thumbnails.of(uploadDir + "/" + filename)
-          .size(500, 500)
-          .outputFormat("jpg")
-          .crop(Positions.CENTER)
-          .toFiles(new Rename() {
-            @Override
-            public String apply(String name, ThumbnailParameter param) {
-              return name + "_300x300";
-            }
-          });
-        }
+        Thumbnails.of(uploadDir + "/" + filename)
+        .size(300, 300)
+        .outputFormat("jpg")
+        .crop(Positions.CENTER)
+        .toFiles(new Rename() {
+          @Override
+          public String apply(String name, ThumbnailParameter param) {
+            return name + "_300x300";
+          }
+        });
       }
 
 
-      System.out.println("uploadDir5 : " + uploadDir);
     }
 
     serviceQuestionService.add(question, post, attachedFiles);
@@ -177,7 +170,8 @@ public class QuestionController{
   }
 
   @GetMapping("form2")
-  public void form2() throws Exception {
+  public void form2(int pno, Model model) throws Exception {
+    model.addAttribute("pno", pno);
   }
 
   @PostMapping("reply/add")
@@ -186,7 +180,8 @@ public class QuestionController{
       AttachedFile attachedFile, HttpServletRequest request)
           throws Exception {
 
-    Question oldQuestion = serviceQuestionService.get(question.getNo());
+
+    Question oldQuestion = serviceQuestionService.get(pno);
     if (oldQuestion == null) {
       throw new Exception("해당 번호의 게시글이 없습니다.");
     }
@@ -202,6 +197,7 @@ public class QuestionController{
 
     String uploadDir = sc.getRealPath("/upload");
 
+    ArrayList<AttachedFile> replyAttachedFiles = new ArrayList<>();
 
     Collection<Part> files = request.getParts();
     for (Part file : files) {
@@ -210,37 +206,38 @@ public class QuestionController{
 
         System.out.println("uploadDir1 : " + uploadDir);
 
-        if (file.getSize() > 0) {
-          String filename = UUID.randomUUID().toString();
 
-          System.out.println("uploadDir2 : " + uploadDir);
-
-          file.write(uploadDir + "/" + filename);
-          System.out.println("uploadDir3 : " + uploadDir);
-          System.out.println(uploadDir + "/");
+        String filename = UUID.randomUUID().toString();
 
 
-          attachedFile.setName(filename);
 
-          System.out.println("uploadDir4 : " + uploadDir);
+        file.write(uploadDir + "/" + filename);
 
-          Thumbnails.of(uploadDir + "/" + filename)
-          .size(500, 500)
-          .outputFormat("jpg")
-          .crop(Positions.CENTER)
-          .toFiles(new Rename() {
-            @Override
-            public String apply(String name, ThumbnailParameter param) {
-              return name + "_300x300";
-            }
-          });
-        }
+        System.out.println(uploadDir + "/");
+
+
+        attachedFile.setName(filename);
+
+        replyAttachedFiles.add(attachedFile);
+
+
+
+        Thumbnails.of(uploadDir + "/" + filename)
+        .size(500, 500)
+        .outputFormat("jpg")
+        .crop(Positions.CENTER)
+        .toFiles(new Rename() {
+          @Override
+          public String apply(String name, ThumbnailParameter param) {
+            return name + "_300x300";
+          }
+        });
       }
 
-      System.out.println("uploadDir5 : " + uploadDir);
+
     }
 
-    serviceQuestionService.replyUpdate(question, attachedFile);
+    serviceQuestionService.replyAdd(question, attachedFile);
 
     return "redirect:list";
 

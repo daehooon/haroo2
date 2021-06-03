@@ -87,7 +87,7 @@ public class DefaultTutorQuestionService implements TutorQuestionService{
 
   @Override
   public int delete(int no) throws Exception {
-    return tutorQuestionDao.delete(no);
+    return postDao.delete(no);
   }
 
   @Override

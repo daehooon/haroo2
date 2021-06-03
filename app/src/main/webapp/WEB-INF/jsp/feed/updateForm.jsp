@@ -15,6 +15,11 @@
  section {
      width: 1050px;
      margin: 0 auto;
+     padding: 50px 0px;
+ }
+ 
+ footer {
+  display: inline-block;
  }
  
  a {
@@ -125,8 +130,8 @@
 
 </head>
 <body>
-<h1>스토리 수정</h1>
 <c:if test="${not empty feed}">
+<jsp:include page="/jsp/header/header.jsp"/>
 	<section>
 		<div id="har-feed-add1">
 			<form action="update" method="post" enctype="multipart/form-data">
@@ -164,6 +169,8 @@
 				</form>
 		</div>
 	</section>
+	
+	<jsp:include page="/jsp/footer/footer.jsp" />
 	</c:if>
 	
 	<script>

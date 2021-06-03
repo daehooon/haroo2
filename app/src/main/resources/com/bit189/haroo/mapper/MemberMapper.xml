@@ -29,21 +29,6 @@
      #{birthDate},#{tel},#{sex},#{zipcode},#{address},#{detailAddress},#{rank})
   </insert>
   
-  <!--  
-  <select id="findAll" resultMap="memberMap" >
-  select 
-      mno,
-      name,
-      email,
-      profile_pic,
-      tel,
-      nickname,
-      sex
-    from har_member 
-    order by name asc
-  </select>
-  -->
-  
   <select id="findByKeyword" resultMap="memberMap" parameterType="string">
     select 
       mno,
@@ -82,8 +67,6 @@
     m.addr,
     m.det_addr,
     m.rdttm,
-    <!--mr.mem_rank,
-    registeredTime,-->
     m.mrno,
     m.mstat
   from 
