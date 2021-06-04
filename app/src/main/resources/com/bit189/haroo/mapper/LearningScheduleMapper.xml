@@ -21,6 +21,19 @@
     </foreach>
   </insert>
   
+  <select id="findByNo" resultMap="learningScheduleMap" parameterType="int">
+    select
+      s.sche_no,
+      s.date,
+      s.stm,
+      s.etm,
+      s.lno
+    from har_schedule s
+      inner join har_learning l on l.lno=s.lno
+    where
+      s.sche_no=#{no}
+  </select>
+  
   <!--
   <insert id="update" parameterType="map">
     update har_schedule set

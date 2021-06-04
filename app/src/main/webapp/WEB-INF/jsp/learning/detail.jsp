@@ -15,9 +15,8 @@
 <h1>체험학습 상세보기</h1>
 
 <c:if test="${not empty learning}">
-  <p><a href='/application/add'>체험학습 신청</a></p>
 
-  <c:if test="${loginUser.no == learning.owner.no || loginUser.rank == 1}">
+  <c:if test="${loginUser.no == learning.owner.no}">
     <p><a href='updateForm?no=${learning.no}'>수정</a></p>
     <p><a href='delete?no=${learning.no}'>삭제</a></p>
   </c:if>
@@ -40,18 +39,11 @@
 
   <table border='1'>
     <tbody>
-      <tr><th>가격</th> <td>${learning.price}</td></tr>
-      
-      <tr><th>체험날짜</th> <td>${learningDate}</td></tr>
-      <tr><th>시작시간</th> <td>${startTime}</td></tr>
-      <tr><th>종료시간</th> <td>${endTime}</td></tr>
-         
-      <tr><th>최소인원</th> <td>${learning.minPeople}</td></tr>
-      <tr><th>최대인원</th> <td>${learning.maxPeople}</td></tr>
-      
-      <tr><th>◎</th>
+      <tr>
+        <th>●</th>
         <td><a href='${coverUrl}'>
-        <img src='${cover800x450Url}'></a><br></td></tr>
+        <img src='${cover800x450Url}'></a><br></td>
+      </tr>
       <tr><th>대분류</th> <td>${learning.broadCategory}</td></tr>
       <tr><th>소분류</th> <td>${learning.narrowCategory}</td></tr>
       <tr><th>제목</th> <td>${learning.name}</td></tr>
@@ -77,6 +69,29 @@
       <tr><th>문의</th> <td><a href='../serviceQuestion/list'>문의</a></td></tr>
     </tbody>
   </table>
+  
+  <form action="applAdd" method="post">
+		<input type="hidden" name="scheNo" value="${learning.schedules[0].no}">
+		<input type="hidden" name="lno" value="${learning.schedules[0].learningNo}">
+  <table border="1">
+    <tbody>
+      <tr><th>가격</th> <td>${learning.price}</td></tr>
+      
+      <tr><th>체험날짜</th> <td>${learningDate}</td></tr>
+      
+      <tr><th>시작시간</th> <td>${startTime}</td></tr>
+      
+      <tr><th>종료시간</th> <td>${endTime}</td></tr>
+      
+      <tr><th>선택</th> <td><input type="checkbox"></td></tr>
+         
+      <tr><th>최소인원</th> <td>${learning.minPeople}</td></tr>
+      <tr><th>최대인원</th> <td>${learning.maxPeople}</td></tr>
+      <tr><th>신청인원</th> <td><input type="number" name="applySize"></td></tr>
+      <tr><th>신청하기!</th> <td><input type="submit" value="신청"></td></tr>
+    </tbody>
+  </table>
+  </form>
 </c:if>
 
 <c:if test="${empty learning}">

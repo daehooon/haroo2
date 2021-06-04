@@ -15,13 +15,17 @@ public interface LearningReviewDao {
 
   int isReviewedByApplicationNo(int applicationNo) throws Exception;
 
-  int update(LearningReview review) throws Exception;
+  int update(Map<String,Object> params) throws Exception;
+
+  int deleteReview(int reviewNo) throws Exception;
 
   List<LearningReview> findByKeyword(String keyword) throws Exception;
 
   int insertRecommend (Map<String,Object> params) throws Exception;
 
   int deleteRecommend (Map<String,Object> params) throws Exception;
+
+  int deleteReviewRecommend (int reviewNo) throws Exception;
 
   int findRecommend (Map<String,Object> params) throws Exception;
 

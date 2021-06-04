@@ -1,11 +1,7 @@
 package com.bit189.haroo.web;
 
-import java.sql.Time;
-import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit189.haroo.domain.LearningApplication;
-import com.bit189.haroo.domain.LearningSchedule;
 import com.bit189.haroo.service.LearningApplicationService;
 
 @Controller
@@ -34,16 +29,7 @@ public class LearningApplicationController {
   }
 
   @PostMapping("add")
-  public String add(LearningApplication learningApplication, HttpSession session, LearningSchedule schedule
-      ,HttpServletRequest request ) throws Exception {
-
-    List<LearningSchedule> schedules = new ArrayList<>();
-    schedule.setLearningDate(Date.valueOf(request.getParameter("learningDate")));
-    schedule.setStartTime(Time.valueOf(request.getParameter("startTime") + ":00"));
-    schedule.setEndTime(Time.valueOf(request.getParameter("endTime") + ":00"));
-    schedules.add(schedule);
-    learningApplication.setSchedules(schedules);
-
+  public String add(LearningApplication learningApplication, Model model) throws Exception {
 
     learningApplicationService.add(learningApplication);
 

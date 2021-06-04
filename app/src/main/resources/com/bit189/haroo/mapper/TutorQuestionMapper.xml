@@ -19,13 +19,13 @@
   <association property="writer" javaType="Member">
       <id column="mno" property="no"/>
       <result column="profile_pic" property="profilePicture"/>
-      <result column="name" property="name"/>
-      <result column="nickname" property="nickname"/>
+      <result column="wname" property="name"/>
+      <result column="wnickname" property="nickname"/>
     </association> 
     
   <association property="tutor" javaType="Member">
-      <id column="mno" property="no"/>
-      <result column="name" property="name"/>
+      <id column="tno" property="no"/>
+      <result column="nickname" property="nickname"/>
       <result column="mstat" property="state"/>
   </association> 
     
@@ -56,18 +56,19 @@
       p.wdttm,
       p.view_cnt,
       p.pstat,
-      m.profile_pic,
-      m.name,
-      m.nickname,
+      m2.profile_pic,
+      m2.name as wname,
+      m2.nickname as wnickname,
       f.fno,
       f.fname,
-      m.name,
+      m.nickname,
       m.mstat,
       r.trpl_fno,
       r.trpl_fname 
     from
       har_tqna q
-      inner join har_member m on m.mno=q.mno
+      inner join har_member m on m.mno=q.tno
+      inner join har_member m2 on m2.mno=q.mno
       inner join har_post p on p.pno=q.pno
       left join har_file f on f.pno=p.pno
       inner join har_tutor t on t.tno=q.tno
@@ -90,16 +91,17 @@
       p.wdttm,
       p.view_cnt,
       p.pstat,
-      m.profile_pic,
-      m.name,
-      m.nickname,
+      m2.profile_pic,
+      m2.name as wname,
+      m2.nickname as wnickname,
       f.fno,
       f.fname,
-      m.name,
+      m.nickname,
       m.mstat
     from
       har_tqna q
-      inner join har_member m on m.mno=q.mno
+      inner join har_member m on m.mno=q.tno
+      inner join har_member m2 on m2.mno=q.mno
       inner join har_post p on p.pno=q.pno
       left join har_file f on f.pno=p.pno
       inner join har_tutor t on t.tno=q.tno

@@ -13,4 +13,6 @@ public interface LearningScheduleDao {
   List<LearningSchedule> findByKeywords(Map<String,Object> params) throws Exception;
 
   int update(Map<String,Object> params) throws Exception;
+
+  int findByNo(int no) throws Exception;
 }

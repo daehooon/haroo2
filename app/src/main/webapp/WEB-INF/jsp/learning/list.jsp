@@ -11,10 +11,11 @@
 </head>
 <body>
 <jsp:include page="/jsp/header/header.jsp"/>
+<section>
 
 <h1>체험학습 목록</h1>
 
-<c:if test="${loginUser.rank == 1 || loginUser.rank == 2}">
+<c:if test="${loginUser.rank == 2}">
 <p><a href='form'>체험학습 등록</a></p>
 </c:if>
 
@@ -55,6 +56,7 @@
 </tbody>
 </table>
 
+</section>
 <jsp:include page="/jsp/footer/footer.jsp"/>
 
 </body>

@@ -117,6 +117,24 @@
 		  pno = #{reviewNo}
   </select>
   
+  <insert id="insert" parameterType="map">
+    insert into har_lrnrv (pno, lrn_appl_no, title, rate)
+    values (#{reviewNo}, #{applNo}, #{title}, #{rate})
+  </insert>
+  
+  <update id="update" parameterType="map">
+    update har_lrnrv set
+      title=#{title},
+      rate=#{rate}
+    where pno=#{reviewNo}
+  </update>
+  
+  <delete id="deleteReview" parameterType="int">
+    delete from har_lrnrv
+    where 
+      pno = #{reviewNo}
+  </delete>
+  
   <select id="findRecommend" resultType="int" parameterType="Map" >
     select
       count(*)
@@ -136,6 +154,12 @@
     delete from har_lrnrv_rcm
     where 
       mno = #{memberNo} and
+      pno = #{reviewNo}
+  </delete>
+  
+  <delete id="deleteReviewRecommend" parameterType="int">
+    delete from har_lrnrv_rcm
+    where 
       pno = #{reviewNo}
   </delete>
   

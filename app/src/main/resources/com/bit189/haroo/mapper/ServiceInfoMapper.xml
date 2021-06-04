@@ -21,6 +21,16 @@
     values(#{name},#{intro},#{coverImage},#{narrowCategoryNo})
   </insert>
   
+
+  <select id="findByNo" resultMap="serviceInfoMap" parameterType="int">
+    select
+     s.sno,
+     s.sname
+    from har_service s
+    where
+      s.sno=#{no}
+  </select>
+  
   <update id="update" parameterType="serviceInfo">
     update har_service set
       sname=#{name},

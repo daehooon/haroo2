@@ -18,18 +18,14 @@
 
 <jsp:include page="/jsp/header/header.jsp"/>
 
+<section>
+<div class="container">
 <h1>체험 후기 목록</h1>
 <h2>${learning.name}</h2>
 <!-- 러닝.평균평점 만들기 -->
-<c:if test="${not empty loginUser}">
-  <!-- 안 지난 경우
-  <p><Button id='har-lrv-li-add-btn'>후기 작성</button></p>
-   -->
-  <p><a href='form?lno=${learning.no}'>후기 작성</a></p>
-</c:if>
-<c:if test="${empty loginUser}">
-  <p><Button id='har-lrv-li-login-btn'>후기 작성</button></p>
-</c:if>
+
+<p><a href='form?lno=${learning.no}'>후기 작성</a></p>
+
 <c:if test="${empty reviews}">
   <p>아직 작성된 후기가 없습니다.</p> 
 </c:if>
@@ -79,28 +75,39 @@
   </c:forEach>
 </tbody>
 </table>
-
+<!--
 <form action='search' method='get'>
 <input type='text' name='keyword' value='${param.keyword}'>
 <button>검색</button>
 </form>
+-->
 </c:if>
-
+</div>
+</section>
 <jsp:include page="/jsp/footer/footer.jsp"/>
 <script>
-if (${not empty loginUser}) {
-	$(document).ready(function() { confirm("로그인 "); });
-	
-} else {
-	
+if (${mode} == 1) {
+   var login = confirm("로그인이 필요합니다. 로그인으로 이동합니다.");
+   if (login) {
+     location.href="../../login_form";
+   }
+} else if (${mode} == 2) {
+	$(document).ready(() => {
+     alert("신청하지 않은 체험학습 입니다.");
+   });
+} else if (${mode} == 3) {
+	$(document).ready(() => {
+     alert("이미 후기를 작성 하였습니다.");
+   });
 }
 
-
+/*
 $('#har-lrv-li-login-btn').click(()=> {
 	if (confirm("로그인이 필요합니다. 로그인으로 이동합니다.")) {
 		location.href="../../login_form";
 	}
 });
+*/
 
 </script>
 </body>

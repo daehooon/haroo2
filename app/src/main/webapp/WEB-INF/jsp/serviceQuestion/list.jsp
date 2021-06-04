@@ -16,18 +16,12 @@
 </head>
 <body>
 <jsp:include page="/jsp/header/header.jsp"/>
-
+<section>
 <div class="container">
-<h1>문의 목록</h1>
 
-<nav class="navbar navbar-dark bg-primary">
-  <div class="container-fluid">
- <form class="d-flex">
-      <input class="form-control me-2" type="search" name="keyword" value='${param.keyword}' placeholder="검색" aria-label="검색">
-      <button class="btn btn-outline-success col-sm-3" type="submit">검색</button>
-      </form>
-</div>
-</nav>
+<h1>문의 목록</h1>  <h2>${questions[0].serviceInfo.name}</h2>
+
+
 
 <table class="table table-striped table-hover">
 <thead>
@@ -42,6 +36,7 @@
 <tbody>
 
 <c:forEach items="${questions}" var="question">
+
 <fmt:formatDate value="${question.writingDate}" pattern="yyyy-MM-dd" var="writingDate"/>
 <tr> 
     <c:set var="title" value="${question.secret eq '1' || question.writer.no eq loginUser.no ? question.title : '비밀글은 작성자와 튜터만 볼 수 있습니다.'}"/>
@@ -66,6 +61,7 @@ RE :
 <a href='form' class="btn btn-outline-primary btn-sm" type="button">문의하기</a>
 </div>
 
+</section>
 <jsp:include page="/jsp/footer/footer.jsp"/>
 </body>
 </html>

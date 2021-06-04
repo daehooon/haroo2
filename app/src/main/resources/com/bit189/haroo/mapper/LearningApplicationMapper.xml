@@ -6,7 +6,7 @@
 
 <mapper namespace="com.bit189.haroo.dao.LearningApplicationDao">
 
-  <resultMap id="learningApplicationMap" type="LearningApplication">
+  <resultMap id="learningApplicationMap" type="learningApplication">
     <id column="lrn_appl_no" property="no"/>
      <result column="appl_size" property="applySize"/>
     <result column="appl_dttm" property="registeredDate"/>
@@ -29,9 +29,9 @@
   </resultMap>
 
     
-  <insert id="insert" parameterType="LearningApplication">
-    insert into har_lrn_appl(lrn_appl_no, mno, sche_no, appl_size) 
-    values(#{no}, #{writer.no}, #{schedules.no}, #{applySize})
+  <insert id="insert" parameterType="learningApplication">
+    insert into har_lrn_appl(mno, sche_no, appl_size) 
+    values(#{writer.no}, #{scheduleNo}, #{applySize})
   </insert>
   
   <select id="findAll" resultMap="learningApplicationMap">

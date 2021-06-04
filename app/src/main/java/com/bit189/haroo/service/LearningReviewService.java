@@ -7,7 +7,9 @@ import com.bit189.haroo.domain.Post;
 
 public interface LearningReviewService {
 
-  int add(Post post, List<AttachedFile> files, int lrn_appl_no, String title, double rate, int mno) throws Exception;
+  int add(Post post, List<AttachedFile> files, int lrn_appl_no, String title, double rate) throws Exception;
+
+  int update(Post post, List<AttachedFile> files, String title, double rate) throws Exception;
 
   List<LearningReview> listByLearning(int learningNo, String sortingItem, String sortingType) throws Exception;
 
@@ -28,4 +30,6 @@ public interface LearningReviewService {
   boolean isRecommended(int mno, int rno) throws Exception;
 
   int getApplicationNo(int mno, int lno) throws Exception;
+
+  int delete(int rno) throws Exception;
 }

@@ -8,5 +8,7 @@ public interface ServiceInfoDao {
 
   int update(ServiceInfo serivceInfo) throws Exception;
 
+  ServiceInfo findByNo(int no) throws Exception;
+
   int delete(int no) throws Exception;
 }

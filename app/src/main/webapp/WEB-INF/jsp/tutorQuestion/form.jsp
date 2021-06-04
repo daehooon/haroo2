@@ -11,7 +11,7 @@
 <body>
 
 <jsp:include page="/jsp/header/header.jsp"/>
-
+<section>
 <h1>튜터 문의글</h1>
 <form action="add" method="post" enctype="multipart/form-data">
 제목: <input type="text" name="title" ><br>
@@ -23,7 +23,7 @@
 
 <input type="submit" value="등록">
 </form>
-
+</section>
 <jsp:include page="/jsp/footer/footer.jsp"/>
 
 </body>

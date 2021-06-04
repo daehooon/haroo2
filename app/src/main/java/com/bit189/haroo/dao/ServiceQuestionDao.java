@@ -1,5 +1,6 @@
 package com.bit189.haroo.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.bit189.haroo.domain.Question;
@@ -20,4 +21,6 @@ public interface ServiceQuestionDao {
   List<Question> findByKeyword(String keyword) throws Exception;
 
   int replyAdd(Map<String,Object> param) throws Exception;
+
+  void replyAdd(HashMap<String, Object> param);
 }

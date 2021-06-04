@@ -159,7 +159,7 @@
 
 	<header>
 		<div id="har-header">
-			<div id="har-logo">
+			<div id="har-logo" onclick="location.href='main'">
 				<a href="main"><h1>하루</h1></a>
 			</div>
 

@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.bit189.haroo.domain.Learning;
+import com.bit189.haroo.domain.LearningApplication;
 import com.bit189.haroo.domain.LearningSchedule;
 import com.bit189.haroo.domain.Member;
 import com.bit189.haroo.domain.ServiceInfo;
 import com.bit189.haroo.domain.Tutor;
+import com.bit189.haroo.service.LearningApplicationService;
 import com.bit189.haroo.service.LearningService;
 import com.bit189.haroo.service.MemberService;
 import net.coobird.thumbnailator.ThumbnailParameter;
@@ -33,11 +35,14 @@ public class LearningController {
   ServletContext sc;
   LearningService learningService;
   MemberService memberService;
+  LearningApplicationService learningApplicationService;
 
-  public LearningController(ServletContext sc, LearningService learningService, MemberService memberService) {
+  public LearningController(ServletContext sc, LearningService learningService, 
+      MemberService memberService, LearningApplicationService learningApplicationService) {
     this.sc = sc;
     this.learningService = learningService;
     this.memberService = memberService;
+    this.learningApplicationService = learningApplicationService;
   }
 
   @GetMapping("form")
@@ -134,6 +139,8 @@ public class LearningController {
 
   @GetMapping("detail")
   public void detail(int no, Model model) throws Exception {
+    System.out.println(no);
+    System.out.println(learningService.get(no));
     model.addAttribute("learning", learningService.get(no));
   }
 
@@ -223,6 +230,24 @@ public class LearningController {
     int learningNo = learningService.update(s, l);
 
     return "redirect:detail?no=" + learningNo;
+  }
+
+  @PostMapping("applAdd")
+  public String applAdd(HttpSession session, HttpServletRequest request) throws Exception {
+    LearningApplication appl = new LearningApplication();
+
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    Member member = new Member();
+    member.setNo(loginUser.getNo());
+    appl.setWriter(member);
+
+    appl.setScheduleNo(Integer.parseInt(request.getParameter("scheNo")));
+    //    int learningNo = Integer.parseInt(request.getParameter("lno"));
+    appl.setApplySize(Integer.parseInt(request.getParameter("applySize")));
+
+    learningApplicationService.add(appl);
+
+    return "redirect:../learningApplication/list";
   }
 }
 

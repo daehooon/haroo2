@@ -9,16 +9,15 @@ public class LearningApplication {
   private List<LearningSchedule> schedules;
   private Date registeredDate;
   private int applySize;
-
-
+  private int scheduleNo;
+  private int learningNo;
 
   @Override
   public String toString() {
     return "LearningApplication [no=" + no + ", writer=" + writer + ", schedules=" + schedules
-        + ", registeredDate=" + registeredDate + ", applySize=" + applySize + ", getClass()="
-        + getClass() + ", hashCode()=" + hashCode() + "]";
+        + ", registeredDate=" + registeredDate + ", applySize=" + applySize + ", scheduleNo="
+        + scheduleNo + ", learningNo=" + learningNo + "]";
   }
-
 
   public int getNo() {
     return no;
@@ -50,6 +49,16 @@ public class LearningApplication {
   public void setApplySize(int applySize) {
     this.applySize = applySize;
   }
-
-
+  public int getScheduleNo() {
+    return scheduleNo;
+  }
+  public void setScheduleNo(int scheduleNo) {
+    this.scheduleNo = scheduleNo;
+  }
+  public int getLearningNo() {
+    return learningNo;
+  }
+  public void setLearningNo(int learningNo) {
+    this.learningNo = learningNo;
+  }
 }

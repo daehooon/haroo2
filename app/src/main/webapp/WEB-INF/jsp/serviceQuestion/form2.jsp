@@ -10,7 +10,7 @@
 
 </head>
 <jsp:include page="/jsp/header/header.jsp"/>
-
+<section>
 <body>
 <h1>문의 - 답변글</h1>
 <form action="reply/add" method="post" enctype="multipart/form-data">
@@ -25,7 +25,7 @@
 
 
 </form>
-
+</section>
 <jsp:include page="/jsp/footer/footer.jsp"/>
 </body>
 </html>

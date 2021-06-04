@@ -147,7 +147,7 @@ section {
 <jsp:include page="/jsp/header/header.jsp"/>
 
 	<c:if test="${not empty tutor.profilePicture}">
-		<c:set var="profilePictureUrl">../../upload/${loginUser.profilePicture}_110x110.jpg</c:set>
+		<c:set var="profilePictureUrl">../../upload/${tutor.profilePicture}_110x110.jpg</c:set>
 	</c:if>
 	<c:if test="${empty tutor.profilePicture}">
 		<c:set var="profilePictureUrl">../../images/person.png</c:set>

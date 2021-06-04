@@ -32,8 +32,8 @@ public class DefaultLearningReviewService implements LearningReviewService {
   }
 
   @Override
-  public int add(Post post, List<AttachedFile> files, int lrn_appl_no,
-      String title, double rate, int mno) throws Exception {
+  public int add(Post post, List<AttachedFile> files, int lrn_appl_no, String title, double rate)
+      throws Exception {
     System.out.println(post);
 
     return transactionTemplate.execute(new TransactionCallback<Integer>(){
@@ -45,25 +45,59 @@ public class DefaultLearningReviewService implements LearningReviewService {
             throw new RuntimeException("이미 리뷰 하였습니다.");
           } else {
 
-            // 트랜잭션으로 묶어서 실행할 작업을 기술한다.
-            // 1) 프로젝트 정보를 입력한다.
             int count = postDao.insert(post);
 
             for (AttachedFile file : files) {
               file.setPostNo(post.getNo());
-
               postDao.insertFile(file);
             }
 
             HashMap<String,Object> params = new HashMap<String,Object>();
+            params.put("reviewNo", post.getNo());
             params.put("title", title);
             params.put("rate", rate);
-            params.put("applicationNo", lrn_appl_no);
+            params.put("applNo", lrn_appl_no);
 
             learningReviewDao.insert(params);
 
             return count;
           }
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      }
+    });
+  }
+
+  @Override
+  public int update(Post post, List<AttachedFile> files, String title, double rate)
+      throws Exception {
+
+    return transactionTemplate.execute(new TransactionCallback<Integer>(){
+      @Override
+      public Integer doInTransaction(TransactionStatus status) {
+        try {
+          System.out.println("post" + post);
+          postDao.deleteFile(post.getNo());
+
+          int count = postDao.update(post);
+
+          for (AttachedFile file : files) {
+            file.setPostNo(post.getNo());
+            postDao.insertFile(file);
+          }
+
+          System.out.println("post.no"+post.getNo());
+
+          HashMap<String,Object> params = new HashMap<String,Object>();
+          params.put("reviewNo", post.getNo());
+          params.put("title", title);
+          params.put("rate", rate);
+
+          learningReviewDao.update(params);
+
+          return count;
+
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
@@ -173,6 +207,30 @@ public class DefaultLearningReviewService implements LearningReviewService {
     }
 
     return Integer.parseInt(applNo); 
+  }
+
+  @Override
+  public int delete(int rno) throws Exception {
+    return transactionTemplate.execute(new TransactionCallback<Integer>(){
+      @Override
+      public Integer doInTransaction(TransactionStatus status) {
+        try {
+
+          learningReviewDao.deleteReviewRecommend(rno);
+
+          int count = learningReviewDao.deleteReview(rno);
+
+          postDao.deleteFile(rno);
+
+          postDao.delete(rno);
+
+          return count;
+
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      }
+    });
   }
 
 }

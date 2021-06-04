@@ -18,7 +18,7 @@
 <body>
 
 <jsp:include page="/jsp/header/header.jsp"/>
-
+<section>
 <div class="container">
 <h1>튜터에게물어봐</h1>
 
@@ -66,7 +66,7 @@ RE :
 </table>
 <a href='form' class="btn btn-outline-primary btn-sm" type="button">물어보기</a>
 </div>
-
+</section>
 <jsp:include page="/jsp/footer/footer.jsp"/>
 
 </body>
